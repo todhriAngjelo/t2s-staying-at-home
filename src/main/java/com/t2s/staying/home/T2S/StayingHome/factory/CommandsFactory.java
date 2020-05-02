@@ -11,7 +11,9 @@ public class CommandsFactory {
 		if (commandKind.equals("newDocument")) {
 			NewDocument newDocument = new NewDocument();
 			return newDocument;
+		} else {
 		}
+
 
 		return null; // todo implement the rest of the commands
 	}
