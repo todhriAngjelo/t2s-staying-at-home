@@ -21,7 +21,6 @@ public class EditDocument {
 	 private JButton btnLoadButton;
 	 private JFrame frame;    
 	 JFrame parentFrame = new JFrame();
-
 	 
 	 JFileChooser jFileChooser = new JFileChooser();
 	 StringBuilder sb = new StringBuilder();

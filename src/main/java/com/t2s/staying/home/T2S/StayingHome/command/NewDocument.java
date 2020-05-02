@@ -7,6 +7,9 @@ public class NewDocument implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// todo
+//		e.getActionCommand()
+		System.out.println("gmtx");
+
+
 	}
 }
