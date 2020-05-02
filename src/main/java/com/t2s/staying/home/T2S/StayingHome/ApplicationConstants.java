@@ -10,4 +10,7 @@ public class ApplicationConstants {
 	// commands factory string values
 	public static final String NEW_DOCUMENT_COMMAND = "newDocument";
 
+	// todo this can go in a configuration file
+	public static final String DEFAULT_SAVE_FILE_LOCATION = "C:\\Users\\a.todhri\\Documents\\T2Sdocs\\";
+
 }
