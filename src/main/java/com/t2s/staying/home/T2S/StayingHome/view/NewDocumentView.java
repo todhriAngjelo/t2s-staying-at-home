@@ -3,13 +3,19 @@ package com.t2s.staying.home.T2S.StayingHome.view;
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class CreateDocument {
+import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
+import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+import com.t2s.staying.home.T2S.StayingHome.model.Document;
+
+public class NewDocumentView {
+
+	private final Logger log = LoggerFactory.getLogger(NewDocumentView.class);
 
 	private CommandsFactory commandsFactory = new CommandsFactory();
 
@@ -19,43 +25,25 @@ public class CreateDocument {
 	private JTextField titleValue;
 	private JTextField authorValue;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreateDocument window = new CreateDocument();
-					window.frame.setVisible(true);
-					//theme
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	Document document;
 
-	public void CreateDoc() {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
-				CreateDocument window = new CreateDocument();
+				NewDocumentView window = new NewDocumentView();
 				window.frame.setVisible(true);
-
+				//theme
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public CreateDocument() {
+	public NewDocumentView() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		// window frame
 		frame = new JFrame();
@@ -82,10 +70,15 @@ public class CreateDocument {
 		titleValue.setColumns(10);
 
 		JButton btnCreate = new JButton(CREATE_BUTTON_CONTENT);
-		ActionListener newDocumentActionListener = commandsFactory.createCommand(NEW_DOCUMENT_COMMAND);
+		NewDocument newDocumentActionListener = (NewDocument) commandsFactory.createCommand(NEW_DOCUMENT_COMMAND);
 		btnCreate.addActionListener(newDocumentActionListener); // setup button action listener
 
 		btnCreate.setBounds(169, 208, 89, 23);
 		frame.getContentPane().add(btnCreate);
+
+		document = new Document();
+		document.setTitle(titleValue.getText());
+		document.setAuthorsName(authorValue.getText());
+		newDocumentActionListener.setDocument(document);
 	}
 }
