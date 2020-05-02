@@ -39,6 +39,7 @@ public class CreateDocument {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	//test
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 446, 330);
