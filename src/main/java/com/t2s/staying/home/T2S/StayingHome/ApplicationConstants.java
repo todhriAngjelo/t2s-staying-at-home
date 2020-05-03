@@ -4,6 +4,7 @@ public class ApplicationConstants {
 
 	// application UI constants
 	public static final String AUTHOR_LABEL_VALUE = "Author's Name";
+
 	public static final String TITLE_LABEL_VALUE = "Title";
 	public static final String CREATE_BUTTON_CONTENT = "Create";
 
