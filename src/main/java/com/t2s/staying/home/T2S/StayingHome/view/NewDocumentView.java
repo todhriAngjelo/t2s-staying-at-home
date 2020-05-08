@@ -27,8 +27,6 @@ public class NewDocumentView {
 	private static JTextField titleValue;
 	private static JTextField authorValue;
 
-	Document document = new Document();
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
@@ -72,52 +70,18 @@ public class NewDocumentView {
 		titleValue.setColumns(10);
 
 		JButton btnCreate = new JButton(CREATE_BUTTON_CONTENT);
-		NewDocument newDocumentActionListener = (NewDocument) commandsFactory.createCommand(NEW_DOCUMENT_COMMAND);
+		NewDocument newDocumentActionListener = (NewDocument) commandsFactory.createCommand(NEW_DOCUMENT_COMMAND, this);
 		btnCreate.addActionListener(newDocumentActionListener); // setup button action listener
-
-		titleValue.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				document.setTitle(titleValue.getText());
-				newDocumentActionListener.setDocument(document);
-			}
-		});
-		authorValue.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				document.setAuthorsName(authorValue.getText());
-				newDocumentActionListener.setDocument(document);
-			}
-		});
 
  		btnCreate.setBounds(169, 208, 89, 23);
 		frame.getContentPane().add(btnCreate);
 	}
 
-	public Document getDocumentInstance() {
-		document = new Document();
-		document.setTitle(titleValue.getText());
-		document.setAuthorsName(authorValue.getText());
-		return document;
+	public String getDocumentTitle() {
+		return titleValue.getText();
+	}
+
+	public String getDocumentAuthor() {
+		return titleValue.getText();
 	}
 }
