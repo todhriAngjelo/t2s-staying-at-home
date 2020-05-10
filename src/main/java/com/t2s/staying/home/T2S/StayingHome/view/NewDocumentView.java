@@ -3,8 +3,7 @@ package com.t2s.staying.home.T2S.StayingHome.view;
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.font.TextHitInfo;
 
 import javax.swing.*;
 
@@ -13,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
-import com.t2s.staying.home.T2S.StayingHome.model.Document;
 
 public class NewDocumentView {
 
@@ -40,8 +38,12 @@ public class NewDocumentView {
 		});
 	}
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */ // this is eclipse ide specific java doc for proper parsing
 	public NewDocumentView() {
 		initialize();
+		this.frame.setVisible(true);
 	}
 
 	private void initialize() {
@@ -51,7 +53,7 @@ public class NewDocumentView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		authorLabel = new JLabel(AUTHOR_LABEL_VALUE);
+		authorLabel = new JLabel(AUTHOR_LABEL_CONTENTS);
 		authorLabel.setBounds(28, 37, 86, 14);
 		frame.getContentPane().add(authorLabel);
 
@@ -69,7 +71,7 @@ public class NewDocumentView {
 		frame.getContentPane().add(titleValue);
 		titleValue.setColumns(10);
 
-		JButton btnCreate = new JButton(CREATE_BUTTON_CONTENT);
+		JButton btnCreate = new JButton(CREATE_BUTTON_TEXT);
 		NewDocument newDocumentActionListener = (NewDocument) commandsFactory.createCommand(NEW_DOCUMENT_COMMAND, this);
 		btnCreate.addActionListener(newDocumentActionListener); // setup button action listener
 
