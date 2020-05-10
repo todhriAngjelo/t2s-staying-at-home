@@ -7,26 +7,30 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import com.t2s.staying.home.T2S.StayingHome.model.Document;
+import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 import com.t2s.staying.home.T2S.utils.FileUtils;
 
 public class NewDocument implements ActionListener {
 
-	private Document document;
+	private NewDocumentView newDocumentView;
+
+	public NewDocument(NewDocumentView newDocumentView) {
+		this.newDocumentView = newDocumentView;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		try {
-			if (document.getTitle() == null) {
+			if (getDocumentTitle() == null) {
 				System.out.println("Can not create a document with an empty title.");
 			}
-			File myObj = new File(String.format(DEFAULT_SAVE_FILE_LOCATION + "%s.txt", document.getTitle()));
+			File myObj = new File(String.format(DEFAULT_SAVE_FILE_LOCATION + "%s.txt", getDocumentTitle()));
 
-			String path = DEFAULT_SAVE_FILE_LOCATION + document.getTitle() + ".txt";
+			String path = DEFAULT_SAVE_FILE_LOCATION + getDocumentTitle() + ".txt";
 
 			if (myObj.createNewFile()) {
 				System.out.println("File created: " + myObj.getName()); // todo implement ui success message
-				FileUtils.setFileMetadata(path, "author", document.getAuthorsName());
+				FileUtils.setFileMetadata(path, "author", getDocumentAuthor());
 			} else {
 				System.out.println("File already exists."); // todo implement ui . already exists file
 				FileUtils.getFileMetadata(path, "author");
@@ -37,7 +41,11 @@ public class NewDocument implements ActionListener {
 		}
 	}
 
-	public void setDocument(Document document) {
-		this.document = document;
+	private String getDocumentTitle() {
+		return newDocumentView.getDocumentTitle();
+	}
+
+	private String getDocumentAuthor() {
+		return newDocumentView.getDocumentAuthor();
 	}
 }

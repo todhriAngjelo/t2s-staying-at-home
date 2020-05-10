@@ -1,62 +1,33 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import java.awt.EventQueue;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.LOAD_BUTTON_TEXT;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public class EditDocumentView {
 
 	private JButton btnLoadButton;
 	private JFrame frame;
-	JFrame parentFrame = new JFrame();
 
 	JFileChooser jFileChooser = new JFileChooser();
 	StringBuilder sb = new StringBuilder();
 	private JTextField textArea;
 	private JButton btnSave;
 
-
-	private void openFile(String fileName) {
-		try {
-			FileReader reader = new FileReader(fileName);
-			textArea.read(reader, null);
-			reader.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(btnLoadButton, this, "File" + fileName + "can't be opened.", 0);
-		}
-	}
-
-
-	private void saveFile(String fileName) {
-		try {
-			FileWriter writer = new FileWriter(fileName);
-			textArea.write(writer);
-			writer.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(btnSave, this, "File" + fileName + "can't be saved.", 0);
-
-		}
-	}
-
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EditDocumentView window = new EditDocumentView();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				EditDocumentView window = new EditDocumentView();
+				window.frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 	}
@@ -71,7 +42,7 @@ public class EditDocumentView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		btnLoadButton = new JButton("Load");
+		btnLoadButton = new JButton(LOAD_BUTTON_TEXT);
 		btnLoadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser dialog = new JFileChooser();
@@ -113,8 +84,27 @@ public class EditDocumentView {
 		JButton btnConvertealine = new JButton("Convert a line");
 		btnConvertealine.setBounds(26, 396, 99, 23);
 		frame.getContentPane().add(btnConvertealine);
+	}
 
+	private void openFile(String fileName) {
+		try {
+			FileReader reader = new FileReader(fileName);
+			textArea.read(reader, null);
+			reader.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(btnLoadButton, this, "File" + fileName + "can't be opened.", 0);
+		}
+	}
 
+	private void saveFile(String fileName) {
+		try {
+			FileWriter writer = new FileWriter(fileName);
+			textArea.write(writer);
+			writer.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(btnSave, this, "File" + fileName + "can't be saved.", 0);
+
+		}
 	}
 }
 
