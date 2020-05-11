@@ -1,24 +1,32 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.LOAD_BUTTON_TEXT;
+import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
+import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.*;
 
-public class EditDocumentView {
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
+public class EditDocumentView {
+	private final Logger log = LoggerFactory.getLogger(EditDocumentView.class);
+	public String fileName;
+
+	private CommandsFactory commandsFactory = new CommandsFactory();
 	private JButton btnLoadButton;
 	private JFrame frame;
 
 	JFileChooser jFileChooser = new JFileChooser();
 	StringBuilder sb = new StringBuilder();
-	private JTextField textArea;
+	public JTextField textArea;
 	private JButton btnSave;
 
 	public static void main(String[] args) {
@@ -34,6 +42,8 @@ public class EditDocumentView {
 
 	public EditDocumentView() {
 		initialize();
+		this.frame.setVisible(true);
+
 	}
 
 	private void initialize() {
@@ -43,16 +53,8 @@ public class EditDocumentView {
 		frame.getContentPane().setLayout(null);
 
 		btnLoadButton = new JButton(LOAD_BUTTON_TEXT);
-		btnLoadButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser dialog = new JFileChooser();
-				if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					openFile(dialog.getSelectedFile().getAbsolutePath());
-
-				}
-
-			}
-		});
+		OpenDocument openDocumentActionListener = (OpenDocument) commandsFactory.createCommand(OPEN_DOCUMENT_COMMAND, this);
+		btnLoadButton.addActionListener(openDocumentActionListener);
 		btnLoadButton.setBounds(26, 103, 89, 23);
 		frame.getContentPane().add(btnLoadButton);
 
@@ -64,8 +66,9 @@ public class EditDocumentView {
 		JLabel lblNewLabel = new JLabel("Text Area");
 		lblNewLabel.setBounds(331, 13, 89, 14);
 		frame.getContentPane().add(lblNewLabel);
+	}
 
-		btnSave = new JButton("Save");
+		/*btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser dialog = new JFileChooser();
@@ -86,17 +89,7 @@ public class EditDocumentView {
 		frame.getContentPane().add(btnConvertealine);
 	}
 
-	private void openFile(String fileName) {
-		try {
-			FileReader reader = new FileReader(fileName);
-			textArea.read(reader, null);
-			reader.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(btnLoadButton, this, "File" + fileName + "can't be opened.", 0);
-		}
-	}
-
-	private void saveFile(String fileName) {
+private void saveFile(String fileName) {
 		try {
 			FileWriter writer = new FileWriter(fileName);
 			textArea.write(writer);
@@ -106,7 +99,18 @@ public class EditDocumentView {
 
 		}
 	}
+	*/
+		public String openFile() {
+			return textArea.getText();
+		}
+
 }
+
+
+
+
+
+
 
 /*public void actionPerformed(ActionEvent e) {
 String	cn = textChooseN.getText()	.toString();
@@ -123,12 +127,12 @@ try {
 	writer.write(System.getProperty("line.separator"));
 	writer.close();
 	JOptionPane.showMessageDialog(getRootPane(), "Success");
-	
-	
+
+
 } catch(Exception e1) {
-	
+
 	JOptionPane.showMessageDialog(getRootPane(), "Error");
-	
+
 }
 
 JFileChooser fc=new JFileChooser();

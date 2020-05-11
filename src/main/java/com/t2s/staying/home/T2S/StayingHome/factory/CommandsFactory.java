@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 
 import com.t2s.staying.home.T2S.StayingHome.command.EditDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
+import com.t2s.staying.home.T2S.StayingHome.view.EditDocumentView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 
 public class CommandsFactory {
@@ -16,8 +18,10 @@ public class CommandsFactory {
 		} else if (commandKind.equals("editCommand")) {
 			EditDocument editDocument = new EditDocument();
 			return editDocument;
+		}else if (commandKind.equals("openDocument") ) {
+			OpenDocument openDocument = new OpenDocument((EditDocumentView) viewClass);
+			return openDocument;
 		}
-
 		return null; // todo implement the rest of the commands
 	}
 
