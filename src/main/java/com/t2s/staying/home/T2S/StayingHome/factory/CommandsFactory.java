@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import com.t2s.staying.home.T2S.StayingHome.command.EditDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
+import com.t2s.staying.home.T2S.StayingHome.view.EditDocumentView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 
 public class CommandsFactory {
@@ -14,7 +15,7 @@ public class CommandsFactory {
 			NewDocument newDocument = new NewDocument((NewDocumentView) viewClass);
 			return newDocument;
 		} else if (commandKind.equals("editCommand")) {
-			EditDocument editDocument = new EditDocument();
+			EditDocument editDocument = new EditDocument((EditDocumentView) viewClass);
 			return editDocument;
 		}
 
