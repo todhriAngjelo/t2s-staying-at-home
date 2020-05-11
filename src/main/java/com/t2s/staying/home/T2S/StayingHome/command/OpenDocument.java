@@ -27,16 +27,17 @@ public class OpenDocument implements ActionListener {
 
 
 
-	private void openFile(String absolutePath) {
+
+	public void openFile(String absolutePath) {
 		try {
 			FileReader reader = new FileReader(fileName);
-			textArea.read(reader, null);
+			//textArea.read(reader, null);
 			reader.close();
 		} catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-		//return openDocumentView.openFile();
+		openDocumentView.openFile();
 	}
 
 

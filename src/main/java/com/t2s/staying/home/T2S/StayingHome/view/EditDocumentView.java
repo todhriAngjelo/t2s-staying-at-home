@@ -1,7 +1,7 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.SaveDocument;
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,14 +69,8 @@ public class EditDocumentView {
 
 
 		btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser dialog = new JFileChooser();
-				if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					saveFile(dialog.getSelectedFile().getAbsolutePath());
-				}
-			}
-		});
+		SaveDocument saveDocumentActionListener = (SaveDocument) commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
+		btnSave.addActionListener(saveDocumentActionListener);
 		btnSave.setBounds(26, 158, 89, 23);
 		frame.getContentPane().add(btnSave);
 
@@ -89,7 +83,7 @@ public class EditDocumentView {
 		frame.getContentPane().add(btnConvertealine);
 	}
 
-private void saveFile(String fileName) {
+/*private void saveFile(String fileName) {
 		try {
 			FileWriter writer = new FileWriter(fileName);
 			textArea.write(writer);
@@ -99,9 +93,9 @@ private void saveFile(String fileName) {
 
 		}
 	}
-
-		public String openFile() {
-			return textArea.getText();
+*/
+		public void openFile() {
+				return;
 		}
 
 }
