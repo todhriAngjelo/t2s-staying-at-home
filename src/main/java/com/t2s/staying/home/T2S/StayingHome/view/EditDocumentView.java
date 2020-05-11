@@ -66,9 +66,9 @@ public class EditDocumentView {
 		JLabel lblNewLabel = new JLabel("Text Area");
 		lblNewLabel.setBounds(331, 13, 89, 14);
 		frame.getContentPane().add(lblNewLabel);
-	}
 
-		/*btnSave = new JButton("Save");
+
+		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser dialog = new JFileChooser();
@@ -99,7 +99,7 @@ private void saveFile(String fileName) {
 
 		}
 	}
-	*/
+
 		public String openFile() {
 			return textArea.getText();
 		}
