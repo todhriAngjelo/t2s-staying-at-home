@@ -12,7 +12,7 @@ public class ApplicationConstants {
 	public static final String CREATE_EMPTY_DOCUMENT_BUTTON_TEXT = "Create new empty document";
 	public static final String EDIT_EXISTING_DOCUMENT_BUTTON_TEXT = "Edit existing document";
 	public static final String EXIT_APPLICATION_BUTTON_TEXT = "Exit application";
-	public static final String CREATE_BUTTON_TEXT = "Create";
+	public static final String CREATE_BUTTON_TEXT = "Next";
 	public static final String LOAD_BUTTON_TEXT = "Load";
 
 	// commands factory string values

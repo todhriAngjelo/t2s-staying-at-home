@@ -1,6 +1,6 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import com.t2s.staying.home.T2S.StayingHome.view.EditDocumentView;
+import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -10,11 +10,11 @@ import java.io.IOException;
 
 public class OpenDocument implements ActionListener {
 
-	private EditDocumentView openDocumentView;
+	private DocumentEditorView openDocumentView;
 	private String fileName;
 	private JTextField textArea;
 
-	public OpenDocument(EditDocumentView openDocumentView){this.openDocumentView =openDocumentView;}
+	public OpenDocument(DocumentEditorView openDocumentView){this.openDocumentView =openDocumentView;}
 
 
 	@Override

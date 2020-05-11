@@ -49,7 +49,7 @@ public class MainView {
 		JButton createEmptyDocButton = new JButton(CREATE_EMPTY_DOCUMENT_BUTTON_TEXT);
 		createEmptyDocButton.setBackground(Color.WHITE);
 		createEmptyDocButton.addActionListener(arg0 -> {
-			new NewDocumentView();
+			new toDelete();
 			frame.setVisible(false);
 		});
 		createEmptyDocButton.setBounds(38, 99, 188, 23);
@@ -66,7 +66,7 @@ public class MainView {
 		JButton editExistingDocumentButton = new JButton(EDIT_EXISTING_DOCUMENT_BUTTON_TEXT);
 		editExistingDocumentButton.setBackground(Color.WHITE);
 		editExistingDocumentButton.addActionListener(arg0 -> {
-			new EditDocumentView();
+			new DocumentEditorView();
 			frame.setVisible(false);
 		});
 		editExistingDocumentButton.setBounds(38, 133, 188, 23);
