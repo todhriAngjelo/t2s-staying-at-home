@@ -19,7 +19,7 @@ public class MainView {
 				MainView window = new MainView();
 				window.frame.setVisible(true);
 				//theme
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -49,7 +49,7 @@ public class MainView {
 		JButton createEmptyDocButton = new JButton(CREATE_EMPTY_DOCUMENT_BUTTON_TEXT);
 		createEmptyDocButton.setBackground(Color.WHITE);
 		createEmptyDocButton.addActionListener(arg0 -> {
-			new NewDocumentView();
+			new toDelete();
 			frame.setVisible(false);
 		});
 		createEmptyDocButton.setBounds(38, 99, 188, 23);
@@ -65,9 +65,9 @@ public class MainView {
 		
 		JButton editExistingDocumentButton = new JButton(EDIT_EXISTING_DOCUMENT_BUTTON_TEXT);
 		editExistingDocumentButton.setBackground(Color.WHITE);
-		editExistingDocumentButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		editExistingDocumentButton.addActionListener(arg0 -> {
+			new DocumentEditorView();
+			frame.setVisible(false);
 		});
 		editExistingDocumentButton.setBounds(38, 133, 188, 23);
 		frame.getContentPane().add(editExistingDocumentButton);

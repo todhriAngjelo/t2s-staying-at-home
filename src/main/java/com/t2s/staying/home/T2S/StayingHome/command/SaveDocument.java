@@ -1,13 +1,37 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
+import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class SaveDocument implements ActionListener {
+	private DocumentEditorView saveDocumentView;
+	public SaveDocument(DocumentEditorView saveDocumentView) {
+		this.saveDocumentView = saveDocumentView;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+			JFileChooser dialog = new JFileChooser();
+			if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+				saveFile(dialog.getSelectedFile().getAbsolutePath());
+			}
 
-		e.getSource();
+	}
+
+
+	private void saveFile(String fileName) {
+		try {
+			FileWriter writer = new FileWriter(fileName);
+			writer.close();
+		} catch (IOException e) {
+
+
+		}
 	}
 }

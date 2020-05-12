@@ -12,11 +12,13 @@ public class ApplicationConstants {
 	public static final String CREATE_EMPTY_DOCUMENT_BUTTON_TEXT = "Create new empty document";
 	public static final String EDIT_EXISTING_DOCUMENT_BUTTON_TEXT = "Edit existing document";
 	public static final String EXIT_APPLICATION_BUTTON_TEXT = "Exit application";
-	public static final String CREATE_BUTTON_TEXT = "Create";
-	public static final String LOAD_BUTTON_TEXT = "Create";
+	public static final String CREATE_BUTTON_TEXT = "Next";
+	public static final String LOAD_BUTTON_TEXT = "Load";
 
 	// commands factory string values
 	public static final String NEW_DOCUMENT_COMMAND = "newDocument";
+	public static final String OPEN_DOCUMENT_COMMAND = "openDocument";
+	public static final String  SAVE_DOCUMENT_COMMAND = "saveDocument";
 
 	// todo this can go in a configuration file
 	public static final String DEFAULT_SAVE_FILE_LOCATION = "C:\\Users\\a.todhri\\Documents\\T2Sdocs\\";

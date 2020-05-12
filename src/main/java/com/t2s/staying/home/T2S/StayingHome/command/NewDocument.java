@@ -7,15 +7,15 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
+import com.t2s.staying.home.T2S.StayingHome.view.toDelete;
 import com.t2s.staying.home.T2S.utils.FileUtils;
 
 public class NewDocument implements ActionListener {
 
-	private NewDocumentView newDocumentView;
+	private toDelete toDelete;
 
-	public NewDocument(NewDocumentView newDocumentView) {
-		this.newDocumentView = newDocumentView;
+	public NewDocument(toDelete toDelete) {
+		this.toDelete = toDelete;
 	}
 
 	@Override
@@ -42,10 +42,10 @@ public class NewDocument implements ActionListener {
 	}
 
 	private String getDocumentTitle() {
-		return newDocumentView.getDocumentTitle();
+		return toDelete.getDocumentTitle();
 	}
 
 	private String getDocumentAuthor() {
-		return newDocumentView.getDocumentAuthor();
+		return toDelete.getDocumentAuthor();
 	}
 }
