@@ -23,6 +23,8 @@ public class MainView {
 		EventQueue.invokeLater(() -> {
 			try {
 				new MainView();
+
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -51,7 +53,7 @@ public class MainView {
 		frame.getContentPane().add(welcomeToT2SEditorLabel);
 		
 		JButton createEmptyDocButton = new JButton(CREATE_EMPTY_DOCUMENT_BUTTON_TEXT);
-		createEmptyDocButton.setBackground(Color.WHITE);
+		//createEmptyDocButton.setBackground(Color.WHITE);
 		createEmptyDocButton.addActionListener(arg0 -> {
 			new DocumentEditorView();
 			frame.setVisible(false);
@@ -62,13 +64,14 @@ public class MainView {
 		JButton exitApplicationButton = new JButton(EXIT_APPLICATION_BUTTON_TEXT);
 		exitApplicationButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
 		exitApplicationButton.setBounds(38, 235, 188, 23);
 		frame.getContentPane().add(exitApplicationButton);
 		
 		JButton editExistingDocumentButton = new JButton(EDIT_EXISTING_DOCUMENT_BUTTON_TEXT);
-		editExistingDocumentButton.setBackground(Color.WHITE);
+		//editExistingDocumentButton.setBackground(Color.WHITE);
 		editExistingDocumentButton.addActionListener(arg0 -> {
 			new DocumentEditorView();
 			frame.setVisible(false);
@@ -77,12 +80,12 @@ public class MainView {
 		frame.getContentPane().add(editExistingDocumentButton);
 
 		JButton replayLastCommandSequenceButton = new JButton(REPLAY_LAST_COMMAND_BUTTON_TEXT);
-		replayLastCommandSequenceButton.setBackground(Color.WHITE);
+		//replayLastCommandSequenceButton.setBackground(Color.WHITE);
 		replayLastCommandSequenceButton.setBounds(38, 167, 188, 23);
 		frame.getContentPane().add(replayLastCommandSequenceButton);
 		
 		JButton btnApplicationsSettings = new JButton(APPLICATION_SETTINGS_BUTTON_TEXT);
-		btnApplicationsSettings.setBackground(Color.WHITE);
+		//btnApplicationsSettings.setBackground(Color.WHITE);
 		btnApplicationsSettings.setBounds(38, 201, 188, 23);
 		frame.getContentPane().add(btnApplicationsSettings);
 	}

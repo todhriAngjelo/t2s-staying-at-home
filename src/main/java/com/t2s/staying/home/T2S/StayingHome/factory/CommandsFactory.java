@@ -2,14 +2,15 @@ package com.t2s.staying.home.T2S.StayingHome.factory;
 
 import java.awt.event.ActionListener;
 
-import com.t2s.staying.home.T2S.StayingHome.command.DocumentToSpeech;
 import com.t2s.staying.home.T2S.StayingHome.command.EditDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.SaveDocument;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
 public class CommandsFactory {
+
 	private Object DocumentEditorView;
+
 	public ActionListener createCommand(String commandKind) {
 
 		if (commandKind.equals("editCommand")) {
@@ -21,9 +22,6 @@ public class CommandsFactory {
 		}else if (commandKind.equals("saveDocument") ) {
 			SaveDocument saveDocument = new SaveDocument((com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView) DocumentEditorView);
 			return saveDocument;
-		}else if (commandKind.equals("documentToSpeech")){
-			DocumentToSpeech documentToSpeech = new DocumentToSpeech((com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView) DocumentEditorView);
-			return documentToSpeech;
 		}
 		return null; // todo implement the rest of the commands
 	}

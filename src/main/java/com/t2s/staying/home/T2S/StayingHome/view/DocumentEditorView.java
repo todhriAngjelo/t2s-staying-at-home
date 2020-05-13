@@ -6,12 +6,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import com.t2s.staying.home.T2S.StayingHome.command.DocumentToSpeech;
-import com.t2s.staying.home.T2S.StayingHome.model.Document;
+import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.SaveDocument;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.OPEN_DOCUMENT_COMMAND;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.NEW_DOCUMENT_COMMAND;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.SAVE_DOCUMENT_COMMAND;
 
 public class DocumentEditorView {
 
@@ -27,7 +33,7 @@ public class DocumentEditorView {
 	private static final String ENCODE_LABEL = "Encoding options:";
 	private static final String AUTHORS_NAME_LABEL = "Author's Name";
 
-	private static final String DELETE_BUTTON_TEXT = "Delete";
+	private static final String LOAD_BUTTON_TEXT = "Load";
 	private static final String SAVE_BUTTON_TEXT = "Save";
 	private static final String TRANSFORM_ALL_BUTTON_TEXT = "Transform all";
 	private static final String TRANSFORM_SELECTED_BUTTON_TEXT = "Transform selected";
@@ -88,20 +94,30 @@ public class DocumentEditorView {
 		JLabel lModifiedTimestampPlaceholder = new JLabel("-"); // init value that is going to be modified
 		lModifiedTimestampPlaceholder.setBounds(537, 329, 86, 14);
 		frame.getContentPane().add(lModifiedTimestampPlaceholder);
-		
-		JButton deleteButton = new JButton(DELETE_BUTTON_TEXT);
-		deleteButton.setBounds(506, 435, 130, 23);
-		frame.getContentPane().add(deleteButton);
-		
+
+
+		//------LOAD BUTTON-----//
+		JButton loadButton = new JButton(LOAD_BUTTON_TEXT);
+		OpenDocument loadDocumentActionListener = (OpenDocument) commandsFactory.createCommand(OPEN_DOCUMENT_COMMAND);
+		loadButton.addActionListener(loadDocumentActionListener);
+		loadButton.setBounds(506, 435, 130, 23);
+		frame.getContentPane().add(loadButton);
+
+
+
+			//------SAVE-----//
 		JButton saveButton = new JButton(SAVE_BUTTON_TEXT);
+
+		SaveDocument saveDocumentActionListener = (SaveDocument) commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND);
+		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(506, 469, 130, 23);
 		frame.getContentPane().add(saveButton);
-
-		//TEXT TO SPEECH
+		
 		JButton ttsAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
-
-		DocumentToSpeech docToSpeechActionListener = (DocumentToSpeech) commandsFactory.createCommand("DocumentToSpeech");
-		ttsAllButton.addActionListener(docToSpeechActionListener);
+		ttsAllButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		ttsAllButton.setBounds(506, 77, 130, 23);
 		frame.getContentPane().add(ttsAllButton);
 		
@@ -113,7 +129,7 @@ public class DocumentEditorView {
 			frame.setVisible(false);
 		});
 		
-	/*JLabel authorLabel = new JLabel(AUTHORS_NAME_LABEL);
+		JLabel authorLabel = new JLabel(AUTHORS_NAME_LABEL);
 		authorLabel.setBounds(10, 10, 101, 14);
 		frame.getContentPane().add(authorLabel);
 		
@@ -130,9 +146,7 @@ public class DocumentEditorView {
 		documentTitleTextField.setColumns(10);
 		documentTitleTextField.setBounds(169, 36, 130, 20);
 		frame.getContentPane().add(documentTitleTextField);
-		*/
-
-	/*
+		
 		JButton ttsSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
 		ttsSelectedButton.setVerticalAlignment(SwingConstants.TOP);
 		ttsSelectedButton.addActionListener(e -> {
@@ -152,21 +166,20 @@ public class DocumentEditorView {
 		transformToSpeechLabel2.setHorizontalAlignment(SwingConstants.LEFT);
 		transformToSpeechLabel2.setBounds(506, 52, 130, 14);
 		frame.getContentPane().add(transformToSpeechLabel2);
-		*/
-		/*JLabel encodingOptionsLabel = new JLabel(ENCODE_LABEL);
+		
+		JLabel encodingOptionsLabel = new JLabel(ENCODE_LABEL);
 		encodingOptionsLabel.setVerticalAlignment(SwingConstants.TOP);
 		encodingOptionsLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		encodingOptionsLabel.setBounds(506, 151, 130, 14);
 		frame.getContentPane().add(encodingOptionsLabel);
-		*/
-		/*JButton encodeAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
+		
+		JButton encodeAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
 		encodeAllButton.setBounds(506, 171, 130, 23);
-		frame.getContentPane().add(encodeAllButton);*/
-		/*
+		frame.getContentPane().add(encodeAllButton);
+		
 		JButton encodeSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
 		encodeSelectedButton.setVerticalAlignment(SwingConstants.TOP);
 		encodeSelectedButton.setBounds(506, 203, 130, 23);
 		frame.getContentPane().add(encodeSelectedButton);
-		*/
 	}
 }
