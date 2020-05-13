@@ -1,11 +1,12 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
-
-import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.io.IOException;
+
+import javax.swing.*;
+
+import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
 
 public class OpenDocument implements ActionListener {
@@ -37,7 +38,7 @@ public class OpenDocument implements ActionListener {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-		openDocumentView.openFile();
+//		openDocumentView.openFile();
 	}
 
 

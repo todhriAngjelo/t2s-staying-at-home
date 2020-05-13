@@ -4,17 +4,6 @@ import java.awt.*;
 
 public class ApplicationConstants {
 
-	// application UI constants
-	public static final String AUTHOR_LABEL_CONTENTS = "Author's Name";
-	public static final String WELCOME_TO_T2S_LABEL_CONTENTS = "Welcome to T2S Editor";
-	public static final String TITLE_LABEL_VALUE = "Title";
-
-	public static final String CREATE_EMPTY_DOCUMENT_BUTTON_TEXT = "Create new empty document";
-	public static final String EDIT_EXISTING_DOCUMENT_BUTTON_TEXT = "Edit existing document";
-	public static final String EXIT_APPLICATION_BUTTON_TEXT = "Exit application";
-	public static final String CREATE_BUTTON_TEXT = "Next";
-	public static final String LOAD_BUTTON_TEXT = "Load";
-
 	// commands factory string values
 	public static final String NEW_DOCUMENT_COMMAND = "newDocument";
 	public static final String OPEN_DOCUMENT_COMMAND = "openDocument";
