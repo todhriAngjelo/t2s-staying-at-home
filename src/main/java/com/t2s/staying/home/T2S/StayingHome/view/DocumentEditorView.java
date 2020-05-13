@@ -6,10 +6,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.SaveDocument;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.OPEN_DOCUMENT_COMMAND;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.NEW_DOCUMENT_COMMAND;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.SAVE_DOCUMENT_COMMAND;
 
 public class DocumentEditorView {
 
@@ -86,12 +94,22 @@ public class DocumentEditorView {
 		JLabel lModifiedTimestampPlaceholder = new JLabel("-"); // init value that is going to be modified
 		lModifiedTimestampPlaceholder.setBounds(537, 329, 86, 14);
 		frame.getContentPane().add(lModifiedTimestampPlaceholder);
-		
+
+
+		//------LOAD BUTTON-----//
 		JButton loadButton = new JButton(LOAD_BUTTON_TEXT);
+		OpenDocument loadDocumentActionListener = (OpenDocument) commandsFactory.createCommand(OPEN_DOCUMENT_COMMAND);
+		loadButton.addActionListener(loadDocumentActionListener);
 		loadButton.setBounds(506, 435, 130, 23);
 		frame.getContentPane().add(loadButton);
-		
+
+
+
+			//------SAVE-----//
 		JButton saveButton = new JButton(SAVE_BUTTON_TEXT);
+
+		SaveDocument saveDocumentActionListener = (SaveDocument) commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND);
+		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(506, 469, 130, 23);
 		frame.getContentPane().add(saveButton);
 		
