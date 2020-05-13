@@ -40,7 +40,7 @@ public class DocumentEditorView {
 	private static final String RETURN_TO_MAIN_MENU_BUTTON_TEXT = "< Main Menu";
 
 	private JFrame frame;
-	public JTextField textArea;
+	private  JTextField textArea;
 	private JTextField authorTextField;
 	private JTextField documentTitleTextField;
 
@@ -98,7 +98,7 @@ public class DocumentEditorView {
 
 		//------LOAD BUTTON-----//
 		JButton loadButton = new JButton(LOAD_BUTTON_TEXT);
-		OpenDocument loadDocumentActionListener = (OpenDocument) commandsFactory.createCommand(OPEN_DOCUMENT_COMMAND);
+		ActionListener loadDocumentActionListener = commandsFactory.createCommand(OPEN_DOCUMENT_COMMAND, this);
 		loadButton.addActionListener(loadDocumentActionListener);
 		loadButton.setBounds(506, 435, 130, 23);
 		frame.getContentPane().add(loadButton);
@@ -108,7 +108,7 @@ public class DocumentEditorView {
 			//------SAVE-----//
 		JButton saveButton = new JButton(SAVE_BUTTON_TEXT);
 
-		SaveDocument saveDocumentActionListener = (SaveDocument) commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND);
+		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
 		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(506, 469, 130, 23);
 		frame.getContentPane().add(saveButton);
@@ -182,4 +182,19 @@ public class DocumentEditorView {
 		encodeSelectedButton.setBounds(506, 203, 130, 23);
 		frame.getContentPane().add(encodeSelectedButton);
 	}
+
+	public String getTextArea(){
+		return textArea.getText();
+	}
+	public JTextField getJTextArea(){
+		return textArea;
+	}
+	public void setTextArea(JTextField txt){
+		this.textArea=txt;
+
+	}
+	public void setAuthorTextField(String author){
+		this.authorTextField.setText(author);
+	}
+
 }

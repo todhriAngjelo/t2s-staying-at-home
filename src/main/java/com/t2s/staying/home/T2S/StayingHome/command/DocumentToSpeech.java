@@ -18,7 +18,7 @@ public class DocumentToSpeech implements ActionListener {
 		FreeTTSAdapter freeTTS = new FreeTTSAdapter();
 
 		try {
-			freeTTS.play(documentToSpeechView.textArea.getText());
+			//freeTTS.play(documentToSpeechView.textArea.getText());
 
 		}catch(Exception e1) {}
 	}

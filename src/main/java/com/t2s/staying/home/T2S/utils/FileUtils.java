@@ -1,5 +1,8 @@
 package com.t2s.staying.home.T2S.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -41,7 +44,6 @@ public class FileUtils {
 		return bytesWritten > 0;
 	}
 
-
 	/**
 	 * This methods writes an user defined attribute value at a file given in the method arguments.
 	 * Empty or null metadata are not accepted
@@ -63,5 +65,21 @@ public class FileUtils {
 		log.info("Attribute {" + metadataName + ":" + metadataValue + "} has been set to the file at location: " + filepath);
 
 		return metadataValue;
+	}
+
+	public static BufferedReader getFileBufferReader(String absolutePath) {
+		try {
+			FileReader reader = new FileReader(absolutePath);
+			BufferedReader br = new BufferedReader(reader);
+			return br;
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static File getFileReader(String absolutePath) {
+		File myObj = new File(absolutePath);
+		return myObj;
 	}
 }

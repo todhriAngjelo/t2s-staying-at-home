@@ -1,48 +1,44 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
 import java.awt.event.ActionListener;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.*;
 
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+import com.t2s.staying.home.T2S.utils.FileUtils;
+
+import java.io.BufferedReader;
+
+import static com.t2s.staying.home.T2S.utils.FileUtils.getFileBufferReader;
 
 
 public class OpenDocument implements ActionListener {
 
-	private DocumentEditorView openDocumentView;
-	private String fileName;
-	private JTextField textArea;
+	private static DocumentEditorView openDocumentView;
 
 	public OpenDocument(DocumentEditorView openDocumentView){this.openDocumentView =openDocumentView;}
-
 
 	@Override
 	public void actionPerformed(java.awt.event.ActionEvent e) {
 		JFileChooser dialog = new JFileChooser();
 		if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			openFile(dialog.getSelectedFile().getAbsolutePath());
+			System.out.println("Selected file: " +dialog.getSelectedFile().getAbsolutePath());
+			BufferedReader buf = getFileBufferReader(dialog.getSelectedFile().getAbsolutePath());
+			try {
+				openDocumentView.getJTextArea().read(buf, null);
+				buf.close();
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+			File file = FileUtils.getFileReader(dialog.getSelectedFile().getAbsolutePath());
+			try {
+				String string= FileUtils.getFileMetadata(dialog.getSelectedFile().getAbsolutePath(), "author");
+				openDocumentView.setAuthorTextField(string);
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
 		}
 	}
-
-
-
-
-	public void openFile(String absolutePath) {
-		try {
-			FileReader reader = new FileReader(fileName);
-			textArea.read(reader, null);
-			reader.close();
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-//		openDocumentView.openFile();
-	}
-
-
-	
-
-
 }
