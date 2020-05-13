@@ -11,7 +11,7 @@ public class FreeTTSAdapter {
     public static final String VOICE_ALAN = "alan";
 
     public FreeTTSAdapter(){
-        System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+
         this.voice = vm.getVoice(VOICE_KEVIN16);
         voice.allocate();
     }

@@ -8,7 +8,8 @@ public class ApplicationConstants {
 	public static final String NEW_DOCUMENT_COMMAND = "newDocument";
 	public static final String OPEN_DOCUMENT_COMMAND = "openDocument";
 	public static final String  SAVE_DOCUMENT_COMMAND = "saveDocument";
-	public static final String  DOC_TO_SPEECH_COMMAND = "DocumentToSpeech";
+	public static final String  DOC_TO_SPEECH_COMMAND = "text2SpeechDocument";
+
 
 
 	/*//VOICES

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import com.t2s.staying.home.T2S.StayingHome.ApplicationConstants;
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.SaveDocument;
@@ -103,21 +104,18 @@ public class DocumentEditorView {
 		loadButton.setBounds(506, 435, 130, 23);
 		frame.getContentPane().add(loadButton);
 
-
-
-			//------SAVE-----//
+		//------SAVE-----//
 		JButton saveButton = new JButton(SAVE_BUTTON_TEXT);
 
 		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
 		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(506, 469, 130, 23);
 		frame.getContentPane().add(saveButton);
-		
+
+		//------ DocumentToSpeech -----//
 		JButton ttsAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
-		ttsAllButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		ActionListener doc2SpeechActionListener = commandsFactory.createCommand("text2SpeechDocument", this);
+		ttsAllButton.addActionListener(doc2SpeechActionListener);
 		ttsAllButton.setBounds(506, 77, 130, 23);
 		frame.getContentPane().add(ttsAllButton);
 		
@@ -128,55 +126,55 @@ public class DocumentEditorView {
 			new MainView();
 			frame.setVisible(false);
 		});
-		
+
 		JLabel authorLabel = new JLabel(AUTHORS_NAME_LABEL);
 		authorLabel.setBounds(10, 10, 101, 14);
 		frame.getContentPane().add(authorLabel);
-		
+
 		authorTextField = new JTextField();
 		authorTextField.setColumns(10);
 		authorTextField.setBounds(10, 36, 130, 20);
 		frame.getContentPane().add(authorTextField);
-		
+
 		JLabel documentTitleLabel = new JLabel(DOCUMENT_TITLE_LABEL);
 		documentTitleLabel.setBounds(169, 10, 130, 14);
 		frame.getContentPane().add(documentTitleLabel);
-		
+
 		documentTitleTextField = new JTextField();
 		documentTitleTextField.setColumns(10);
 		documentTitleTextField.setBounds(169, 36, 130, 20);
 		frame.getContentPane().add(documentTitleTextField);
-		
+
 		JButton ttsSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
 		ttsSelectedButton.setVerticalAlignment(SwingConstants.TOP);
 		ttsSelectedButton.addActionListener(e -> {
 		});
 		ttsSelectedButton.setBounds(506, 109, 130, 23);
 		frame.getContentPane().add(ttsSelectedButton);
-		
+
 		JLabel transformToSpeechLabel1 = new JLabel(TRANSFORM_TO_SPEECH_LABEL_TEXT1);
 		transformToSpeechLabel1.setForeground(SystemColor.desktop);
 		transformToSpeechLabel1.setVerticalAlignment(SwingConstants.TOP);
 		transformToSpeechLabel1.setHorizontalAlignment(SwingConstants.LEFT);
 		transformToSpeechLabel1.setBounds(506, 38, 130, 14);
 		frame.getContentPane().add(transformToSpeechLabel1);
-		
+
 		JLabel transformToSpeechLabel2 = new JLabel(TRANSFORM_TO_SPEECH_LABEL_TEXT2);
 		transformToSpeechLabel2.setVerticalAlignment(SwingConstants.TOP);
 		transformToSpeechLabel2.setHorizontalAlignment(SwingConstants.LEFT);
 		transformToSpeechLabel2.setBounds(506, 52, 130, 14);
 		frame.getContentPane().add(transformToSpeechLabel2);
-		
+
 		JLabel encodingOptionsLabel = new JLabel(ENCODE_LABEL);
 		encodingOptionsLabel.setVerticalAlignment(SwingConstants.TOP);
 		encodingOptionsLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		encodingOptionsLabel.setBounds(506, 151, 130, 14);
 		frame.getContentPane().add(encodingOptionsLabel);
-		
+
 		JButton encodeAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
 		encodeAllButton.setBounds(506, 171, 130, 23);
 		frame.getContentPane().add(encodeAllButton);
-		
+
 		JButton encodeSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
 		encodeSelectedButton.setVerticalAlignment(SwingConstants.TOP);
 		encodeSelectedButton.setBounds(506, 203, 130, 23);
