@@ -1,6 +1,6 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.DEFAULT_FONT_SETTINGS;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,16 +10,19 @@ import javax.swing.*;
 
 public class MainView {
 
-	private JButton btnLoadButton;
+	private static final String WELCOME_TO_T2S_LABEL_CONTENTS = "Welcome to T2S Editor";
+	private static final String CREATE_EMPTY_DOCUMENT_BUTTON_TEXT = "Create new empty document";
+	private static final String EXIT_APPLICATION_BUTTON_TEXT = "Exit application";
+	private static final String EDIT_EXISTING_DOCUMENT_BUTTON_TEXT = "Edit existing document";
+	private static final String REPLAY_LAST_COMMAND_BUTTON_TEXT = "Replay last command sequence";
+	private static final String APPLICATION_SETTINGS_BUTTON_TEXT = "Application's settings";
+
 	private JFrame frame;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
-				MainView window = new MainView();
-				window.frame.setVisible(true);
-				//theme
-				//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				new MainView();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -31,6 +34,7 @@ public class MainView {
 	 */
 	public MainView() {
 		initialize();
+		this.frame.setVisible(true);
 	}
 
 	private void initialize() {
@@ -49,7 +53,7 @@ public class MainView {
 		JButton createEmptyDocButton = new JButton(CREATE_EMPTY_DOCUMENT_BUTTON_TEXT);
 		createEmptyDocButton.setBackground(Color.WHITE);
 		createEmptyDocButton.addActionListener(arg0 -> {
-			new toDelete();
+			new DocumentEditorView();
 			frame.setVisible(false);
 		});
 		createEmptyDocButton.setBounds(38, 99, 188, 23);
@@ -71,19 +75,15 @@ public class MainView {
 		});
 		editExistingDocumentButton.setBounds(38, 133, 188, 23);
 		frame.getContentPane().add(editExistingDocumentButton);
+
+		JButton replayLastCommandSequenceButton = new JButton(REPLAY_LAST_COMMAND_BUTTON_TEXT);
+		replayLastCommandSequenceButton.setBackground(Color.WHITE);
+		replayLastCommandSequenceButton.setBounds(38, 167, 188, 23);
+		frame.getContentPane().add(replayLastCommandSequenceButton);
 		
-		JButton replayLastCommadSequencyButtton = new JButton("Replay last command sequence");
-		replayLastCommadSequencyButtton.setBackground(Color.WHITE);
-		replayLastCommadSequencyButtton.setBounds(38, 167, 188, 23);
-		frame.getContentPane().add(replayLastCommadSequencyButtton);
-		
-		JButton btnApplicationsSettings = new JButton("Application's settings");
+		JButton btnApplicationsSettings = new JButton(APPLICATION_SETTINGS_BUTTON_TEXT);
 		btnApplicationsSettings.setBackground(Color.WHITE);
 		btnApplicationsSettings.setBounds(38, 201, 188, 23);
 		frame.getContentPane().add(btnApplicationsSettings);
-
-//		authorLabel = new JLabel(AUTHOR_LABEL_VALUE);
-//		authorLabel.setBounds(28, 37, 86, 14);
-//		frame.getContentPane().add(authorLabel);
 	}
 }

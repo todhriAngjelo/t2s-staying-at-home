@@ -1,32 +1,40 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
-
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
-import com.t2s.staying.home.T2S.StayingHome.command.SaveDocument;
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class DocumentEditorView {
-	private final Logger log = LoggerFactory.getLogger(DocumentEditorView.class);
-	public String fileName;
 
 	private CommandsFactory commandsFactory = new CommandsFactory();
-	private JFrame frame;
+	private final Logger log = LoggerFactory.getLogger(DocumentEditorView.class);
 
-	JFileChooser jFileChooser = new JFileChooser();
-	StringBuilder sb = new StringBuilder();
+	private static final String LAST_MODIFIED_TIMESTAMP_LABEL = "Last Modified Date";
+	private static final String CREATION_TIMESTAMP_LABEL = "Creation Date";
+	private static final String TEXT_AREA_LABEL = "Text Area";
+	private static final String DOCUMENT_TITLE_LABEL = "Document Title";
+	private static final String TRANSFORM_TO_SPEECH_LABEL_TEXT1 = "Transform to speech";
+	private static final String TRANSFORM_TO_SPEECH_LABEL_TEXT2 = "options:";
+	private static final String ENCODE_LABEL = "Encoding options:";
+	private static final String AUTHORS_NAME_LABEL = "Author's Name";
+
+	private static final String DELETE_BUTTON_TEXT = "Delete";
+	private static final String SAVE_BUTTON_TEXT = "Save";
+	private static final String TRANSFORM_ALL_BUTTON_TEXT = "Transform all";
+	private static final String TRANSFORM_SELECTED_BUTTON_TEXT = "Transform selected";
+	private static final String RETURN_TO_MAIN_MENU_BUTTON_TEXT = "< Main Menu";
+
+	private JFrame frame;
 	public JTextField textArea;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField authorTextField;
+	private JTextField documentTitleTextField;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -53,166 +61,107 @@ public class DocumentEditorView {
 		frame.setBounds(100, 100, 675, 556);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		OpenDocument openDocumentActionListener = (OpenDocument) commandsFactory.createCommand(OPEN_DOCUMENT_COMMAND, this);
 
 		textArea = new JTextField();
 		textArea.setBounds(10, 92, 459, 414);
 		frame.getContentPane().add(textArea);
 		textArea.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Text Area");
-		lblNewLabel.setBounds(10, 67, 89, 14);
-		frame.getContentPane().add(lblNewLabel);
-		SaveDocument saveDocumentActionListener = (SaveDocument) commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
+		JLabel textAreaLabel = new JLabel(TEXT_AREA_LABEL);
+		textAreaLabel.setBounds(10, 67, 89, 14);
+		frame.getContentPane().add(textAreaLabel);
 		
-		JLabel creationTimestampLabel = new JLabel("Creation Date");
+		JLabel creationTimestampLabel = new JLabel(CREATION_TIMESTAMP_LABEL);
 		creationTimestampLabel.setBounds(511, 264, 86, 14);
 		frame.getContentPane().add(creationTimestampLabel);
 		
-		JLabel creationTimestampPlaceholder = new JLabel("-");
+		JLabel creationTimestampPlaceholder = new JLabel("-"); // init value that is going to be modified
 		creationTimestampPlaceholder.setBounds(537, 284, 86, 14);
 		frame.getContentPane().add(creationTimestampPlaceholder);
 		
-		JLabel lModifiedTimestampLabel = new JLabel("Last Modified Date");
+		JLabel lModifiedTimestampLabel = new JLabel(LAST_MODIFIED_TIMESTAMP_LABEL);
 		lModifiedTimestampLabel.setBounds(511, 309, 86, 14);
 		frame.getContentPane().add(lModifiedTimestampLabel);
 		
-		JLabel lModifiedTimestampPlaceholder = new JLabel("-");
+		JLabel lModifiedTimestampPlaceholder = new JLabel("-"); // init value that is going to be modified
 		lModifiedTimestampPlaceholder.setBounds(537, 329, 86, 14);
 		frame.getContentPane().add(lModifiedTimestampPlaceholder);
 		
-		JButton btnDelte = new JButton("Delete");
-		btnDelte.setBounds(506, 435, 130, 23);
-		frame.getContentPane().add(btnDelte);
+		JButton deleteButton = new JButton(DELETE_BUTTON_TEXT);
+		deleteButton.setBounds(506, 435, 130, 23);
+		frame.getContentPane().add(deleteButton);
 		
-		JButton button_1 = new JButton("Save");
-		button_1.setBounds(506, 469, 130, 23);
-		frame.getContentPane().add(button_1);
+		JButton saveButton = new JButton(SAVE_BUTTON_TEXT);
+		saveButton.setBounds(506, 469, 130, 23);
+		frame.getContentPane().add(saveButton);
 		
-		JButton btnTextSpeech_1 = new JButton("Transform all");
-		btnTextSpeech_1.addActionListener(new ActionListener() {
+		JButton ttsAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
+		ttsAllButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnTextSpeech_1.setBounds(506, 77, 130, 23);
-		frame.getContentPane().add(btnTextSpeech_1);
+		ttsAllButton.setBounds(506, 77, 130, 23);
+		frame.getContentPane().add(ttsAllButton);
 		
-		JButton button_4 = new JButton("< Main Menu");
-		button_4.setBounds(506, 401, 130, 23);
-		frame.getContentPane().add(button_4);
-		
-		JLabel label = new JLabel("Author's Name");
-		label.setBounds(10, 10, 101, 14);
-		frame.getContentPane().add(label);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(10, 36, 130, 20);
-		frame.getContentPane().add(textField);
-		
-		JLabel label_1 = new JLabel("Document Title");
-		label_1.setBounds(169, 10, 130, 14);
-		frame.getContentPane().add(label_1);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(169, 36, 130, 20);
-		frame.getContentPane().add(textField_1);
-		
-		JButton btnTextSelected = new JButton("Transform selected");
-		btnTextSelected.setVerticalAlignment(SwingConstants.TOP);
-		btnTextSelected.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		JButton returnToMainMenuButton = new JButton(RETURN_TO_MAIN_MENU_BUTTON_TEXT);
+		returnToMainMenuButton.setBounds(506, 401, 130, 23);
+		frame.getContentPane().add(returnToMainMenuButton);
+		returnToMainMenuButton.addActionListener(e -> {
+			new MainView();
+			frame.setVisible(false);
 		});
-		btnTextSelected.setBounds(506, 109, 130, 23);
-		frame.getContentPane().add(btnTextSelected);
 		
-		JLabel lblTransformToSpeech = new JLabel("Transform to speech");
-		lblTransformToSpeech.setForeground(SystemColor.desktop);
-		lblTransformToSpeech.setVerticalAlignment(SwingConstants.TOP);
-		lblTransformToSpeech.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTransformToSpeech.setBounds(506, 38, 130, 14);
-		frame.getContentPane().add(lblTransformToSpeech);
+		JLabel authorLabel = new JLabel(AUTHORS_NAME_LABEL);
+		authorLabel.setBounds(10, 10, 101, 14);
+		frame.getContentPane().add(authorLabel);
 		
-		JLabel lblOptions = new JLabel("options:");
-		lblOptions.setVerticalAlignment(SwingConstants.TOP);
-		lblOptions.setHorizontalAlignment(SwingConstants.LEFT);
-		lblOptions.setBounds(506, 52, 130, 14);
-		frame.getContentPane().add(lblOptions);
+		authorTextField = new JTextField();
+		authorTextField.setColumns(10);
+		authorTextField.setBounds(10, 36, 130, 20);
+		frame.getContentPane().add(authorTextField);
 		
-		JLabel lblEncodingOptions = new JLabel("Encoding options:");
-		lblEncodingOptions.setVerticalAlignment(SwingConstants.TOP);
-		lblEncodingOptions.setHorizontalAlignment(SwingConstants.LEFT);
-		lblEncodingOptions.setBounds(506, 151, 130, 14);
-		frame.getContentPane().add(lblEncodingOptions);
+		JLabel documentTitleLabel = new JLabel(DOCUMENT_TITLE_LABEL);
+		documentTitleLabel.setBounds(169, 10, 130, 14);
+		frame.getContentPane().add(documentTitleLabel);
 		
-		JButton btnTransformAll = new JButton("Transform all");
-		btnTransformAll.setBounds(506, 171, 130, 23);
-		frame.getContentPane().add(btnTransformAll);
+		documentTitleTextField = new JTextField();
+		documentTitleTextField.setColumns(10);
+		documentTitleTextField.setBounds(169, 36, 130, 20);
+		frame.getContentPane().add(documentTitleTextField);
 		
-		JButton button_3 = new JButton("Transform selected");
-		button_3.setVerticalAlignment(SwingConstants.TOP);
-		button_3.setBounds(506, 203, 130, 23);
-		frame.getContentPane().add(button_3);
+		JButton ttsSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
+		ttsSelectedButton.setVerticalAlignment(SwingConstants.TOP);
+		ttsSelectedButton.addActionListener(e -> {
+		});
+		ttsSelectedButton.setBounds(506, 109, 130, 23);
+		frame.getContentPane().add(ttsSelectedButton);
+		
+		JLabel transformToSpeechLabel1 = new JLabel(TRANSFORM_TO_SPEECH_LABEL_TEXT1);
+		transformToSpeechLabel1.setForeground(SystemColor.desktop);
+		transformToSpeechLabel1.setVerticalAlignment(SwingConstants.TOP);
+		transformToSpeechLabel1.setHorizontalAlignment(SwingConstants.LEFT);
+		transformToSpeechLabel1.setBounds(506, 38, 130, 14);
+		frame.getContentPane().add(transformToSpeechLabel1);
+		
+		JLabel transformToSpeechLabel2 = new JLabel(TRANSFORM_TO_SPEECH_LABEL_TEXT2);
+		transformToSpeechLabel2.setVerticalAlignment(SwingConstants.TOP);
+		transformToSpeechLabel2.setHorizontalAlignment(SwingConstants.LEFT);
+		transformToSpeechLabel2.setBounds(506, 52, 130, 14);
+		frame.getContentPane().add(transformToSpeechLabel2);
+		
+		JLabel encodingOptionsLabel = new JLabel(ENCODE_LABEL);
+		encodingOptionsLabel.setVerticalAlignment(SwingConstants.TOP);
+		encodingOptionsLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		encodingOptionsLabel.setBounds(506, 151, 130, 14);
+		frame.getContentPane().add(encodingOptionsLabel);
+		
+		JButton encodeAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
+		encodeAllButton.setBounds(506, 171, 130, 23);
+		frame.getContentPane().add(encodeAllButton);
+		
+		JButton encodeSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
+		encodeSelectedButton.setVerticalAlignment(SwingConstants.TOP);
+		encodeSelectedButton.setBounds(506, 203, 130, 23);
+		frame.getContentPane().add(encodeSelectedButton);
 	}
-
-/*private void saveFile(String fileName) {
-		try {
-			FileWriter writer = new FileWriter(fileName);
-			textArea.write(writer);
-			writer.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(btnSave, this, "File" + fileName + "can't be saved.", 0);
-
-		}
-	}
-*/
-		public void openFile() {
-				return;
-		}
 }
-
-
-
-
-
-
-
-/*public void actionPerformed(ActionEvent e) {
-String	cn = textChooseN.getText()	.toString();
-String  an = textAuthorsN.getText().toString();
-String  ta = textArea.getText()	.toString();
-
-try {
-	FileWriter writer = new FileWriter("chris.txt",true);
-	writer.write(cn);
-	writer.write(System.getProperty("line.separator"));
-	writer.write(an);
-	writer.write(System.getProperty("line.separator"));
-	writer.write(ta);
-	writer.write(System.getProperty("line.separator"));
-	writer.close();
-	JOptionPane.showMessageDialog(getRootPane(), "Success");
-
-
-} catch(Exception e1) {
-
-	JOptionPane.showMessageDialog(getRootPane(), "Error");
-
-}
-
-JFileChooser fc=new JFileChooser();
-				fc.showSaveDialog(null);
-				File f=fc.getSelectedFile()	;
-				try {
-					FileWriter fw=new FileWriter(f);
-					String text =textArea.getText();
-					fw.write(text);
-					fw.close();
-			    }
-				catch(IOException e1){
-					System.out.println(e1);
-				}
-
-} */
