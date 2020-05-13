@@ -25,7 +25,7 @@ public class DocumentEditorView {
 	private static final String ENCODE_LABEL = "Encoding options:";
 	private static final String AUTHORS_NAME_LABEL = "Author's Name";
 
-	private static final String DELETE_BUTTON_TEXT = "Delete";
+	private static final String LOAD_BUTTON_TEXT = "Load";
 	private static final String SAVE_BUTTON_TEXT = "Save";
 	private static final String TRANSFORM_ALL_BUTTON_TEXT = "Transform all";
 	private static final String TRANSFORM_SELECTED_BUTTON_TEXT = "Transform selected";
@@ -87,9 +87,9 @@ public class DocumentEditorView {
 		lModifiedTimestampPlaceholder.setBounds(537, 329, 86, 14);
 		frame.getContentPane().add(lModifiedTimestampPlaceholder);
 		
-		JButton deleteButton = new JButton(DELETE_BUTTON_TEXT);
-		deleteButton.setBounds(506, 435, 130, 23);
-		frame.getContentPane().add(deleteButton);
+		JButton loadButton = new JButton(LOAD_BUTTON_TEXT);
+		loadButton.setBounds(506, 435, 130, 23);
+		frame.getContentPane().add(loadButton);
 		
 		JButton saveButton = new JButton(SAVE_BUTTON_TEXT);
 		saveButton.setBounds(506, 469, 130, 23);
