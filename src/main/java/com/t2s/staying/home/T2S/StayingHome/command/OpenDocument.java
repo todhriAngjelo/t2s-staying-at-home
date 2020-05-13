@@ -21,6 +21,7 @@ public class OpenDocument implements ActionListener {
 	public OpenDocument(DocumentEditorView openDocumentView){this.openDocumentView =openDocumentView;}
 
 	@Override
+	//change
 	public void actionPerformed(java.awt.event.ActionEvent e) {
 		JFileChooser dialog = new JFileChooser();
 		if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
