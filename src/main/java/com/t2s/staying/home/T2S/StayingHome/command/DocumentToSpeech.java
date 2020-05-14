@@ -14,8 +14,6 @@ public class DocumentToSpeech implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// todo
-		System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
 		FreeTTSAdapter freeTTS = new FreeTTSAdapter();
 		try {
 			freeTTS.play(documentToSpeechView.getTextArea());

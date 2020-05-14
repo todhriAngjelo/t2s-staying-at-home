@@ -1,24 +1,14 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
-import com.t2s.staying.home.T2S.StayingHome.ApplicationConstants;
-import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
-import com.t2s.staying.home.T2S.StayingHome.command.OpenDocument;
-import com.t2s.staying.home.T2S.StayingHome.command.SaveDocument;
-import org.aspectj.apache.bcel.classfile.Module;
+import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.OPEN_DOCUMENT_COMMAND;
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.NEW_DOCUMENT_COMMAND;
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.SAVE_DOCUMENT_COMMAND;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 public class DocumentEditorView {
 
@@ -41,7 +31,7 @@ public class DocumentEditorView {
 	private static final String RETURN_TO_MAIN_MENU_BUTTON_TEXT = "< Main Menu";
 
 	private JFrame frame;
-	private  JTextField textArea;
+	private  JTextArea textArea;
 	private JTextField authorTextField;
 	private JTextField documentTitleTextField;
 
@@ -71,7 +61,8 @@ public class DocumentEditorView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		textArea = new JTextField();
+		textArea = new JTextArea();
+
 		textArea.setBounds(10, 92, 459, 414);
 		frame.getContentPane().add(textArea);
 		textArea.setColumns(10);
@@ -114,11 +105,12 @@ public class DocumentEditorView {
 
 		//------ DocumentToSpeech -----//
 		JButton ttsAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
-		ActionListener doc2SpeechActionListener = commandsFactory.createCommand("text2SpeechDocument", this);
+		ActionListener doc2SpeechActionListener = commandsFactory.createCommand(DOC_TO_SPEECH_COMMAND, this);
 		ttsAllButton.addActionListener(doc2SpeechActionListener);
 		ttsAllButton.setBounds(506, 77, 130, 23);
 		frame.getContentPane().add(ttsAllButton);
-		
+
+		//------ Back To MainMenu ----//
 		JButton returnToMainMenuButton = new JButton(RETURN_TO_MAIN_MENU_BUTTON_TEXT);
 		returnToMainMenuButton.setBounds(506, 401, 130, 23);
 		frame.getContentPane().add(returnToMainMenuButton);
@@ -145,10 +137,14 @@ public class DocumentEditorView {
 		documentTitleTextField.setBounds(169, 36, 130, 20);
 		frame.getContentPane().add(documentTitleTextField);
 
+		//---- LineToSpeech -----//
 		JButton ttsSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
-		ttsSelectedButton.setVerticalAlignment(SwingConstants.TOP);
-		ttsSelectedButton.addActionListener(e -> {
-		});
+		ActionListener line2SpeechActionListener = commandsFactory.createCommand(LINE_TO_SPEECH, this);
+		ttsSelectedButton.addActionListener(line2SpeechActionListener);
+		//ttsSelectedButton.setVerticalAlignment(SwingConstants.TOP);
+		//ttsSelectedButton.addActionListener(e -> {
+		//});
+		//});
 		ttsSelectedButton.setBounds(506, 109, 130, 23);
 		frame.getContentPane().add(ttsSelectedButton);
 
@@ -184,10 +180,10 @@ public class DocumentEditorView {
 	public String getTextArea(){
 		return textArea.getText();
 	}
-	public JTextField getJTextArea(){
+	public JTextArea getJTextArea(){
 		return textArea;
 	}
-	public void setTextArea(JTextField txt){
+	public void setTextArea(JTextArea txt){
 		this.textArea=txt;
 
 	}

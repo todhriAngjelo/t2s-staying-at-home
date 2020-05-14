@@ -1,6 +1,8 @@
 package com.t2s.staying.home.T2S.StayingHome.t2sClasses;
 
-public class FakeTextToSpeechAPI {
+import com.t2s.staying.home.T2S.StayingHome.theinterfaces.TextToSpeechAPI;
+
+public class FakeTextToSpeechAPI implements TextToSpeechAPI {
 
     public FakeTextToSpeechAPI(){}
 
