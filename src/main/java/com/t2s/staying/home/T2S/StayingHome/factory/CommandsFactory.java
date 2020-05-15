@@ -24,6 +24,12 @@ public class CommandsFactory {
 		}else if (commandKind.equals("text2SpeechLine")){
 			LineToSpeech lineToSpeech = new LineToSpeech((DocumentEditorView) view);
 			return lineToSpeech;
+		}else if (commandKind.equals("reverseAll")){
+			ReverseAll reverseAll = new ReverseAll((DocumentEditorView) view);
+			return reverseAll;
+		}else if (commandKind.equals("reverseLine")){
+			ReverseLine reverseLine = new ReverseLine((DocumentEditorView) view);
+			return reverseLine;
 		}
 		return null; // todo implement the rest of the commands
 	}

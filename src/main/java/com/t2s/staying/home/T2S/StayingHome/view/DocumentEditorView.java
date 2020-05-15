@@ -24,12 +24,15 @@ public class DocumentEditorView {
 	private static final String TRANSFORM_TO_SPEECH_LABEL_TEXT2 = "options:";
 	private static final String ENCODE_LABEL = "Encoding options:";
 	private static final String AUTHORS_NAME_LABEL = "Author's Name";
+	private static final String REVERSE_LABEL = "Reverse options:";
 
 	private static final String LOAD_BUTTON_TEXT = "Load";
 	private static final String SAVE_BUTTON_TEXT = "Save";
 	private static final String TRANSFORM_ALL_BUTTON_TEXT = "Transform all";
 	private static final String TRANSFORM_SELECTED_BUTTON_TEXT = "Transform selected";
 	private static final String RETURN_TO_MAIN_MENU_BUTTON_TEXT = "< Main Menu";
+	private static final String REVERSE_ALL_BUTTON_TEXT = "Reverse all";
+	private static final String REVERSE_SELECTED_BUTTON_TEXT = "Reverse selected";
 
 	private JFrame frame;
 	private  JTextArea textArea;
@@ -71,21 +74,21 @@ public class DocumentEditorView {
 		JLabel textAreaLabel = new JLabel(TEXT_AREA_LABEL);
 		textAreaLabel.setBounds(10, 67, 89, 14);
 		frame.getContentPane().add(textAreaLabel);
-		
+
 		JLabel creationTimestampLabel = new JLabel(CREATION_TIMESTAMP_LABEL);
-		creationTimestampLabel.setBounds(511, 264, 86, 14);
+		creationTimestampLabel.setBounds(511, 293, 86, 14);
 		frame.getContentPane().add(creationTimestampLabel);
-		
+
 		JLabel creationTimestampPlaceholder = new JLabel("-"); // init value that is going to be modified
-		creationTimestampPlaceholder.setBounds(537, 284, 86, 14);
+		creationTimestampPlaceholder.setBounds(537, 317, 86, 14);
 		frame.getContentPane().add(creationTimestampPlaceholder);
-		
+
 		JLabel lModifiedTimestampLabel = new JLabel(LAST_MODIFIED_TIMESTAMP_LABEL);
-		lModifiedTimestampLabel.setBounds(511, 309, 86, 14);
+		lModifiedTimestampLabel.setBounds(511, 341, 86, 14);
 		frame.getContentPane().add(lModifiedTimestampLabel);
-		
+
 		JLabel lModifiedTimestampPlaceholder = new JLabel("-"); // init value that is going to be modified
-		lModifiedTimestampPlaceholder.setBounds(537, 329, 86, 14);
+		lModifiedTimestampPlaceholder.setBounds(537, 365, 86, 14);
 		frame.getContentPane().add(lModifiedTimestampPlaceholder);
 
 
@@ -108,7 +111,7 @@ public class DocumentEditorView {
 		JButton ttsAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
 		ActionListener doc2SpeechActionListener = commandsFactory.createCommand(DOC_TO_SPEECH_COMMAND, this);
 		ttsAllButton.addActionListener(doc2SpeechActionListener);
-		ttsAllButton.setBounds(506, 77, 130, 23);
+		ttsAllButton.setBounds(506, 46, 130, 23);
 		frame.getContentPane().add(ttsAllButton);
 
 		//------ Back To MainMenu ----//
@@ -146,36 +149,54 @@ public class DocumentEditorView {
 		//ttsSelectedButton.addActionListener(e -> {
 		//});
 		//});
-		ttsSelectedButton.setBounds(506, 109, 130, 23);
+		ttsSelectedButton.setBounds(506, 77, 130, 23);
 		frame.getContentPane().add(ttsSelectedButton);
 
 		JLabel transformToSpeechLabel1 = new JLabel(TRANSFORM_TO_SPEECH_LABEL_TEXT1);
 		transformToSpeechLabel1.setForeground(SystemColor.desktop);
 		transformToSpeechLabel1.setVerticalAlignment(SwingConstants.TOP);
 		transformToSpeechLabel1.setHorizontalAlignment(SwingConstants.LEFT);
-		transformToSpeechLabel1.setBounds(506, 38, 130, 14);
+		transformToSpeechLabel1.setBounds(506, 11, 130, 14);
 		frame.getContentPane().add(transformToSpeechLabel1);
 
 		JLabel transformToSpeechLabel2 = new JLabel(TRANSFORM_TO_SPEECH_LABEL_TEXT2);
 		transformToSpeechLabel2.setVerticalAlignment(SwingConstants.TOP);
 		transformToSpeechLabel2.setHorizontalAlignment(SwingConstants.LEFT);
-		transformToSpeechLabel2.setBounds(506, 52, 130, 14);
+		transformToSpeechLabel2.setBounds(506, 23, 130, 14);
 		frame.getContentPane().add(transformToSpeechLabel2);
 
 		JLabel encodingOptionsLabel = new JLabel(ENCODE_LABEL);
 		encodingOptionsLabel.setVerticalAlignment(SwingConstants.TOP);
 		encodingOptionsLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		encodingOptionsLabel.setBounds(506, 151, 130, 14);
+		encodingOptionsLabel.setBounds(506, 203, 130, 14);
 		frame.getContentPane().add(encodingOptionsLabel);
 
 		JButton encodeAllButton = new JButton(TRANSFORM_ALL_BUTTON_TEXT);
-		encodeAllButton.setBounds(506, 171, 130, 23);
+		encodeAllButton.setBounds(506, 227, 130, 23);
 		frame.getContentPane().add(encodeAllButton);
 
 		JButton encodeSelectedButton = new JButton(TRANSFORM_SELECTED_BUTTON_TEXT);
 		encodeSelectedButton.setVerticalAlignment(SwingConstants.TOP);
-		encodeSelectedButton.setBounds(506, 203, 130, 23);
+		encodeSelectedButton.setBounds(506, 260, 130, 23);
 		frame.getContentPane().add(encodeSelectedButton);
+
+		JLabel reverselblLabel = new JLabel(REVERSE_LABEL);
+		reverselblLabel.setBounds(511, 110, 86, 13);
+		frame.getContentPane().add(reverselblLabel);
+
+		// ----- Reverse ALL -----//
+		JButton reverseAllButton = new JButton(REVERSE_ALL_BUTTON_TEXT);
+		ActionListener reverseAllActionListener = commandsFactory.createCommand(REVERSE_ALL_COMMAND, this);
+		reverseAllButton.addActionListener(reverseAllActionListener);
+		reverseAllButton.setBounds(506, 133, 130, 21);
+		frame.getContentPane().add(reverseAllButton);
+
+		// ----- Reverse Line -----//
+		JButton reverseLineButton_1 = new JButton(REVERSE_SELECTED_BUTTON_TEXT);
+		ActionListener reverseLineActionListener = commandsFactory.createCommand(REVERSE_LINE_COMMAND, this);
+		reverseLineButton_1.addActionListener(reverseLineActionListener);
+		reverseLineButton_1.setBounds(506, 164, 130, 21);
+		frame.getContentPane().add(reverseLineButton_1);
 	}
 
 	public String getTextArea(){
@@ -202,5 +223,4 @@ public class DocumentEditorView {
 		}
 		return lineNumber;
 	}
-
 }

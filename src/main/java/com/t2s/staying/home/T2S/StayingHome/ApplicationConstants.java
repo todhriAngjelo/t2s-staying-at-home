@@ -10,6 +10,8 @@ public class ApplicationConstants {
 	public static final String  SAVE_DOCUMENT_COMMAND = "saveDocument";
 	public static final String  DOC_TO_SPEECH_COMMAND = "text2SpeechDocument";
 	public static final String LINE_TO_SPEECH = "text2SpeechLine";
+	public static final String REVERSE_ALL_COMMAND = "reverseAll";
+	public static final String REVERSE_LINE_COMMAND = "reverseLine";
 
 
 
