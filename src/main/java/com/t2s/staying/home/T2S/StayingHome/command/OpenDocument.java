@@ -1,15 +1,13 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.*;
-
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.utils.FileUtils;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 
 import static com.t2s.staying.home.T2S.utils.FileUtils.getFileBufferReader;
 
@@ -18,7 +16,7 @@ public class OpenDocument implements ActionListener {
 
 	private static DocumentEditorView openDocumentView;
 
-	public OpenDocument(DocumentEditorView openDocumentView){this.openDocumentView =openDocumentView;}
+	public OpenDocument(DocumentEditorView openDocumentView){this.openDocumentView = openDocumentView;}
 
 	@Override
 	public void actionPerformed(java.awt.event.ActionEvent e) {

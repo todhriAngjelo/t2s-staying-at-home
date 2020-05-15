@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -189,6 +190,17 @@ public class DocumentEditorView {
 	}
 	public void setAuthorTextField(String author){
 		this.authorTextField.setText(author);
+	}
+
+	public int getLineNumber(){
+		int caretPos = textArea.getCaretPosition();
+		int lineNumber = 0;
+		try {
+			lineNumber = textArea.getLineOfOffset(caretPos);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		return lineNumber;
 	}
 
 }
