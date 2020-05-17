@@ -66,7 +66,7 @@ public class OpenDocument implements ActionListener {
 			}
 
 			DocumentManager.updateStaticCurrentDocument(title, author, lines, creationTime, lModifiedTime);
-			updateView(getCurrentDocument());
+			updateView(DocumentManager.getCurrentDocument());
 		}
 	}
 
@@ -76,6 +76,6 @@ public class OpenDocument implements ActionListener {
 				document.getAuthorsName(),
 				DateUtils.getTimezoneStringDate(document.getCreationTime(), null),
 				DateUtils.getTimezoneStringDate(document.getLastModifiedTime(), null),
-				DocumentManager.getTextFromDocument(document));
+				document.getLines());
 	}
 }

@@ -4,6 +4,8 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -83,8 +85,8 @@ public class DocumentEditorView {
 
 		//------SAVE-----//
 		JButton saveButton = new JButton(UPDATE_BUTTON_TEXT);
-		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
-		saveButton.addActionListener(saveDocumentActionListener);
+//		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
+//		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(728, 471, 130, 23);
 		frame.getContentPane().add(saveButton);
 
@@ -231,12 +233,14 @@ public class DocumentEditorView {
 		JOptionPane.showMessageDialog(frame, message);
 	}
 
-	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, String docText) {
+	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, List<String> lines) {
 		this.documentTitleTextField.setText(docTitle);
 		this.authorTextField.setText(docAuthor);
 		this.creationTimestampPlaceholder.setText(docCreationTime);
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
-		this.textPane.setText(docText);
+		for (String line : lines) {
+			this.textPane.setText(this.textPane.getText().concat(line).concat("<br>"));
+		}
 	}
 
 	public void goToMainView() {
