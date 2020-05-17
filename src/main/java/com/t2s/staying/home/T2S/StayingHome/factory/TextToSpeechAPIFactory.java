@@ -1,19 +1,20 @@
 package com.t2s.staying.home.T2S.StayingHome.factory;
 
+import com.t2s.staying.home.T2S.StayingHome.tts.FakeTextToSpeechAPI;
+import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
+import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
+
 public class TextToSpeechAPIFactory {
 
-    public TextToSpeechAPIFactory(){
+	//    @Value("${text.to.speech.api}")
+	private String text2SpeechApi = "freeTTSAdapter";
 
-    }
- /*   public TextToSpeechAPI createTTSAPI(String newT2s){
-
-        if(newT2s.equals("freeTTSAdapter")){
-          //  return new FreeTTSAdapter();
-        } else
-        if(newT2s.equals("FakeT2s")){
-            //return new FakeTextToSpeechAPI();
-        }
-
-
-    }*/
+	public TextToSpeechAPI getTTSApi() {
+		if (text2SpeechApi.equals("freeTTSAdapter")) {
+			return new FreeTTSAdapter();
+		} else if (text2SpeechApi.equals("FakeT2s")) {
+			return new FakeTextToSpeechAPI();
+		}
+		return null;
+	}
 }

@@ -1,8 +1,9 @@
-package com.t2s.staying.home.T2S.StayingHome.t2sClasses;
+package com.t2s.staying.home.T2S.StayingHome.tts;
 
-public class FakeTextToSpeechAPI {
-
-    public FakeTextToSpeechAPI(){}
+/**
+ * todo documentation
+ */
+public class FakeTextToSpeechAPI implements TextToSpeechAPI {
 
     public void play(String pl){}
 
@@ -11,5 +12,4 @@ public class FakeTextToSpeechAPI {
     public void setPitch(int pitch){}
 
     public void setRate(int rate){}
-
 }
