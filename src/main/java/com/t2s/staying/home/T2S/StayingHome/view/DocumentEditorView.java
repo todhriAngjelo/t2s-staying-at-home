@@ -124,8 +124,8 @@ public class DocumentEditorView {
 
 		//---- LineToSpeech -----//
 		JButton ttsSelectedButton = new JButton(SELECTED_LINE_BUTTON_TEXT);
-		ActionListener line2SpeechActionListener = commandsFactory.createCommand(LINE_TO_SPEECH, this);
-		ttsSelectedButton.addActionListener(line2SpeechActionListener);
+		ActionListener lineToSpeechActionListener = commandsFactory.createCommand(LINE_TO_SPEECH, this);
+		ttsSelectedButton.addActionListener(lineToSpeechActionListener);
 		ttsSelectedButton.setBounds(567, 77, 130, 23);
 		frame.getContentPane().add(ttsSelectedButton);
 

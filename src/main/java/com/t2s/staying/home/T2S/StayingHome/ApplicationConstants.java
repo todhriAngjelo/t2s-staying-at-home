@@ -16,7 +16,6 @@ public class ApplicationConstants {
 	public static final String AUTHOR_METADATA_NAME = "author";
 	public static final String TITLE_METADATA_NAME = "title";
 
-
 	//VOICES
 	public static final String VOICE_KEVIN16 = "kevin16";
 	public static final String VOICE_KEVIN = "kevin";
