@@ -13,6 +13,8 @@ public class ApplicationConstants {
 	public static final String REVERSE_ALL_COMMAND = "reverseAll";
 	public static final String REVERSE_LINE_COMMAND = "reverseLine";
 
+	public static final String AUTHOR_METADATA_NAME = "author";
+	public static final String TITLE_METADATA_NAME = "title";
 
 
 	//VOICES
