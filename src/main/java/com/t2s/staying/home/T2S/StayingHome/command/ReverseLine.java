@@ -1,38 +1,32 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import com.t2s.staying.home.T2S.StayingHome.t2sClasses.FreeTTSAdapter;
-import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+import static com.t2s.staying.home.T2S.utils.DocumentUtils.getCurrentDocument;
+import static com.t2s.staying.home.T2S.utils.DocumentUtils.getListWordsInAString;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechAPIFactory;
+import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+import com.t2s.staying.home.T2S.utils.DocumentUtils;
 
 public class ReverseLine implements ActionListener {
 
-    DocumentEditorView reverseLineView;
+    TextToSpeechAPIFactory textToSpeechAPI = new TextToSpeechAPIFactory();
+    DocumentEditorView view;
 
-    public ReverseLine(DocumentEditorView reverseLineView) { this.reverseLineView = reverseLineView;}
+    public ReverseLine(DocumentEditorView view) { this.view = view;}
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int lineNumber = reverseLineView.getLineNumber();
-        String doc = reverseLineView.getTextArea();
+        List<String> words = new ArrayList<>(
+                DocumentUtils.findDocumentLineFromCaretPosition(view.getLineNumber(), getCurrentDocument()).getWords());
 
-        List<String> lines = Arrays.asList(doc.split("\n"));
-        //List<lines> words = Arrays.asList(lines.split(" "));
-        //Collections.reverse(lines);
+        Collections.reverse(words);
 
-        FreeTTSAdapter freeTTS = new FreeTTSAdapter();
-        try {
-            for (int n = 0; n < reverseLineView.getJTextArea().getLineCount(); n += 1)
-            {
-                if (lineNumber == n) {
-                    freeTTS.play(lines.get(n));
-                }
-            }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+        textToSpeechAPI.getTTSApi().play(getListWordsInAString(words));
     }
 }

@@ -12,11 +12,15 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 public class FileUtils {
 
 	private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
+	public static final String FILE_TIMESTAMPS_DEBUG_MESSAGE = "An error occurred while trying to get file creation/last modified time";
+	public static final String CREATE_BUFFERED_READER_ERROR_DEBUG_MESSAGE = "An error occurred while trying to create buffered reader";
+	public static final String CLOSE_BUFFERED_READER_ERROR_DEBUG_MESSAGE = "An error occurred while trying to close buffered reader";
 
 	/**
 	 * This methods writes an user defined attribute value at a file given in the method arguments.
@@ -28,7 +32,7 @@ public class FileUtils {
 	 * @return the operation result
 	 * @throws IOException for example if file has not been found
 	 */
-	public static boolean setFileMetadata(String filepath, String metadataName, String metadataValue) throws IOException {
+	public static Boolean setFileMetadata(String filepath, String metadataName, String metadataValue) {
 		if (Strings.isBlank(metadataName) || Strings.isBlank(metadataValue))
 			return false;
 
@@ -36,9 +40,15 @@ public class FileUtils {
 				Paths.get(filepath),
 				UserDefinedFileAttributeView.class);
 
-		int bytesWritten = view.write(
-				String.format("user.%s", metadataName),
-				Charset.defaultCharset().encode(metadataValue));
+		int bytesWritten = 0;
+		try {
+			bytesWritten = view.write(
+					String.format("user.%s", metadataName),
+					Charset.defaultCharset().encode(metadataValue));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 
 		log.info("Attribute {" + metadataName + ":" + metadataValue + "} has been set to the file at location: " + filepath);
 		return bytesWritten > 0;
@@ -48,17 +58,29 @@ public class FileUtils {
 	 * This methods writes an user defined attribute value at a file given in the method arguments.
 	 * Empty or null metadata are not accepted
 	 *
-	 * @param filepath      the full os filepath for the file to be retrieved
-	 * @param metadataName  the metadata name
+	 * @param filepath     the full os filepath for the file to be retrieved
+	 * @param metadataName the metadata name
 	 * @return the attribute found int he file
 	 * @throws IOException for example if file has not been found or the attribute has not been found
 	 */
-	public static String getFileMetadata(String filepath, String metadataName) throws IOException {
+	public static String getFileMetadata(String filepath, String metadataName) {
 		UserDefinedFileAttributeView view =
 				Files.getFileAttributeView(Paths.get(filepath), UserDefinedFileAttributeView.class);
 
-		ByteBuffer buf = ByteBuffer.allocate(view.size(String.format("user.%s", metadataName)));
-		view.read(String.format("user.%s", metadataName), buf);
+		ByteBuffer buf = null;
+		try {
+			buf = ByteBuffer.allocate(view.size(String.format("user.%s", metadataName)));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		try {
+			view.read(String.format("user.%s", metadataName), buf);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 		buf.flip();
 
 		String metadataValue = Charset.defaultCharset().decode(buf).toString();
@@ -67,19 +89,64 @@ public class FileUtils {
 		return metadataValue;
 	}
 
-	public static BufferedReader getFileBufferReader(String absolutePath) {
+	/**
+	 * Create a buffered reader from a file
+	 *
+	 * @param filepath the full os filepath for the file to be retrieved
+	 * @return the buffered reader
+	 */
+	public static BufferedReader getFileBufferReader(String filepath) {
 		try {
-			FileReader reader = new FileReader(absolutePath);
-			BufferedReader br = new BufferedReader(reader);
-			return br;
+			return new BufferedReader(new FileReader(filepath));
 		} catch (IOException e) {
-			System.out.println("An error occurred.");
+			log.debug(filepath);
+			log.debug(CREATE_BUFFERED_READER_ERROR_DEBUG_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
 	}
-	public static File getFileReader(String absolutePath) {
-		File myObj = new File(absolutePath);
-		return myObj;
+
+	public static void closeBufferedReader(BufferedReader bufferedReader) {
+		try {
+			bufferedReader.close();
+		} catch (IOException e) {
+			log.debug(CLOSE_BUFFERED_READER_ERROR_DEBUG_MESSAGE);
+		}
+	}
+
+	/**
+	 * Create a file object from a file
+	 *
+	 * @param filepath the full os filepath for the file to be retrieved
+	 * @return the file object
+	 */
+	public static File getFileReader(String filepath) {
+		return new File(filepath);
+	}
+
+	public static Long getFileCreationTime(String filepath) {
+		BasicFileAttributes basicFileAttributes = null;
+		try {
+			basicFileAttributes = Files.readAttributes(Paths.get(filepath), BasicFileAttributes.class);
+			return basicFileAttributes.creationTime().toMillis();
+		} catch (IOException e) {
+			log.debug(filepath);
+			log.debug(FILE_TIMESTAMPS_DEBUG_MESSAGE);
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static Long getFileLastModifiedTime(String filepath) {
+		BasicFileAttributes basicFileAttributes = null;
+		try {
+			basicFileAttributes = Files.readAttributes(Paths.get(filepath), BasicFileAttributes.class);
+			return basicFileAttributes.lastModifiedTime().toMillis();
+		} catch (IOException e) {
+			log.debug(filepath);
+			log.debug(FILE_TIMESTAMPS_DEBUG_MESSAGE);
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
