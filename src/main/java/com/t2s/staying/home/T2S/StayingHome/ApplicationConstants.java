@@ -12,7 +12,7 @@ public class ApplicationConstants {
 	public static final String LINE_TO_SPEECH = "text2SpeechLine";
 	public static final String REVERSE_ALL_COMMAND = "reverseAll";
 	public static final String REVERSE_LINE_COMMAND = "reverseLine";
-
+	public static final String ROT_ALL_LINES_COMMAND ="rot";
 
 
 	//VOICES

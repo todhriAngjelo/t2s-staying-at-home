@@ -197,7 +197,10 @@ public class DocumentEditorView {
 		reverseLineButton_1.setBounds(718, 77, 130, 23);
 		frame.getContentPane().add(reverseLineButton_1);
 
+		//---------Rot13 all lines--------//
 		JButton button = new JButton(ALL_LINES_BUTTON_TEXT);
+		ActionListener RotAllLinesActionListener = commandsFactory.createCommand(ROT_ALL_LINES_COMMAND, this);
+		button.addActionListener(RotAllLinesActionListener);
 		button.setBounds(728, 317, 130, 23);
 		frame.getContentPane().add(button);
 
