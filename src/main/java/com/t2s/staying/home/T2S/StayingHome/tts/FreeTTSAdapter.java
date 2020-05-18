@@ -12,7 +12,7 @@ public class FreeTTSAdapter implements TextToSpeechAPI {
 
 	public FreeTTSAdapter() {
 		System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-		this.voice = vm.getVoice(VOICE_KEVIN16);
+		this.voice = vm.getVoice(VOICE_ALAN);
 		voice.allocate();
 	}
 
@@ -21,7 +21,7 @@ public class FreeTTSAdapter implements TextToSpeechAPI {
 
 	}
 
-	public void setVolume(int volume) {
+	public void setVolume(float volume) {
 		this.voice.setVolume(volume);
 	}
 

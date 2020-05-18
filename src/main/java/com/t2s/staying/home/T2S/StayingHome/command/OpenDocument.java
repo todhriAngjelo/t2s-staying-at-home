@@ -2,7 +2,6 @@ package com.t2s.staying.home.T2S.StayingHome.command;
 
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
-import static com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager.getCurrentDocument;
 
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -47,7 +46,7 @@ public class OpenDocument implements ActionListener {
 				bufferedReader.lines().forEach(line -> lines.add(line));
 				FileUtils.closeBufferedReader(bufferedReader);
 			} else {
-				view.showErrorDialog(ApplicationErrors.LOAD_FILE_ERROR);
+				view.showMessageDialog(ApplicationErrors.LOAD_FILE_ERROR);
 			}
 
 			String title = FileUtils.getFileMetadata(dialog.getSelectedFile().getAbsolutePath(), AUTHOR_METADATA_NAME);
@@ -56,12 +55,12 @@ public class OpenDocument implements ActionListener {
 			Long creationTime = FileUtils.getFileCreationTime(dialog.getSelectedFile().getAbsolutePath());
 
 			if (Strings.isBlank(title) || Strings.isBlank(author)) {
-				view.showErrorDialog(ApplicationErrors.EMPTY_TITLE_AUTHOR_ERROR);
+				view.showMessageDialog(ApplicationErrors.EMPTY_TITLE_AUTHOR_ERROR);
 				view.goToMainView();
 			}
 
 			if (creationTime == null || lModifiedTime == null) {
-				view.showErrorDialog(ApplicationErrors.EMPTY_FILE_TIMESTAMPS_ERROR);
+				view.showMessageDialog(ApplicationErrors.EMPTY_FILE_TIMESTAMPS_ERROR);
 				view.goToMainView();
 			}
 

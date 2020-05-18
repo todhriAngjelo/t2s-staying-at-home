@@ -31,8 +31,6 @@ public class CommandsFactory {
 			ReverseLine reverseLine = new ReverseLine((DocumentEditorView) view);
 			return reverseLine;
 		}
-		return null; // todo implement the rest of the commands
+		return null;
 	}
-
-
 }
