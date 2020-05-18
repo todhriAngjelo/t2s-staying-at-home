@@ -1,38 +1,29 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import com.t2s.staying.home.T2S.StayingHome.t2sClasses.FreeTTSAdapter;
-import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+import static com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager.getCurrentDocument;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.List;
+
+import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechAPIFactory;
+import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
+import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
 public class ReverseLine implements ActionListener {
 
-    DocumentEditorView reverseLineView;
+    TextToSpeechAPIFactory textToSpeechAPI = new TextToSpeechAPIFactory();
+    DocumentEditorView view;
 
-    public ReverseLine(DocumentEditorView reverseLineView) { this.reverseLineView = reverseLineView;}
+    public ReverseLine(DocumentEditorView view) { this.view = view;}
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int lineNumber = reverseLineView.getLineNumber();
-        String doc = reverseLineView.getTextArea();
-
-        List<String> lines = Arrays.asList(doc.split("\n"));
-        //List<lines> words = Arrays.asList(lines.split(" "));
-        //Collections.reverse(lines);
-
-        FreeTTSAdapter freeTTS = new FreeTTSAdapter();
-        try {
-            for (int n = 0; n < reverseLineView.getJTextArea().getLineCount(); n += 1)
-            {
-                if (lineNumber == n) {
-                    freeTTS.play(lines.get(n));
-                }
-            }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+        getCurrentDocument().getLines();
+//        DocumentManager.get
+//        DocumentUtils.findLineFromCaretPosition(view.getLineNumber(), getCurrentDocument()).getWords());
+//
+//        Collections.reverse(words);
+//
+//        textToSpeechAPI.getTTSApi().play(getListWordsInAString(words));
     }
 }

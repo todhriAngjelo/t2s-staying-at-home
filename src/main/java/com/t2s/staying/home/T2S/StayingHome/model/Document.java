@@ -1,41 +1,20 @@
 package com.t2s.staying.home.T2S.StayingHome.model;
 
-import com.t2s.staying.home.T2S.StayingHome.t2sClasses.FreeTTSAdapter;
-import com.t2s.staying.home.T2S.StayingHome.theinterfaces.TextToSpeechAPI;
-
-import java.util.Arrays;
 import java.util.List;
+
+import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
+import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 
 public class Document {
 
 	// models should be pure. no methods here only properties and setters getters. if we need business logic we can create managers
 	private EncodingStrategy encodingStrategy;
 	private TextToSpeechAPI audioManager;
-	//private List<Line> lines;
-	private String content;
-
+	private List<String> lines;
 	private Long creationTime;
-
+	private Long lastModifiedTime;
 	private String authorsName;
 	private String title;
-
-	public Document(){}
-
-	public void setText(String content){
-		this.content = content;
-		List<String> lines = Arrays.asList(content.split("\n"));
-	}
-
-	public void setLines(){
-	}
-
-//	public List<Line> getLines() {
-//		return lines;
-//	}
-//
-//	public void setLines(List<Line> lines) {
-//		this.lines = lines;
-//	}
 
 	public EncodingStrategy getEncodingStrategy() {
 		return encodingStrategy;
@@ -51,6 +30,14 @@ public class Document {
 
 	public void setAudioManager(TextToSpeechAPI audioManager) {
 		this.audioManager = audioManager;
+	}
+
+	public List<String> getLines() {
+		return lines;
+	}
+
+	public void setLines(List<String> lines) {
+		this.lines = lines;
 	}
 
 	public Long getCreationTime() {
@@ -77,21 +64,11 @@ public class Document {
 		this.title = title;
 	}
 
-	public void playContents(String text){
-		FreeTTSAdapter freeTTS = new FreeTTSAdapter();
-		freeTTS.play(text);
+	public Long getLastModifiedTime() {
+		return lastModifiedTime;
 	}
 
-	public void playReverseContents(){}
-
-	public void EncodedContents(){}
-
-	public void playLine(int line){}
-
-	public void playReverseLine(int line){}
-
-	public void playEncodedLine(int line){}
-
-	public void tuneEncodingStrategy(EncodingStrategy strategy){}
-
+	public void setLastModifiedTime(Long lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
 }
