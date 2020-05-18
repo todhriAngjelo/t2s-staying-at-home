@@ -1,5 +1,8 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,6 +13,7 @@ import javax.swing.*;
 import org.springframework.util.StringUtils;
 
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
+import com.t2s.staying.home.T2S.utils.FileUtils;
 
 public class NewDocument implements ActionListener {
 
@@ -32,19 +36,26 @@ public class NewDocument implements ActionListener {
 
 	private void saveFile(String filepath) {
 		try {
-			if (StringUtils.endsWithIgnoreCase(filepath, ".txt")) {
+			if (!StringUtils.endsWithIgnoreCase(filepath, ".txt")) {
 				filepath = filepath.concat(".txt");
 			}
 
 			File myObj = new File(filepath);
 			if (myObj.createNewFile()) {
+				FileUtils.setFileMetadata(filepath, AUTHOR_METADATA_NAME, view.getAuthorTextField());
+				FileUtils.setFileMetadata(filepath, TITLE_METADATA_NAME, view.getDocumentTitleTextField());
 				System.out.println("File created: " + myObj.getName());
+				view.showMessageDialog("File successfully created.");
+				view.goToMainView();
 			} else {
-				System.out.println("File already exists.");
+				view.showMessageDialog("File already exists. Try saving the file with another name");
+				actionPerformed(null);
 			}
 		} catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
 	}
+
+
 }
