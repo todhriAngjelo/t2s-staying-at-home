@@ -2,41 +2,49 @@ package com.t2s.staying.home.T2S.StayingHome.command;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.*;
+
+import org.springframework.util.StringUtils;
+
+import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 
 public class NewDocument implements ActionListener {
 
-//	public NewDocument(toDelete toDelete) {
-//		this.toDelete = toDelete;
-//	} fixme
+	public static final String SAVE_BUTTON_DIALOG_TITLE = "Specify the file to save:";
+
+	private NewDocumentView view;
+
+	public NewDocument(NewDocumentView view) {
+		this.view = view;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-//		try {
-//			if (getDocumentTitle() == null) {
-//				System.out.println("Can not create a document with an empty title.");
-//			}
-//			File myObj = new File(String.format(DEFAULT_SAVE_FILE_LOCATION + "%s.txt", getDocumentTitle()));
-//
-//			String path = DEFAULT_SAVE_FILE_LOCATION + getDocumentTitle() + ".txt";
-//
-//			if (myObj.createNewFile()) {
-//				System.out.println("File created: " + myObj.getName()); // todo implement ui success message
-//				FileUtils.setFileMetadata(path, "author", getDocumentAuthor());
-//			} else {
-//				System.out.println("File already exists."); // todo implement ui . already exists file
-//				FileUtils.getFileMetadata(path, "author");
-//			}
-//		} catch (IOException e) {
-//			System.out.println("An error occurred.");
-//			e.printStackTrace();
-//		} fixme
+		JFileChooser dialog = new JFileChooser();
+		dialog.setDialogTitle(SAVE_BUTTON_DIALOG_TITLE);
+		if (dialog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+			saveFile(dialog.getSelectedFile().getAbsolutePath());
+		}
 	}
 
-//	private String getDocumentTitle() {
-//		return toDelete.getDocumentTitle();
-//	}
-//
-//	private String getDocumentAuthor() {
-//		return toDelete.getDocumentAuthor();
-//	} // fixme
+	private void saveFile(String filepath) {
+		try {
+			if (StringUtils.endsWithIgnoreCase(filepath, ".txt")) {
+				filepath = filepath.concat(".txt");
+			}
+
+			File myObj = new File(filepath);
+			if (myObj.createNewFile()) {
+				System.out.println("File created: " + myObj.getName());
+			} else {
+				System.out.println("File already exists.");
+			}
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+	}
 }

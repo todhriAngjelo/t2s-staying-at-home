@@ -15,6 +15,8 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 
+import antlr.StringUtils;
+
 public class FileUtils {
 
 	private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
@@ -64,6 +66,10 @@ public class FileUtils {
 	 * @throws IOException for example if file has not been found or the attribute has not been found
 	 */
 	public static String getFileMetadata(String filepath, String metadataName) {
+		if (Strings.isBlank(filepath) && Strings.isBlank(metadataName))
+			return null;
+
+		log.info(String.format("Attempting to get file matadata for {%s, %s}: ", filepath, metadataName));
 		UserDefinedFileAttributeView view =
 				Files.getFileAttributeView(Paths.get(filepath), UserDefinedFileAttributeView.class);
 
@@ -97,6 +103,7 @@ public class FileUtils {
 	 */
 	public static BufferedReader getFileBufferReader(String filepath) {
 		try {
+			log.info("Attempting to get file buffer for: " + filepath);
 			return new BufferedReader(new FileReader(filepath));
 		} catch (IOException e) {
 			log.debug(filepath);

@@ -7,13 +7,13 @@ public class ApplicationConstants {
 	// commands factory string values
 	public static final String NEW_DOCUMENT_COMMAND = "newDocument";
 	public static final String OPEN_DOCUMENT_COMMAND = "openDocument";
-	public static final String  SAVE_DOCUMENT_COMMAND = "saveDocument";
-	public static final String  DOC_TO_SPEECH_COMMAND = "text2SpeechDocument";
+	public static final String DOC_TO_SPEECH_COMMAND = "text2SpeechDocument";
 	public static final String LINE_TO_SPEECH = "text2SpeechLine";
 	public static final String REVERSE_ALL_COMMAND = "reverseAll";
 	public static final String REVERSE_LINE_COMMAND = "reverseLine";
-	public static final String ROT_ALL_LINES_COMMAND ="rot";
 
+	public static final String AUTHOR_METADATA_NAME = "author";
+	public static final String TITLE_METADATA_NAME = "title";
 
 	//VOICES
 	public static final String VOICE_KEVIN16 = "kevin16";

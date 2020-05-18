@@ -4,23 +4,10 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Caret;
-import javax.swing.text.Document;
-import javax.swing.text.EditorKit;
-import javax.swing.text.ViewFactory;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
 
@@ -42,7 +29,7 @@ public class DocumentEditorView {
 	private static final String ALL_LINES_BUTTON_TEXT = "ALL";
 	private static final String SELECTED_LINE_BUTTON_TEXT = "SELECTED LINE";
 	private static final String LOAD_BUTTON_TEXT = "Load";
-	private static final String UPDATE_BUTTON_TEXT = "Update";
+	private static final String UPDATE_BUTTON_TEXT = "Save";
 	private static final String RETURN_TO_MAIN_MENU_BUTTON_TEXT = "< Main Menu";
 	private static final String REVERSE_ALL_BUTTON_TEXT = "Reverse all:";
 	private static final String REVERSE_SELECTED_BUTTON_TEXT = "Reverse selected";
@@ -53,18 +40,6 @@ public class DocumentEditorView {
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
 	public JTextPane textPane;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			try {
-				DocumentEditorView window = new DocumentEditorView();
-				window.frame.setVisible(true);
-				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-	}
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -110,9 +85,8 @@ public class DocumentEditorView {
 
 		//------SAVE-----//
 		JButton saveButton = new JButton(UPDATE_BUTTON_TEXT);
-
-		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
-		saveButton.addActionListener(saveDocumentActionListener);
+//		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
+//		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(728, 471, 130, 23);
 		frame.getContentPane().add(saveButton);
 
@@ -152,8 +126,8 @@ public class DocumentEditorView {
 
 		//---- LineToSpeech -----//
 		JButton ttsSelectedButton = new JButton(SELECTED_LINE_BUTTON_TEXT);
-		ActionListener line2SpeechActionListener = commandsFactory.createCommand(LINE_TO_SPEECH, this);
-		ttsSelectedButton.addActionListener(line2SpeechActionListener);
+		ActionListener lineToSpeechActionListener = commandsFactory.createCommand(LINE_TO_SPEECH, this);
+		ttsSelectedButton.addActionListener(lineToSpeechActionListener);
 		ttsSelectedButton.setBounds(567, 77, 130, 23);
 		frame.getContentPane().add(ttsSelectedButton);
 
@@ -258,19 +232,22 @@ public class DocumentEditorView {
 
 	}
 
-
-	public int getLineNumber() {
-		return textPane.getCaretPosition();
-	}
 	public void showErrorDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message);
 	}
 
-	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, String docText) {
+	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, List<String> lines) {
 		this.documentTitleTextField.setText(docTitle);
 		this.authorTextField.setText(docAuthor);
 		this.creationTimestampPlaceholder.setText(docCreationTime);
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
-		this.textPane.setText(docText);
+		for (String line : lines) {
+			this.textPane.setText(this.textPane.getText().concat(line).concat("<br>"));
+		}
+	}
+
+	public void goToMainView() {
+		new MainView();
+		frame.setVisible(false);
 	}
 }
