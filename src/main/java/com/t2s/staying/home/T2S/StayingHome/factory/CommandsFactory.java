@@ -31,16 +31,6 @@ public class CommandsFactory {
 			ReverseLine reverseLine = new ReverseLine((DocumentEditorView) view);
 			return reverseLine;
 		}
-		else if (commandKind.equals("tuneEncoding")){
-			TuneEncoding tuneEncoding = new TuneEncoding((DocumentEditorView) view);
-			return tuneEncoding;
-		}
-		else if (commandKind.equals("rot")){
-			Rot rot = new Rot((DocumentEditorView)view);
-			return rot;
-		}
-		return null; // todo implement the rest of the commands
+		return null;
 	}
-
-
 }

@@ -11,8 +11,9 @@ public class ApplicationConstants {
 	public static final String LINE_TO_SPEECH = "text2SpeechLine";
 	public static final String REVERSE_ALL_COMMAND = "reverseAll";
 	public static final String REVERSE_LINE_COMMAND = "reverseLine";
-	public static final String ROT_ALL_LINES_COMMAND ="rot";
+	public static final String TUNE_VOLUME_COMMAND = "tuneVolume";
 
+	public static final String ROT_ALL_LINES_COMMAND ="rot";
 	public static final String AUTHOR_METADATA_NAME = "author";
 	public static final String TITLE_METADATA_NAME = "title";
 

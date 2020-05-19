@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
+import com.t2s.staying.home.T2S.StayingHome.model.Document;
+import com.t2s.staying.home.T2S.StayingHome.model.EncodingStrategy;
+import com.t2s.staying.home.T2S.StayingHome.model.StrategySelecter;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
 public class TuneEncoding implements ActionListener {
@@ -20,9 +23,12 @@ public class TuneEncoding implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-//		EncodingUtils.encode(String);
+		Document document = DocumentEditorView.getCurrentDocument();
+		String cipher = DocumentEditorView.getEncoding();
+		StrategySelecter strategySelecter = new StrategySelecter();
+		EncodingStrategy encodingStrategy = strategySelecter.pickAStrategy(cipher);
 		// todo
+		document.tuneEncoding(encodingStrategy);
 	}
 
 

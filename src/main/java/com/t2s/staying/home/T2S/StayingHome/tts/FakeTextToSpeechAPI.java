@@ -7,7 +7,7 @@ public class FakeTextToSpeechAPI implements TextToSpeechAPI {
 
     public void play(String pl){}
 
-    public void setVolume(int volume){}
+    public void setVolume(float volume){}
 
     public void setPitch(int pitch){}
 

@@ -12,19 +12,14 @@ public class NewDocumentView {
 
 	private CommandsFactory commandsFactory = new CommandsFactory();
 
-	private static final String DOCUMENT_TITLE_LABEL_TEXT = "Document title:";
-	private static final String AUTHORS_NAME_LABEL_TEXT = "Author's name:";
-	private static final String VOICE_VOLUME_LABEL_TEXT = "Voice volume";
-
 	private static final String SAVE_US_BUTTON_TEXT = "Save file";
 	private static final String RETURN_TO_MAIN_MENU_BUTTON_TEXT = "< Main Menu";
-	private static final String REVERSE_ALL_BUTTON_TEXT = "Reverse all:";
-	private static final String REVERSE_SELECTED_BUTTON_TEXT = "Reverse selected";
+	private static final String AUTHORS_NAME_LABEL_TEXT = "Author's name:";
+	private static final String DOCUMENT_TITLE_LABEL_TEXT = "Document title:";
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField authorTextField;
+	private JTextField documentTitleTextField;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -55,26 +50,26 @@ public class NewDocumentView {
 		});
 		frame.getContentPane().add(returnToMainMenuButton);
 
-		JLabel label = new JLabel(AUTHORS_NAME_LABEL_TEXT);
-		label.setBounds(41, 36, 101, 14);
-		frame.getContentPane().add(label);
+		JLabel authorLabel = new JLabel(AUTHORS_NAME_LABEL_TEXT);
+		authorLabel.setBounds(41, 36, 101, 14);
+		frame.getContentPane().add(authorLabel);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(41, 62, 130, 20);
-		frame.getContentPane().add(textField_1);
+		authorTextField = new JTextField();
+		authorTextField.setColumns(10);
+		authorTextField.setBounds(41, 62, 130, 20);
+		frame.getContentPane().add(authorTextField);
 		
-		JLabel label_1 = new JLabel(DOCUMENT_TITLE_LABEL_TEXT);
-		label_1.setBounds(41, 93, 130, 14);
-		frame.getContentPane().add(label_1);
+		JLabel documentTitleLabel = new JLabel(DOCUMENT_TITLE_LABEL_TEXT);
+		documentTitleLabel.setBounds(41, 93, 130, 14);
+		frame.getContentPane().add(documentTitleLabel);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(41, 119, 130, 20);
-		frame.getContentPane().add(textField_2);
+		documentTitleTextField = new JTextField();
+		documentTitleTextField.setColumns(10);
+		documentTitleTextField.setBounds(41, 119, 130, 20);
+		frame.getContentPane().add(documentTitleTextField);
 	}
 
-	public void showErrorDialog(String message) {
+	public void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message);
 	}
 
@@ -83,4 +78,12 @@ public class NewDocumentView {
 		frame.setVisible(false);
 	}
 
+	// getters
+	public String getAuthorTextField() {
+		return authorTextField.getText();
+	}
+
+	public String getDocumentTitleTextField() {
+		return documentTitleTextField.getText();
+	}
 }

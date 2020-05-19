@@ -4,16 +4,20 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
+import com.t2s.staying.home.T2S.StayingHome.model.Document;
 
 public class DocumentEditorView {
 
+	private Document currentDocument;
 	private CommandsFactory commandsFactory = new CommandsFactory();
+	private TextToSpeechFactory textToSpeechAPIFactory = new TextToSpeechFactory();
 
 	private static final String LAST_MODIFIED_TIMESTAMP_LABEL_TEXT = "Last modified date:";
 	private static final String CREATION_TIMESTAMP_LABEL_TEXT = "Creation date:";
@@ -25,21 +29,22 @@ public class DocumentEditorView {
 	private static final String ENCODE_DOCUMENT_ROT13_LABEL_TEXT = "Encode document(Rot-13):";
 	private static final String AUTHORS_NAME_LABEL_TEXT = "Author's name:";
 	private static final String VOICE_VOLUME_LABEL_TEXT = "Voice volume";
+	private static final String VOICE_PITCH_LABEL_TEXT = "Voice pitch";
+	private static final String VOICE_RATE_LABEL_TEXT = "Voice rate";
 
 	private static final String ALL_LINES_BUTTON_TEXT = "ALL";
 	private static final String SELECTED_LINE_BUTTON_TEXT = "SELECTED LINE";
 	private static final String LOAD_BUTTON_TEXT = "Load";
 	private static final String UPDATE_BUTTON_TEXT = "Save";
 	private static final String RETURN_TO_MAIN_MENU_BUTTON_TEXT = "< Main Menu";
-	private static final String REVERSE_ALL_BUTTON_TEXT = "Reverse all:";
-	private static final String REVERSE_SELECTED_BUTTON_TEXT = "Reverse selected";
 
 	private JFrame frame;
 	private JTextField authorTextField;
 	private JTextField documentTitleTextField;
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
-	public JTextPane textPane;
+	private JTextArea textArea;
+	private JSlider voiceRateSlider;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -49,6 +54,14 @@ public class DocumentEditorView {
 		this.frame.setVisible(true);
 
 	}
+
+	public static String getEncoding() {
+		//if (Rot())
+			return "Rot";
+	}
+
+	//public static Document getCurrentDocument() {
+	//}
 
 	private void initialize() {
 		frame = new JFrame();
@@ -189,10 +202,10 @@ public class DocumentEditorView {
 		encodeOptionRot13Label.setBounds(728, 293, 141, 14);
 		frame.getContentPane().add(encodeOptionRot13Label);
 
-		JSlider slider_1 = new JSlider();
-		slider_1.setValue(0);
-		slider_1.setBounds(678, 122, 170, 14);
-		frame.getContentPane().add(slider_1);
+		JSlider voiceVolumeSlider = new JSlider();
+		voiceVolumeSlider.setValue(0);
+		voiceVolumeSlider.setBounds(678, 122, 170, 14);
+		frame.getContentPane().add(voiceVolumeSlider);
 
 		JLabel lblVoiceVolume = new JLabel(VOICE_VOLUME_LABEL_TEXT);
 		lblVoiceVolume.setVerticalAlignment(SwingConstants.TOP);
@@ -201,38 +214,40 @@ public class DocumentEditorView {
 		lblVoiceVolume.setBounds(567, 122, 62, 14);
 		frame.getContentPane().add(lblVoiceVolume);
 
-		JLabel lblVoicePitch = new JLabel("Voice pitch");
+		JLabel lblVoicePitch = new JLabel(VOICE_PITCH_LABEL_TEXT);
 		lblVoicePitch.setVerticalAlignment(SwingConstants.TOP);
 		lblVoicePitch.setHorizontalAlignment(SwingConstants.LEFT);
 		lblVoicePitch.setForeground(Color.BLACK);
 		lblVoicePitch.setBounds(567, 149, 62, 14);
 		frame.getContentPane().add(lblVoicePitch);
 
-		JSlider slider = new JSlider();
-		slider.setValue(0);
-		slider.setBounds(678, 149, 170, 14);
-		frame.getContentPane().add(slider);
+		JSlider voicePitchSlider = new JSlider();
+		voicePitchSlider.setValue(0);
+		voicePitchSlider.setBounds(678, 149, 170, 14);
+		frame.getContentPane().add(voicePitchSlider);
 
-		JLabel lblVoiceRate = new JLabel("Voice rate");
+		JLabel lblVoiceRate = new JLabel(VOICE_RATE_LABEL_TEXT);
 		lblVoiceRate.setVerticalAlignment(SwingConstants.TOP);
 		lblVoiceRate.setHorizontalAlignment(SwingConstants.LEFT);
 		lblVoiceRate.setForeground(Color.BLACK);
 		lblVoiceRate.setBounds(567, 179, 62, 14);
 		frame.getContentPane().add(lblVoiceRate);
 
-		JSlider slider_2 = new JSlider();
-		slider_2.setValue(0);
-		slider_2.setBounds(678, 179, 170, 14);
-		frame.getContentPane().add(slider_2);
+		JSlider voiceRateSlider = new JSlider();
+		voiceRateSlider.setValue(0);
+		voiceRateSlider.setMaximum(1);
+		voiceRateSlider.setBounds(678, 179, 170, 14);
+		ChangeListener changeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
+		voiceRateSlider.addChangeListener(changeListener);
+		frame.getContentPane().add(voiceRateSlider);
 
-		textPane = new JTextPane();
-		textPane.setBounds(10, 37, 515, 439);
-		textPane.setContentType("text/html");
-		frame.getContentPane().add(textPane);
+		textArea = new JTextArea();
+		textArea.setBounds(10, 37, 515, 439);
+		frame.getContentPane().add(textArea);
 
 	}
 
-	public void showErrorDialog(String message) {
+	public void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message);
 	}
 
@@ -242,12 +257,22 @@ public class DocumentEditorView {
 		this.creationTimestampPlaceholder.setText(docCreationTime);
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
 		for (String line : lines) {
-			this.textPane.setText(this.textPane.getText().concat(line).concat("<br>"));
+			this.textArea.append(line);
 		}
+
 	}
 
 	public void goToMainView() {
 		new MainView();
 		frame.setVisible(false);
 	}
+
+	public float getVolume() {
+		return this.voiceRateSlider.getValue();
+	}
+
+	public static Document getCurrentDocument() {
+		return null;
+	}
+
 }

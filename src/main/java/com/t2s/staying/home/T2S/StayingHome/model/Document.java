@@ -2,7 +2,6 @@ package com.t2s.staying.home.T2S.StayingHome.model;
 
 import java.util.List;
 
-import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
 import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 
 public class Document {
@@ -71,4 +70,11 @@ public class Document {
 	public void setLastModifiedTime(Long lastModifiedTime) {
 		this.lastModifiedTime = lastModifiedTime;
 	}
+
+
+
+	public void tuneEncoding(EncodingStrategy encodingStrategy) {
+		this.encodingStrategy = encodingStrategy;
+	}
+
 }
