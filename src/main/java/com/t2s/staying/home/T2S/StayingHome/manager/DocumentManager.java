@@ -1,15 +1,17 @@
 package com.t2s.staying.home.T2S.StayingHome.manager;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.logging.log4j.util.Strings;
 
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
 
+import javax.swing.*;
+
 public class DocumentManager {
 
 	private static final Document document = new Document();
+	private Object textPane;
 
 	public static Document getCurrentDocument() {
 		return document;
@@ -41,6 +43,10 @@ public class DocumentManager {
 
 		if (lines != null)
 			document.setLines(lines);
+	}
+
+	public static String getCurrentDocument(Document document) {
+		return null;
 	}
 
 //	public static List<String> getTextFromDocument(Document document) {

@@ -10,8 +10,12 @@ public class TuneEncoding implements ActionListener {
 
 	DocumentEditorView view;
 
-	TuneEncoding(DocumentEditorView view) {
+	public TuneEncoding(DocumentEditorView view) {
 		this.view = view;
+	}
+
+	public TuneEncoding() {
+
 	}
 
 	@Override
