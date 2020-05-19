@@ -1,16 +1,16 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
+import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
 
+import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.*;
-import javax.swing.event.ChangeListener;
-
-import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
-import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 public class DocumentEditorView {
 
@@ -42,6 +42,8 @@ public class DocumentEditorView {
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
 	private JTextArea textArea;
+
+
 	private JSlider voiceRateSlider;
 
 	/**
@@ -54,6 +56,7 @@ public class DocumentEditorView {
 	}
 
 	private void initialize() {
+		JPanel panel = new JPanel(new BorderLayout());
 		frame = new JFrame();
 		frame.setBounds(100, 100, 895, 544);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,10 +89,10 @@ public class DocumentEditorView {
 		loadButton.setBounds(728, 437, 130, 23);
 		frame.getContentPane().add(loadButton);
 
-		//------SAVE-----//
+		//------SAVE - edited file -----//
 		JButton saveButton = new JButton(UPDATE_BUTTON_TEXT);
-//		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
-//		saveButton.addActionListener(saveDocumentActionListener);
+		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
+		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(728, 471, 130, 23);
 		frame.getContentPane().add(saveButton);
 
@@ -232,6 +235,11 @@ public class DocumentEditorView {
 		textArea.setBounds(10, 37, 515, 439);
 		frame.getContentPane().add(textArea);
 
+		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+
+
 	}
 
 	public void showMessageDialog(String message) {
@@ -239,6 +247,7 @@ public class DocumentEditorView {
 	}
 
 	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, List<String> lines) {
+
 		this.documentTitleTextField.setText(docTitle);
 		this.authorTextField.setText(docAuthor);
 		this.creationTimestampPlaceholder.setText(docCreationTime);
@@ -256,5 +265,16 @@ public class DocumentEditorView {
 
 	public float getVolume() {
 		return this.voiceRateSlider.getValue();
+	}
+
+	public int getLineNumber(){
+		int caretPos = textArea.getCaretPosition();
+		int lineNumber = 0;
+		try {
+			lineNumber = textArea.getLineOfOffset(caretPos);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		return lineNumber;
 	}
 }

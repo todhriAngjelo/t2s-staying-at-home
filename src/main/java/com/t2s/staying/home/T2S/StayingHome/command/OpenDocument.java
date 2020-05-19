@@ -1,25 +1,23 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
-
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.*;
-
-import org.apache.logging.log4j.util.Strings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.t2s.staying.home.T2S.StayingHome.ApplicationErrors;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.utils.DateUtils;
 import com.t2s.staying.home.T2S.utils.FileUtils;
+import org.apache.logging.log4j.util.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
 
 public class OpenDocument implements ActionListener {
 
@@ -32,6 +30,7 @@ public class OpenDocument implements ActionListener {
 	public OpenDocument(DocumentEditorView view) {
 		this.view = view;
 	}
+
 
 	@Override
 	public void actionPerformed(java.awt.event.ActionEvent e) {

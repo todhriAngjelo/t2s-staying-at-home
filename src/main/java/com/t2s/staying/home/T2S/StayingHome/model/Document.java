@@ -1,9 +1,8 @@
 package com.t2s.staying.home.T2S.StayingHome.model;
 
-import java.util.List;
-
-import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
 import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
+
+import java.util.List;
 
 public class Document {
 
@@ -15,6 +14,7 @@ public class Document {
 	private Long lastModifiedTime;
 	private String authorsName;
 	private String title;
+
 
 	public EncodingStrategy getEncodingStrategy() {
 		return encodingStrategy;

@@ -1,12 +1,12 @@
 package com.t2s.staying.home.T2S.StayingHome.factory;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
-
 import com.t2s.staying.home.T2S.StayingHome.command.*;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 
 import java.awt.event.ActionListener;
+
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 public class CommandsFactory {
 
@@ -18,6 +18,9 @@ public class CommandsFactory {
 		} else if (commandKind.equals(NEW_DOCUMENT_COMMAND)) {
 			NewDocument saveDocument = new NewDocument((NewDocumentView) view);
 			return saveDocument;
+		} else if(commandKind.equals(SAVE_DOCUMENT_COMMAND)){
+			SaveEdited saveEdited = new SaveEdited((DocumentEditorView) view);
+			return saveEdited;
 		} else if (commandKind.equals(DOC_TO_SPEECH_COMMAND)) {
 			DocumentToSpeech docToSpeech = new DocumentToSpeech((DocumentEditorView) view);
 			return docToSpeech;
