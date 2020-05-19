@@ -40,6 +40,7 @@ public class NewDocument implements ActionListener {
 			}
 
 			File myObj = new File(filepath);
+			System.out.println("path"+filepath);
 			if (myObj.createNewFile()) {
 				FileUtils.setFileMetadata(filepath, AUTHOR_METADATA_NAME, view.getAuthorTextField());
 				FileUtils.setFileMetadata(filepath, TITLE_METADATA_NAME, view.getDocumentTitleTextField());

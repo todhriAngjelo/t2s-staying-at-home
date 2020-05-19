@@ -38,9 +38,15 @@ public class DocumentEditorView {
 
 	private JFrame frame;
 	private JTextField authorTextField;
+
 	private JTextField documentTitleTextField;
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
 	private JTextArea textArea;
 
 
@@ -236,8 +242,8 @@ public class DocumentEditorView {
 		frame.getContentPane().add(textArea);
 
 		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
-		textArea.setLineWrap(true);
-		textArea.setWrapStyleWord(true);
+//		textArea.setLineWrap(true);
+//		textArea.setWrapStyleWord(true);
 
 
 	}
@@ -254,6 +260,7 @@ public class DocumentEditorView {
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
 		for (String line : lines) {
 			this.textArea.append(line);
+			this.textArea.append("\n");
 		}
 
 	}
@@ -276,5 +283,22 @@ public class DocumentEditorView {
 			e.printStackTrace();
 		}
 		return lineNumber;
+	}
+
+
+	public String getAuthorTextField() {
+		return authorTextField.getText();
+	}
+
+	public void setAuthorTextField(JTextField authorTextField) {
+		this.authorTextField = authorTextField;
+	}
+
+	public String getDocumentTitleTextField() {
+		return documentTitleTextField.getText();
+	}
+
+	public void setDocumentTitleTextField(JTextField documentTitleTextField) {
+		this.documentTitleTextField = documentTitleTextField;
 	}
 }

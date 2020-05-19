@@ -17,6 +17,10 @@ public class ApplicationConstants {
 	public static final String AUTHOR_METADATA_NAME = "author";
 	public static final String TITLE_METADATA_NAME = "title";
 
+	// t2s factory string values
+	public static final String FREE_TTS = "freeTTSAdapter";
+	public static final String FAKE_TTS= "FakeT2s";
+
 	//VOICES
 	public static final String VOICE_KEVIN16 = "kevin16";
 	public static final String VOICE_KEVIN = "kevin";

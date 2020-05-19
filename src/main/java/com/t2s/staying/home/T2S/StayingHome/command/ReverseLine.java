@@ -1,10 +1,10 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechAPIFactory;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ReverseLine implements ActionListener {
 
@@ -15,6 +15,6 @@ public class ReverseLine implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        textToSpeechAPI.getTTSApi().play("something happened here and now");
+       // textToSpeechAPI.getTTSApi().play("something happened here and now");
     }
 }
