@@ -2,6 +2,7 @@ package com.t2s.staying.home.T2S.StayingHome.view;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
+import com.t2s.staying.home.T2S.StayingHome.model.Line;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -252,15 +253,19 @@ public class DocumentEditorView {
 		JOptionPane.showMessageDialog(frame, message);
 	}
 
-	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, List<String> lines) {
+	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, List<Line> lines) {
 
 		this.documentTitleTextField.setText(docTitle);
 		this.authorTextField.setText(docAuthor);
 		this.creationTimestampPlaceholder.setText(docCreationTime);
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
-		for (String line : lines) {
-			this.textArea.append(line);
+		for (Line line : lines) {
+			for (String word : line.getWords()) {
+				this.textArea.append(word);
+				this.textArea.append(" ");
+			}
 			this.textArea.append("\n");
+
 		}
 
 	}

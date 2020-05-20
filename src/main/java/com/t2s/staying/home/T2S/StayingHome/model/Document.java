@@ -9,7 +9,7 @@ public class Document {
 	// models should be pure. no methods here only properties and setters getters. if we need business logic we can create managers
 	private EncodingStrategy encodingStrategy;
 	private TextToSpeechAPI audioManager;
-	private List<String> lines;
+	private List<Line>  lines;
 	private Long creationTime;
 	private Long lastModifiedTime;
 	private String authorsName;
@@ -32,11 +32,17 @@ public class Document {
 		this.audioManager = audioManager;
 	}
 
-	public List<String> getLines() {
+//	public List<String> getLines() {
+//		return lines;
+//	}
+	public List<Line> getLines() {
 		return lines;
 	}
 
-	public void setLines(List<String> lines) {
+//	public void setLines(List<String> lines) {
+//		this.lines = lines;
+//	}
+	public void setLines(List<Line> lines) {
 		this.lines = lines;
 	}
 

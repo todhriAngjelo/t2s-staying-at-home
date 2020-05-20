@@ -2,6 +2,7 @@ package com.t2s.staying.home.T2S.StayingHome.command;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechAPIFactory;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
+import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
@@ -25,11 +26,13 @@ public class DocumentToSpeech implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		List<String> currentLines = documentManager.getCurrentDocument().getLines();
+		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
 
 		try {
-			for (String currentLine : currentLines) {
-				t2s.play(currentLine);
+			for (Line currentLine : currentLines) {
+				for (String word : currentLine.getWords()) {
+					t2s.play(word);
+				}
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();

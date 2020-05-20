@@ -3,6 +3,7 @@ package com.t2s.staying.home.T2S.StayingHome.command;
 import com.t2s.staying.home.T2S.StayingHome.ApplicationErrors;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
+import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.utils.DateUtils;
 import com.t2s.staying.home.T2S.utils.FileUtils;
@@ -14,6 +15,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
@@ -41,6 +43,8 @@ public class OpenDocument implements ActionListener {
 			BufferedReader bufferedReader = FileUtils.getFileBufferReader(dialog.getSelectedFile().getAbsolutePath());
 
 			List<String> lines = new ArrayList<>();
+
+
 			if (bufferedReader != null) {
 				bufferedReader.lines().forEach(line -> lines.add(line));
 				FileUtils.closeBufferedReader(bufferedReader);
@@ -63,8 +67,19 @@ public class OpenDocument implements ActionListener {
 				view.goToMainView();
 			}
 
-			DocumentManager.updateStaticCurrentDocument(title, author, lines, creationTime, lModifiedTime);
+			List<String> words = new ArrayList<>();
+			List<Line> currentLines = new ArrayList<>();
+			for (String line : lines) {
+
+				Line currentLine = new Line();
+				words = Arrays.asList(line.split("\\s+"));
+
+				currentLine.setWords(words);
+				currentLines.add(currentLine);
+			}
+			DocumentManager.updateStaticCurrentDocument(title, author, currentLines, creationTime, lModifiedTime);
 			updateView(DocumentManager.getCurrentDocument());
+			//sDocumentManager.splitToWords(currentLines);
 		}
 	}
 

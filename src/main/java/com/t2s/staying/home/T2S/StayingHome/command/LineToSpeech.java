@@ -2,7 +2,7 @@ package com.t2s.staying.home.T2S.StayingHome.command;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechAPIFactory;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
-import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
+import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
@@ -24,16 +24,12 @@ public class LineToSpeech implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int lineNumber = lineToSpeechView.getLineNumber();
-		System.out.println("linenum1   " +lineNumber);
-		List<String> currentLines = documentManager.getCurrentDocument().getLines();
+		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
 		try {
-			for (int n = 0; n < currentLines.size(); n += 1)
-			{
-				System.out.println("linenum2   " +lineNumber);
-				System.out.println(currentLines.get(n));
-				if (lineNumber == n) {
-					System.out.println("ela mou");
-					t2s.play(currentLines.get(n));
+
+			for (int n = 0; n < currentLines.size(); n += 1){
+				for (String word : currentLines.get(n).getWords()) {
+					if (lineNumber == n){t2s.play(word);}
 				}
 			}
 		} catch (Exception exception) {
