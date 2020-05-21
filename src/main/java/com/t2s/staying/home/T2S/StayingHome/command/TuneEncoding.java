@@ -24,10 +24,10 @@ public class TuneEncoding implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Document document = DocumentEditorView.getCurrentDocument();
-		String cipher = DocumentEditorView.getEncoding();
 		StrategySelecter strategySelecter = new StrategySelecter();
-		EncodingStrategy encodingStrategy = strategySelecter.pickAStrategy(cipher);
-		// todo
+		EncodingStrategy encodingStrategy = strategySelecter.pickAStrategy("Rot");
+		//encodingStrategy.encode();
+
 		document.tuneEncoding(encodingStrategy);
 	}
 
