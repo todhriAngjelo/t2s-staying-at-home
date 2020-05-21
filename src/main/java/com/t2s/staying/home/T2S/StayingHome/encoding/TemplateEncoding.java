@@ -1,5 +1,7 @@
 package com.t2s.staying.home.T2S.StayingHome.encoding;
 
+
+
 public abstract class TemplateEncoding implements EncodingStrategy{
 
     public TemplateEncoding(){}
@@ -10,7 +12,7 @@ public abstract class TemplateEncoding implements EncodingStrategy{
 
             char ch = text.charAt(i);
 
-            if ((ch >= 'a' && ch <= 'z') && (ch >= 'A' && ch <= 'Z')) {
+            if (checkIfLetter(ch)) {
                 ch = mapCharacter(ch);
             }
             str = str + ch;
@@ -18,6 +20,18 @@ public abstract class TemplateEncoding implements EncodingStrategy{
         return str;
     }
 
+
+    private boolean checkIfLetter(char ch){
+        if (ch >= 'a' && ch <= 'z')
+            return true;
+
+
+            else if(ch >= 'A' && ch <= 'Z')
+                return false;
+
+
+        return false;
+    }
     protected abstract char mapCharacter(char ch);
 
 
