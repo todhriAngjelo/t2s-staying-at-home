@@ -161,14 +161,20 @@ public class DocumentEditorView {
 		encodeOptionAtBashLabel.setBounds(567, 293, 141, 14);
 		frame.getContentPane().add(encodeOptionAtBashLabel);
 
-		JButton encodeAllButton = new JButton(ALL_LINES_BUTTON_TEXT);
-		encodeAllButton.setBounds(567, 317, 130, 23);
-		frame.getContentPane().add(encodeAllButton);
+		//---------ATBASH ALL-------------//
+		JButton encodeAllButtonAtbash = new JButton(ALL_LINES_BUTTON_TEXT);
+		ActionListener  encodeAllAtbashActionListener = commandsFactory.createCommand(ENCODE_ALL_ATBASH, this);
+		encodeAllButtonAtbash.addActionListener(encodeAllAtbashActionListener);
+		encodeAllButtonAtbash.setBounds(567, 317, 130, 23);
+		frame.getContentPane().add(encodeAllButtonAtbash);
 
-		JButton encodeSelectedButton = new JButton(SELECTED_LINE_BUTTON_TEXT);
-		encodeSelectedButton.setVerticalAlignment(SwingConstants.TOP);
-		encodeSelectedButton.setBounds(567, 350, 130, 23);
-		frame.getContentPane().add(encodeSelectedButton);
+		//---------ATBASH LINE-------------//
+		JButton encodeSelectedButtonAtbash = new JButton(SELECTED_LINE_BUTTON_TEXT);
+		ActionListener  encodeLineAtbashActionListener = commandsFactory.createCommand(ENCODE_LINE_ATBASH, this);
+		encodeSelectedButtonAtbash.addActionListener(encodeLineAtbashActionListener);
+		encodeSelectedButtonAtbash.setVerticalAlignment(SwingConstants.TOP);
+		encodeSelectedButtonAtbash.setBounds(567, 350, 130, 23);
+		frame.getContentPane().add(encodeSelectedButtonAtbash);
 
 		JLabel reversedTtsLabel = new JLabel(TRANSFORM_TO_SPEECH_REVERSED_LABEL_TEXT);
 		reversedTtsLabel.setBounds(718, 21, 156, 13);
@@ -188,14 +194,20 @@ public class DocumentEditorView {
 		reverseLineButton_1.setBounds(718, 77, 130, 23);
 		frame.getContentPane().add(reverseLineButton_1);
 
-		JButton button = new JButton(ALL_LINES_BUTTON_TEXT);
-		button.setBounds(728, 317, 130, 23);
-		frame.getContentPane().add(button);
+		//----- RIOT13 ALL---------//
+		JButton encodingAllButtonROT13 = new JButton(ALL_LINES_BUTTON_TEXT);
+		ActionListener  encodeAllRot13ActionListener = commandsFactory.createCommand(ENCODE_ALL_ROT13, this);
+		encodingAllButtonROT13.addActionListener(encodeAllRot13ActionListener);
+		encodingAllButtonROT13.setBounds(728, 317, 130, 23);
+		frame.getContentPane().add(encodingAllButtonROT13);
 
-		JButton button_1 = new JButton(SELECTED_LINE_BUTTON_TEXT);
-		button_1.setVerticalAlignment(SwingConstants.TOP);
-		button_1.setBounds(728, 350, 130, 23);
-		frame.getContentPane().add(button_1);
+		//----- RIOT13 LINE---------//
+		JButton encodingLineButtonROT13 = new JButton(SELECTED_LINE_BUTTON_TEXT);
+		ActionListener  encodeLineRot13ActionListener = commandsFactory.createCommand(ENCODE_LINE_ROT13, this);
+		encodingLineButtonROT13.addActionListener(encodeLineRot13ActionListener);
+		encodingLineButtonROT13.setVerticalAlignment(SwingConstants.TOP);
+		encodingLineButtonROT13.setBounds(728, 350, 130, 23);
+		frame.getContentPane().add(encodingLineButtonROT13);
 
 		JLabel encodeOptionRot13Label = new JLabel(ENCODE_DOCUMENT_ROT13_LABEL_TEXT);
 		encodeOptionRot13Label.setVerticalAlignment(SwingConstants.TOP);

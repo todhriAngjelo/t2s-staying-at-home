@@ -33,6 +33,18 @@ public class CommandsFactory {
 		} else if (commandKind.equals(REVERSE_LINE_COMMAND)) {
 			ReverseLine reverseLine = new ReverseLine((DocumentEditorView) view);
 			return reverseLine;
+		} else if (commandKind.equals(ENCODE_ALL_ATBASH)) {
+			EncodeAllAtbash encodeAllAtbash = new EncodeAllAtbash((DocumentEditorView) view);
+			return encodeAllAtbash;
+		} else if (commandKind.equals(ENCODE_LINE_ATBASH)) {
+			EncodeLineAtbash encodeLineAtbash = new EncodeLineAtbash((DocumentEditorView) view);
+			return encodeLineAtbash;
+		} else if (commandKind.equals(ENCODE_ALL_ROT13)){
+			EncodeAllRiot13 encodeAllRiot13 = new EncodeAllRiot13((DocumentEditorView) view);
+			return encodeAllRiot13;
+		}else if (commandKind.equals(ENCODE_LINE_ROT13)){
+			EncodeLineRiot13 encodeLineRiot13 = new EncodeLineRiot13((DocumentEditorView) view);
+			return encodeLineRiot13;
 		}
 		return null;
 	}
