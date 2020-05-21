@@ -39,7 +39,9 @@ public class OpenDocument implements ActionListener {
 		JFileChooser dialog = new JFileChooser();
 		dialog.setDialogTitle(OPEN_DIALOG_TITLE);
 
+
 		if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			view.getTextArea().setText(null); //clear text area from the previous file
 			BufferedReader bufferedReader = FileUtils.getFileBufferReader(dialog.getSelectedFile().getAbsolutePath());
 
 			List<String> lines = new ArrayList<>();
@@ -79,7 +81,7 @@ public class OpenDocument implements ActionListener {
 			}
 			DocumentManager.updateStaticCurrentDocument(title, author, currentLines, creationTime, lModifiedTime);
 			updateView(DocumentManager.getCurrentDocument());
-			//sDocumentManager.splitToWords(currentLines);
+
 		}
 	}
 
