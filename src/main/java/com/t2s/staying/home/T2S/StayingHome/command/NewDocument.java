@@ -1,19 +1,17 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
+import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
+import com.t2s.staying.home.T2S.utils.FileUtils;
+import org.springframework.util.StringUtils;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.*;
-
-import org.springframework.util.StringUtils;
-
-import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
-import com.t2s.staying.home.T2S.utils.FileUtils;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
 
 public class NewDocument implements ActionListener {
 
@@ -32,6 +30,7 @@ public class NewDocument implements ActionListener {
 		if (dialog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 			saveFile(dialog.getSelectedFile().getAbsolutePath());
 		}
+
 	}
 
 	private void saveFile(String filepath) {
@@ -41,6 +40,7 @@ public class NewDocument implements ActionListener {
 			}
 
 			File myObj = new File(filepath);
+			System.out.println("path"+filepath);
 			if (myObj.createNewFile()) {
 				FileUtils.setFileMetadata(filepath, AUTHOR_METADATA_NAME, view.getAuthorTextField());
 				FileUtils.setFileMetadata(filepath, TITLE_METADATA_NAME, view.getDocumentTitleTextField());

@@ -1,21 +1,22 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
+import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
+import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
+import com.t2s.staying.home.T2S.StayingHome.model.Line;
+import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
 
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.*;
-import javax.swing.event.ChangeListener;
-
-import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
-import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
-import com.t2s.staying.home.T2S.StayingHome.model.Document;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
 public class DocumentEditorView {
 
-	private Document currentDocument;
 	private CommandsFactory commandsFactory = new CommandsFactory();
 	private TextToSpeechFactory textToSpeechAPIFactory = new TextToSpeechFactory();
 
@@ -40,10 +41,20 @@ public class DocumentEditorView {
 
 	private JFrame frame;
 	private JTextField authorTextField;
+
 	private JTextField documentTitleTextField;
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
+	private JSlider voiceVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
 	private JTextArea textArea;
+
+	private FreeTTSAdapter t2s = new FreeTTSAdapter();
+
 	private JSlider voiceRateSlider;
 
 	/**
@@ -55,15 +66,8 @@ public class DocumentEditorView {
 
 	}
 
-	public static String getEncoding() {
-		//if (Rot())
-			return "Rot";
-	}
-
-	//public static Document getCurrentDocument() {
-	//}
-
 	private void initialize() {
+		JPanel panel = new JPanel(new BorderLayout());
 		frame = new JFrame();
 		frame.setBounds(100, 100, 895, 544);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,10 +100,10 @@ public class DocumentEditorView {
 		loadButton.setBounds(728, 437, 130, 23);
 		frame.getContentPane().add(loadButton);
 
-		//------SAVE-----//
+		//------SAVE - edited file -----//
 		JButton saveButton = new JButton(UPDATE_BUTTON_TEXT);
-//		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
-//		saveButton.addActionListener(saveDocumentActionListener);
+		ActionListener saveDocumentActionListener = commandsFactory.createCommand(SAVE_DOCUMENT_COMMAND, this);
+		saveButton.addActionListener(saveDocumentActionListener);
 		saveButton.setBounds(728, 471, 130, 23);
 		frame.getContentPane().add(saveButton);
 
@@ -184,10 +188,7 @@ public class DocumentEditorView {
 		reverseLineButton_1.setBounds(718, 77, 130, 23);
 		frame.getContentPane().add(reverseLineButton_1);
 
-		//---------Rot13 all lines--------//
 		JButton button = new JButton(ALL_LINES_BUTTON_TEXT);
-		ActionListener RotAllLinesActionListener = commandsFactory.createCommand(ROT_ALL_LINES_COMMAND, this);
-		button.addActionListener(RotAllLinesActionListener);
 		button.setBounds(728, 317, 130, 23);
 		frame.getContentPane().add(button);
 
@@ -202,8 +203,16 @@ public class DocumentEditorView {
 		encodeOptionRot13Label.setBounds(728, 293, 141, 14);
 		frame.getContentPane().add(encodeOptionRot13Label);
 
-		JSlider voiceVolumeSlider = new JSlider();
-		voiceVolumeSlider.setValue(0);
+		//-------------VOLUME-----------//
+
+		voiceVolumeSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider) e.getSource();
+				t2s.setVolume(source.getValue());		// pernei kanonika thn value meta einai to lathos
+				System.out.println("source.getValue()  " + source.getValue());
+			}
+		});
 		voiceVolumeSlider.setBounds(678, 122, 170, 14);
 		frame.getContentPane().add(voiceVolumeSlider);
 
@@ -245,19 +254,30 @@ public class DocumentEditorView {
 		textArea.setBounds(10, 37, 515, 439);
 		frame.getContentPane().add(textArea);
 
+		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
+//		textArea.setLineWrap(true);
+//		textArea.setWrapStyleWord(true);
+
+
 	}
 
 	public void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message);
 	}
 
-	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, List<String> lines) {
+	public void updateView(String docTitle, String docAuthor, String docCreationTime, String docLModifiedTime, List<Line> lines) {
+
 		this.documentTitleTextField.setText(docTitle);
 		this.authorTextField.setText(docAuthor);
 		this.creationTimestampPlaceholder.setText(docCreationTime);
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
-		for (String line : lines) {
-			this.textArea.append(line);
+		for (Line line : lines) {
+			for (String word : line.getWords()) {
+				this.textArea.append(word);
+				this.textArea.append(" ");
+			}
+			this.textArea.append("\n");
+
 		}
 
 	}
@@ -271,8 +291,31 @@ public class DocumentEditorView {
 		return this.voiceRateSlider.getValue();
 	}
 
-	public static Document getCurrentDocument() {
-		return null;
+	public int getLineNumber(){
+		int caretPos = textArea.getCaretPosition();
+		int lineNumber = 0;
+		try {
+			lineNumber = textArea.getLineOfOffset(caretPos);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		return lineNumber;
 	}
 
+
+	public String getAuthorTextField() {
+		return authorTextField.getText();
+	}
+
+	public void setAuthorTextField(JTextField authorTextField) {
+		this.authorTextField = authorTextField;
+	}
+
+	public String getDocumentTitleTextField() {
+		return documentTitleTextField.getText();
+	}
+
+	public void setDocumentTitleTextField(JTextField documentTitleTextField) {
+		this.documentTitleTextField = documentTitleTextField;
+	}
 }

@@ -15,8 +15,6 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 
-import antlr.StringUtils;
-
 public class FileUtils {
 
 	private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
@@ -34,6 +32,7 @@ public class FileUtils {
 	 * @return the operation result
 	 * @throws IOException for example if file has not been found
 	 */
+
 	public static Boolean setFileMetadata(String filepath, String metadataName, String metadataValue) {
 		if (Strings.isBlank(metadataName) || Strings.isBlank(metadataValue))
 			return false;
