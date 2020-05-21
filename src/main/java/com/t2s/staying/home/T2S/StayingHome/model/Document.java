@@ -7,7 +7,7 @@ import java.util.List;
 public class Document {
 
 	// models should be pure. no methods here only properties and setters getters. if we need business logic we can create managers
-	private EncodingStrategy encodingStrategy;
+//	private EncodingStrategy encodingStrategy;
 	private TextToSpeechAPI audioManager;
 	private List<Line>  lines;
 	private Long creationTime;
@@ -16,13 +16,13 @@ public class Document {
 	private String title;
 
 
-	public EncodingStrategy getEncodingStrategy() {
-		return encodingStrategy;
-	}
+//	public EncodingStrategy getEncodingStrategy() {
+//		return encodingStrategy;
+//	}
 
-	public void setEncodingStrategy(EncodingStrategy encodingStrategy) {
-		this.encodingStrategy = encodingStrategy;
-	}
+//	public void setEncodingStrategy(EncodingStrategy encodingStrategy) {
+//		this.encodingStrategy = encodingStrategy;
+//	}
 
 	public TextToSpeechAPI getAudioManager() {
 		return audioManager;
