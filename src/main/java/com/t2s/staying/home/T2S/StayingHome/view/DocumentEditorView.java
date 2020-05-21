@@ -3,8 +3,10 @@ package com.t2s.staying.home.T2S.StayingHome.view;
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
+import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
@@ -43,6 +45,7 @@ public class DocumentEditorView {
 	private JTextField documentTitleTextField;
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
+	private JSlider voiceVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
 
 	public JTextArea getTextArea() {
 		return textArea;
@@ -50,6 +53,7 @@ public class DocumentEditorView {
 
 	private JTextArea textArea;
 
+	private FreeTTSAdapter t2s = new FreeTTSAdapter();
 
 	private JSlider voiceRateSlider;
 
@@ -199,8 +203,16 @@ public class DocumentEditorView {
 		encodeOptionRot13Label.setBounds(728, 293, 141, 14);
 		frame.getContentPane().add(encodeOptionRot13Label);
 
-		JSlider voiceVolumeSlider = new JSlider();
-		voiceVolumeSlider.setValue(0);
+		//-------------VOLUME-----------//
+
+		voiceVolumeSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider) e.getSource();
+				t2s.setVolume(source.getValue());		// pernei kanonika thn value meta einai to lathos
+				System.out.println("source.getValue()  " + source.getValue());
+			}
+		});
 		voiceVolumeSlider.setBounds(678, 122, 170, 14);
 		frame.getContentPane().add(voiceVolumeSlider);
 
