@@ -30,6 +30,11 @@ public class ReverseAll implements ActionListener {
 		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
 		Collections.reverse(currentLines);
 
+		/* todo intialise a local list<line> with the reverse currentLines
+		*   if not our current doc is updating to reversed and we dont want this
+		* bcs if we press again reverse button its gonna read it "reverse" again that is the
+		* original*/
+
 		try {
 			for (Line currentLine : currentLines) {
 				Collections.reverse(currentLine.getWords());

@@ -21,6 +21,12 @@ public class ApplicationConstants {
 	public static final String FREE_TTS = "freeTTSAdapter";
 	public static final String FAKE_TTS= "FakeT2s";
 
+	// strategies factory values
+
+	public static final String ROT13 = "rot13Encoding";
+	public static final String ATBASH = "atBashEncoding";
+
+
 	//VOICES
 	public static final String VOICE_KEVIN16 = "kevin16";
 	public static final String VOICE_KEVIN = "kevin";

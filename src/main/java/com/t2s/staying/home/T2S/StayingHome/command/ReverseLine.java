@@ -27,6 +27,7 @@ public class ReverseLine implements ActionListener {
         List<Line> currentLines = documentManager.getCurrentDocument().getLines();
         try {
 
+            /* todo check REVERSEALL for explanation */
             for (int n = 0; n < currentLines.size(); n += 1){
                 if (lineNumber == n) {
                     Collections.reverse(currentLines.get(n).getWords());

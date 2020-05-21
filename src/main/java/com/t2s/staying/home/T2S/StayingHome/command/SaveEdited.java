@@ -14,6 +14,7 @@ import java.io.OutputStreamWriter;
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
 
+
 public class SaveEdited implements ActionListener {
     public static final String SAVE_BUTTON_DIALOG = "Specify the file to save:";
     private DocumentEditorView view;
@@ -30,7 +31,7 @@ public class SaveEdited implements ActionListener {
             exception.printStackTrace();
         }
     }
-
+    /* todo save only in the current file... Now we can save wherever(WRONG) */
     protected void saveToFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle(SAVE_BUTTON_DIALOG);
