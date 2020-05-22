@@ -12,13 +12,21 @@ public class ApplicationConstants {
 	public static final String LINE_TO_SPEECH = "text2SpeechLine";
 	public static final String REVERSE_ALL_COMMAND = "reverseAll";
 	public static final String REVERSE_LINE_COMMAND = "reverseLine";
-	public static final String TUNE_VOLUME_COMMAND = "tuneVolume";
+	public static final String TUNE_AUDIO = "tuneaudio";
+
 	public static final String ENCODE_ALL_ATBASH = "encodeAllAtbash";
 	public static final String ENCODE_LINE_ATBASH = "encodeLineAtbash";
 	public static final String ENCODE_ALL_ROT13 = "encodeAllRot13";
 	public static final String ENCODE_LINE_ROT13 = "encodeLineRot13";
 
+	// commands audio factory
+	public static final String TUNE_VOLUME_COMMAND = "tunevolume";
+	public static final String TUNE_RATE_COMMAND = "tunerate";
+	public static final String TUNE_PITCH_COMMAND = "tunepitch";
 
+
+
+	// metadata
 	public static final String AUTHOR_METADATA_NAME = "author";
 	public static final String TITLE_METADATA_NAME = "title";
 

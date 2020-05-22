@@ -45,7 +45,7 @@ public class DocumentEditorView {
 	private JTextField documentTitleTextField;
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
-	private JSlider voiceVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+
 
 	public JTextArea getTextArea() {
 		return textArea;
@@ -55,7 +55,23 @@ public class DocumentEditorView {
 
 	private FreeTTSAdapter t2s = new FreeTTSAdapter();
 
-	private JSlider voiceRateSlider;
+	private JSlider voiceRateSlider = new JSlider(0, 400);
+
+	public JSlider getVoicePitchSlider() {
+		return voicePitchSlider;
+	}
+
+	private JSlider voicePitchSlider = new JSlider(50, 200);
+
+	public JSlider getVoiceRateSlider() {
+		return voiceRateSlider;
+	}
+
+	public JSlider getVoiceVolumeSlider() {
+		return voiceVolumeSlider;
+	}
+
+	private JSlider voiceVolumeSlider = new JSlider(0, 10);
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -217,14 +233,16 @@ public class DocumentEditorView {
 
 		//-------------VOLUME-----------//
 
-		voiceVolumeSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider) e.getSource();
-				t2s.setVolume(source.getValue());		// pernei kanonika thn value meta einai to lathos
-				System.out.println("source.getValue()  " + source.getValue());
-			}
-		});
+		ChangeListener volumeChangeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
+		voiceVolumeSlider.addChangeListener(volumeChangeListener);
+//		voiceVolumeSlider.addChangeListener(new ChangeListener() {
+//			@Override
+//			public void stateChanged(ChangeEvent e) {
+//				JSlider source = (JSlider) e.getSource();
+//				t2s.setVolume(source.getValue());		// pernei kanonika thn value meta einai to lathos
+//				System.out.println("source.getValue()  " + source.getValue());
+//			}
+//		});
 		voiceVolumeSlider.setBounds(678, 122, 170, 14);
 		frame.getContentPane().add(voiceVolumeSlider);
 
@@ -242,9 +260,18 @@ public class DocumentEditorView {
 		lblVoicePitch.setBounds(567, 149, 62, 14);
 		frame.getContentPane().add(lblVoicePitch);
 
-		JSlider voicePitchSlider = new JSlider();
-		voicePitchSlider.setValue(0);
+		//--------------PITCH-----------------//
+
+//		voicePitchSlider.setValue(0);
+		voicePitchSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				System.out.println(((JSlider) e.getSource()).getValue());
+				t2s.setPitch(((JSlider) e.getSource()).getValue());
+			}
+		});
 		voicePitchSlider.setBounds(678, 149, 170, 14);
+		frame.add(voicePitchSlider);
 		frame.getContentPane().add(voicePitchSlider);
 
 		JLabel lblVoiceRate = new JLabel(VOICE_RATE_LABEL_TEXT);
@@ -254,12 +281,15 @@ public class DocumentEditorView {
 		lblVoiceRate.setBounds(567, 179, 62, 14);
 		frame.getContentPane().add(lblVoiceRate);
 
-		JSlider voiceRateSlider = new JSlider();
-		voiceRateSlider.setValue(0);
-		voiceRateSlider.setMaximum(1);
+		//-------------Rate----------------//
+
+//		voiceRateSlider.setValue(0);
+		voiceRateSlider.addChangeListener(e -> sliderRateChanged());
+
+		//voiceRateSlider.setMaximum(1);
 		voiceRateSlider.setBounds(678, 179, 170, 14);
-		ChangeListener changeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
-		voiceRateSlider.addChangeListener(changeListener);
+		//ChangeListener changeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
+		//voiceRateSlider.addChangeListener(changeListener);
 		frame.getContentPane().add(voiceRateSlider);
 
 		textArea = new JTextArea();
@@ -272,6 +302,7 @@ public class DocumentEditorView {
 
 
 	}
+
 
 	public void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message);
@@ -300,10 +331,6 @@ public class DocumentEditorView {
 		frame.setVisible(false);
 	}
 
-	public float getVolume() {
-		return this.voiceRateSlider.getValue();
-	}
-
 	public int getLineNumber(){
 		int caretPos = textArea.getCaretPosition();
 		int lineNumber = 0;
@@ -320,15 +347,19 @@ public class DocumentEditorView {
 		return authorTextField.getText();
 	}
 
-	public void setAuthorTextField(JTextField authorTextField) {
-		this.authorTextField = authorTextField;
-	}
-
 	public String getDocumentTitleTextField() {
 		return documentTitleTextField.getText();
 	}
 
-	public void setDocumentTitleTextField(JTextField documentTitleTextField) {
-		this.documentTitleTextField = documentTitleTextField;
+	public void sliderRateChanged(){
+
+		t2s.setRate(voiceRateSlider.getValue());		// pernei kanonika thn value meta einai to lathos
+		System.out.println("source.getValue()  " + voiceRateSlider.getValue());
+
 	}
+	private void sliderPitchChanged() {
+		t2s.setPitch(voicePitchSlider.getValue());		// pernei kanonika thn value meta einai to lathos
+		System.out.println("voicePitchSlider.getValue()  " + voicePitchSlider.getValue());
+	}
+
 }
