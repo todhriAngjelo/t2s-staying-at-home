@@ -44,6 +44,5 @@ public class EncodeAllRiot13 implements ActionListener {
             exception.printStackTrace();
         }
         view.getReplayManager().add(this);
-
     }
 }

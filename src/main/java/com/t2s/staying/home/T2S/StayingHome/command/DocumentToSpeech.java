@@ -43,8 +43,6 @@ public class DocumentToSpeech implements ActionListener {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
-		documentToSpeechView.getReplayManager().add(this);
-
 	}
 }
 

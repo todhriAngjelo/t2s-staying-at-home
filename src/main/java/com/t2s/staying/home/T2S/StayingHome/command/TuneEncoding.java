@@ -23,7 +23,6 @@ public class TuneEncoding implements ActionListener {
 //		String cipher = DocumentEditorView.getEncoding();
 //		StrategySelecter strategySelecter = new StrategySelecter();
 //		EncodingStrategy encodingStrategy = strategySelecter.pickAStrategy(cipher);
-
 //		document.tuneEncoding(encodingStrategy);
 	}
 

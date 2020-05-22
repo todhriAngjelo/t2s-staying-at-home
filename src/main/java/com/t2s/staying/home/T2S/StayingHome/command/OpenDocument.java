@@ -2,7 +2,6 @@ package com.t2s.staying.home.T2S.StayingHome.command;
 
 import com.t2s.staying.home.T2S.StayingHome.ApplicationErrors;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
-import com.t2s.staying.home.T2S.StayingHome.manager.ReplayManager;
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
@@ -85,7 +84,6 @@ public class OpenDocument implements ActionListener {
 
 		}
 		view.getReplayManager().add(this);
-
 	}
 
 	private void updateView(Document document) {
@@ -96,6 +94,4 @@ public class OpenDocument implements ActionListener {
 				DateUtils.getTimezoneStringDate(document.getLastModifiedTime(), null),
 				document.getLines());
 	}
-
-	//
 }

@@ -45,7 +45,15 @@ public class CommandsFactory {
 		}else if (commandKind.equals(ENCODE_LINE_ROT13)){
 			EncodeLineRiot13 encodeLineRiot13 = new EncodeLineRiot13((DocumentEditorView) view);
 			return encodeLineRiot13;
+		}else if (commandKind.equals(TUNE_AUDIO)){
+			TuneAudio tuneAudio = new TuneAudio((DocumentEditorView) view);
+			return tuneAudio;
+		}else if(commandKind.equals(REPLAY_COMMAND)){
+		if (view instanceof DocumentEditorView) {
+			ReplayCommand replayCommand = new ReplayCommand(((DocumentEditorView) view).getReplayManager());
+			return replayCommand;
 		}
+	}
 		return null;
 	}
 }

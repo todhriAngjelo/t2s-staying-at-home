@@ -37,6 +37,7 @@ public class EditDocument implements ActionListener {
 			System.out.println("An error occurred.");
 			error.printStackTrace();
 		}
+
 	}
 
 	public void setDocument(Document document) {

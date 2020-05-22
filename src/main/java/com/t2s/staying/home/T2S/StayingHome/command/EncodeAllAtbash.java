@@ -45,6 +45,5 @@ public class EncodeAllAtbash implements ActionListener {
             exception.printStackTrace();
         }
         view.getReplayManager().add(this);
-
     }
 }

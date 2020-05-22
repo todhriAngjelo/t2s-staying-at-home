@@ -16,6 +16,7 @@ public class ReplayManager {
     }
 
     public void add(ActionListener cm) {
+
         commandsize.add(cm);
     }
 

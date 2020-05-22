@@ -2,11 +2,11 @@ package com.t2s.staying.home.T2S.StayingHome.view;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
+import com.t2s.staying.home.T2S.StayingHome.manager.ReplayManager;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
@@ -45,7 +45,7 @@ public class DocumentEditorView {
 	private JTextField documentTitleTextField;
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
-	private JSlider voiceVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+
 
 	public JTextArea getTextArea() {
 		return textArea;
@@ -55,7 +55,14 @@ public class DocumentEditorView {
 
 	private FreeTTSAdapter t2s = new FreeTTSAdapter();
 
-	private JSlider voiceRateSlider;
+	private JSlider voiceRateSlider = new JSlider(0, 400);
+
+	private JSlider voicePitchSlider = new JSlider(50, 200);
+
+	private ReplayManager replayManager = new ReplayManager();
+
+
+	private FloatJSlider voiceVolumeSlider = new FloatJSlider(3, 10, 10, 10);
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -217,14 +224,8 @@ public class DocumentEditorView {
 
 		//-------------VOLUME-----------//
 
-		voiceVolumeSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider) e.getSource();
-				t2s.setVolume(source.getValue());		// pernei kanonika thn value meta einai to lathos
-				System.out.println("source.getValue()  " + source.getValue());
-			}
-		});
+		ChangeListener volumeChangeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
+		voiceVolumeSlider.addChangeListener(volumeChangeListener);
 		voiceVolumeSlider.setBounds(678, 122, 170, 14);
 		frame.getContentPane().add(voiceVolumeSlider);
 
@@ -242,8 +243,9 @@ public class DocumentEditorView {
 		lblVoicePitch.setBounds(567, 149, 62, 14);
 		frame.getContentPane().add(lblVoicePitch);
 
-		JSlider voicePitchSlider = new JSlider();
-		voicePitchSlider.setValue(0);
+		//--------------PITCH-----------------//
+		ChangeListener pitchChangeListener = textToSpeechAPIFactory.createChangeListener(TUNE_PITCH_COMMAND, this);
+		voicePitchSlider.addChangeListener(pitchChangeListener);
 		voicePitchSlider.setBounds(678, 149, 170, 14);
 		frame.getContentPane().add(voicePitchSlider);
 
@@ -254,24 +256,26 @@ public class DocumentEditorView {
 		lblVoiceRate.setBounds(567, 179, 62, 14);
 		frame.getContentPane().add(lblVoiceRate);
 
-		JSlider voiceRateSlider = new JSlider();
-		voiceRateSlider.setValue(0);
-		voiceRateSlider.setMaximum(1);
+		//-------------Rate----------------//
+		ChangeListener rateChangeListener = textToSpeechAPIFactory.createChangeListener(TUNE_RATE_COMMAND, this);
+		voiceRateSlider.addChangeListener(rateChangeListener);
 		voiceRateSlider.setBounds(678, 179, 170, 14);
-		ChangeListener changeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
-		voiceRateSlider.addChangeListener(changeListener);
 		frame.getContentPane().add(voiceRateSlider);
 
 		textArea = new JTextArea();
-		textArea.setBounds(10, 37, 515, 439);
+		textArea.setBounds(10, 37, 517, 404);
 		frame.getContentPane().add(textArea);
 
 		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
-//		textArea.setLineWrap(true);
-//		textArea.setWrapStyleWord(true);
 
+		JButton replayBtn = new JButton("Replay");
+		ActionListener replayActionListener = commandsFactory.createCommand(REPLAY_COMMAND, this);
+		replayBtn.addActionListener(replayActionListener);
+		replayBtn.setBounds(231, 450, 89, 23);
+		frame.getContentPane().add(replayBtn);
 
 	}
+
 
 	public void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message);
@@ -283,6 +287,7 @@ public class DocumentEditorView {
 		this.authorTextField.setText(docAuthor);
 		this.creationTimestampPlaceholder.setText(docCreationTime);
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
+		this.textArea.setText("");
 		for (Line line : lines) {
 			for (String word : line.getWords()) {
 				this.textArea.append(word);
@@ -297,10 +302,6 @@ public class DocumentEditorView {
 	public void goToMainView() {
 		new MainView();
 		frame.setVisible(false);
-	}
-
-	public float getVolume() {
-		return this.voiceRateSlider.getValue();
 	}
 
 	public int getLineNumber(){
@@ -319,15 +320,40 @@ public class DocumentEditorView {
 		return authorTextField.getText();
 	}
 
-	public void setAuthorTextField(JTextField authorTextField) {
-		this.authorTextField = authorTextField;
-	}
-
 	public String getDocumentTitleTextField() {
 		return documentTitleTextField.getText();
 	}
 
-	public void setDocumentTitleTextField(JTextField documentTitleTextField) {
-		this.documentTitleTextField = documentTitleTextField;
+	public JSlider getVoicePitchSlider() {
+		return voicePitchSlider;
 	}
+
+	public JSlider getVoiceRateSlider() {
+		return voiceRateSlider;
+	}
+
+	public FloatJSlider getVoiceVolumeSlider() {
+		return voiceVolumeSlider;
+	}
+
+
+	public class FloatJSlider extends JSlider {
+
+		final int scale;
+
+		public FloatJSlider(int min, int max, int value, int scale) {
+			super(min, max, value);
+			this.scale = scale;
+		}
+
+		public float getScaledValue() {
+			return ((float)super.getValue()) / this.scale;
+		}
+	}
+
+	public ReplayManager getReplayManager() {
+		return replayManager;
+	}
+
+
 }

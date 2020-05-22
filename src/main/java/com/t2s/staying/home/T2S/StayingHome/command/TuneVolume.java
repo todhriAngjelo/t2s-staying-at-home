@@ -7,6 +7,8 @@ import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import java.awt.event.ActionListener;
+
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS;
 
 public class TuneVolume implements ChangeListener {
@@ -25,5 +27,7 @@ public class TuneVolume implements ChangeListener {
 
 		t2s.setVolume(view.getVoiceVolumeSlider().getScaledValue());
 		System.out.println("getVoiceVolumeSlider.getValue()  " + view.getVoiceVolumeSlider().getScaledValue());
+		view.getReplayManager().add((ActionListener) this);
+
 	}
 }

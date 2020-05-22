@@ -39,8 +39,6 @@ public class SaveEdited implements ActionListener {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        view.getReplayManager().add(this);
-
     }
     /* todo save only in the current file... Now we can save wherever(WRONG) */
     protected void saveToFile() {
@@ -93,6 +91,7 @@ public class SaveEdited implements ActionListener {
                 e.printStackTrace();
             }
         }
+        view.getReplayManager().add(this);
     }
 
     private void updateView(Document document) {
