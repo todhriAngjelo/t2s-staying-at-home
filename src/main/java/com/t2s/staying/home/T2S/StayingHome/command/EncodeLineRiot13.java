@@ -12,7 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.ROT13;
 
 public class EncodeLineRiot13 implements ActionListener {
 
@@ -38,11 +39,14 @@ public class EncodeLineRiot13 implements ActionListener {
 					{
 						System.out.println(rot13.encode(word));
 						t2s.play(rot13.encode(word));
+
 						displayText[0] = displayText[0].concat(rot13.encode(word) + " ");
 					}
 			);
+			for (String s : displayText) {
+				view.showMessageDialog("The encoded text is: " + s);
+			}
 
-			view.showMessageDialog("The encoded text is: " + displayText);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
