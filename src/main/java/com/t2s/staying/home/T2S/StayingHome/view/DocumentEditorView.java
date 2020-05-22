@@ -6,7 +6,6 @@ import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
@@ -57,21 +56,11 @@ public class DocumentEditorView {
 
 	private JSlider voiceRateSlider = new JSlider(0, 400);
 
-	public JSlider getVoicePitchSlider() {
-		return voicePitchSlider;
-	}
-
 	private JSlider voicePitchSlider = new JSlider(50, 200);
 
-	public JSlider getVoiceRateSlider() {
-		return voiceRateSlider;
-	}
 
-	public JSlider getVoiceVolumeSlider() {
-		return voiceVolumeSlider;
-	}
 
-	private JSlider voiceVolumeSlider = new JSlider(0, 10);
+	private FloatJSlider voiceVolumeSlider = new FloatJSlider(3, 10, 10, 10);
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -235,14 +224,6 @@ public class DocumentEditorView {
 
 		ChangeListener volumeChangeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
 		voiceVolumeSlider.addChangeListener(volumeChangeListener);
-//		voiceVolumeSlider.addChangeListener(new ChangeListener() {
-//			@Override
-//			public void stateChanged(ChangeEvent e) {
-//				JSlider source = (JSlider) e.getSource();
-//				t2s.setVolume(source.getValue());		// pernei kanonika thn value meta einai to lathos
-//				System.out.println("source.getValue()  " + source.getValue());
-//			}
-//		});
 		voiceVolumeSlider.setBounds(678, 122, 170, 14);
 		frame.getContentPane().add(voiceVolumeSlider);
 
@@ -261,17 +242,9 @@ public class DocumentEditorView {
 		frame.getContentPane().add(lblVoicePitch);
 
 		//--------------PITCH-----------------//
-
-//		voicePitchSlider.setValue(0);
-		voicePitchSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				System.out.println(((JSlider) e.getSource()).getValue());
-				t2s.setPitch(((JSlider) e.getSource()).getValue());
-			}
-		});
+		ChangeListener pitchChangeListener = textToSpeechAPIFactory.createChangeListener(TUNE_PITCH_COMMAND, this);
+		voicePitchSlider.addChangeListener(pitchChangeListener);
 		voicePitchSlider.setBounds(678, 149, 170, 14);
-		frame.add(voicePitchSlider);
 		frame.getContentPane().add(voicePitchSlider);
 
 		JLabel lblVoiceRate = new JLabel(VOICE_RATE_LABEL_TEXT);
@@ -282,14 +255,9 @@ public class DocumentEditorView {
 		frame.getContentPane().add(lblVoiceRate);
 
 		//-------------Rate----------------//
-
-//		voiceRateSlider.setValue(0);
-		voiceRateSlider.addChangeListener(e -> sliderRateChanged());
-
-		//voiceRateSlider.setMaximum(1);
+		ChangeListener rateChangeListener = textToSpeechAPIFactory.createChangeListener(TUNE_RATE_COMMAND, this);
+		voiceRateSlider.addChangeListener(rateChangeListener);
 		voiceRateSlider.setBounds(678, 179, 170, 14);
-		//ChangeListener changeListener = textToSpeechAPIFactory.createChangeListener(TUNE_VOLUME_COMMAND, this);
-		//voiceRateSlider.addChangeListener(changeListener);
 		frame.getContentPane().add(voiceRateSlider);
 
 		textArea = new JTextArea();
@@ -297,9 +265,6 @@ public class DocumentEditorView {
 		frame.getContentPane().add(textArea);
 
 		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
-//		textArea.setLineWrap(true);
-//		textArea.setWrapStyleWord(true);
-
 
 	}
 
@@ -351,15 +316,30 @@ public class DocumentEditorView {
 		return documentTitleTextField.getText();
 	}
 
-	public void sliderRateChanged(){
-
-		t2s.setRate(voiceRateSlider.getValue());		// pernei kanonika thn value meta einai to lathos
-		System.out.println("source.getValue()  " + voiceRateSlider.getValue());
-
-	}
-	private void sliderPitchChanged() {
-		t2s.setPitch(voicePitchSlider.getValue());		// pernei kanonika thn value meta einai to lathos
-		System.out.println("voicePitchSlider.getValue()  " + voicePitchSlider.getValue());
+	public JSlider getVoicePitchSlider() {
+		return voicePitchSlider;
 	}
 
+	public JSlider getVoiceRateSlider() {
+		return voiceRateSlider;
+	}
+
+	public FloatJSlider getVoiceVolumeSlider() {
+		return voiceVolumeSlider;
+	}
+
+
+	public class FloatJSlider extends JSlider {
+
+		final int scale;
+
+		public FloatJSlider(int min, int max, int value, int scale) {
+			super(min, max, value);
+			this.scale = scale;
+		}
+
+		public float getScaledValue() {
+			return ((float)super.getValue()) / this.scale;
+		}
+	}
 }

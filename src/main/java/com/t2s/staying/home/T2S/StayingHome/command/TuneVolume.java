@@ -22,10 +22,8 @@ public class TuneVolume implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		//factory.getTTSApi().setVolume(view.getVolume());
 
-
-		t2s.setPitch(view.getVoiceVolumeSlider().getValue());
-		System.out.println("voicePitchSlider.getValue()  " + view.getVoicePitchSlider().getValue());
+		t2s.setVolume(view.getVoiceVolumeSlider().getScaledValue());
+		System.out.println("getVoiceVolumeSlider.getValue()  " + view.getVoiceVolumeSlider().getScaledValue());
 	}
 }

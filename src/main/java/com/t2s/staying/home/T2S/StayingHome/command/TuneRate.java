@@ -18,7 +18,7 @@ public class TuneRate implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        t2s.setPitch(view.getVoiceRateSlider().getValue());
-        System.out.println("voicePitchSlider.getValue()  " + view.getVoiceRateSlider().getValue());
+        t2s.setRate(view.getVoiceRateSlider().getValue());
+        System.out.println("getVoiceRateSlider.getValue()  " + view.getVoiceRateSlider().getValue());
     }
 }
