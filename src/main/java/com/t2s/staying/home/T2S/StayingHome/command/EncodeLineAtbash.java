@@ -44,5 +44,8 @@ public class EncodeLineAtbash implements ActionListener {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+        view.getReplayManager().add(this);
+
     }
+
 }

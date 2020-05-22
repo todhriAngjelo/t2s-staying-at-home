@@ -45,6 +45,7 @@ public class ReverseAll implements ActionListener {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		view.getReplayManager().add(this);
 
 	}
 }

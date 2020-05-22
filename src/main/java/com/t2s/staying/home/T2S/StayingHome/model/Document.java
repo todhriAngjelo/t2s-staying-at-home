@@ -2,6 +2,7 @@ package com.t2s.staying.home.T2S.StayingHome.model;
 
 import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Document {
@@ -14,6 +15,7 @@ public class Document {
 	private Long lastModifiedTime;
 	private String authorsName;
 	private String title;
+	private ArrayList<Line> contents;
 
 
 //	public EncodingStrategy getEncodingStrategy() {

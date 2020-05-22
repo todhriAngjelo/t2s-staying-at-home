@@ -41,5 +41,7 @@ public class ReverseLine implements ActionListener {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+        view.getReplayManager().add(this);
+
     }
 }

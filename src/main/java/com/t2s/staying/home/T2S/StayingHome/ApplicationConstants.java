@@ -17,7 +17,7 @@ public class ApplicationConstants {
 	public static final String ENCODE_LINE_ATBASH = "encodeLineAtbash";
 	public static final String ENCODE_ALL_ROT13 = "encodeAllRot13";
 	public static final String ENCODE_LINE_ROT13 = "encodeLineRot13";
-
+	public static final String REPLAY_COMMAND = "replay";
 
 	public static final String ROT_ALL_LINES_COMMAND ="rot";
 	public static final String AUTHOR_METADATA_NAME = "author";
@@ -42,5 +42,8 @@ public class ApplicationConstants {
 	public static final String DEFAULT_SAVE_FILE_LOCATION = "C:\\Users\\a.todhri\\Documents\\T2Sdocs\\";
 
 	public static final Font DEFAULT_FONT_SETTINGS = new Font("Tahoma", Font.PLAIN, 16);
+	public static Object ReplayManager;
+	public static Object NewDocumentView;
 
+	//public static Object ReplayManager;
 }

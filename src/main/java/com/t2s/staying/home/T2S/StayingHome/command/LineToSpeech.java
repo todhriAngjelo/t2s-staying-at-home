@@ -35,6 +35,6 @@ public class LineToSpeech implements ActionListener {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
-
+		lineToSpeechView.getReplayManager().add(this);
 	}
 }
