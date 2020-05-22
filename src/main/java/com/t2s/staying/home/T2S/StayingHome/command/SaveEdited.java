@@ -1,15 +1,24 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
+import com.t2s.staying.home.T2S.StayingHome.ApplicationErrors;
+import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
+import com.t2s.staying.home.T2S.StayingHome.model.Document;
+import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+import com.t2s.staying.home.T2S.utils.DateUtils;
 import com.t2s.staying.home.T2S.utils.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
@@ -50,10 +59,48 @@ public class SaveEdited implements ActionListener {
                         "utf-8"));
                 FileUtils.setFileMetadata(file.getAbsolutePath(), AUTHOR_METADATA_NAME, view.getAuthorTextField());
                 FileUtils.setFileMetadata(file.getAbsolutePath(), TITLE_METADATA_NAME, view.getDocumentTitleTextField());
-                Desktop.getDesktop().open(file);
+
+                BufferedReader bufferedReader = FileUtils.getFileBufferReader(file.getAbsolutePath());
+                List<String> lines = new ArrayList<>();
+                if (bufferedReader != null) {
+                    bufferedReader.lines().forEach(line -> lines.add(line));
+                    FileUtils.closeBufferedReader(bufferedReader);
+                } else {
+                    view.showMessageDialog(ApplicationErrors.LOAD_FILE_ERROR);
+                }
+                List<String> words;
+                List<Line> currentLines = new ArrayList<>();
+                for (String line : lines) {
+
+                    Line currentLine = new Line();
+                    words = Arrays.asList(line.split("\\s+"));
+
+                    currentLine.setWords(words);
+                    currentLines.add(currentLine);
+                }
+
+                FileUtils.setFileMetadata(file.getAbsolutePath(), AUTHOR_METADATA_NAME, view.getAuthorTextField());
+                FileUtils.setFileMetadata(file.getAbsolutePath(), TITLE_METADATA_NAME, view.getDocumentTitleTextField());
+
+                DocumentManager.updateStaticCurrentDocument(
+                        view.getDocumentTitleTextField(),
+                        view.getAuthorTextField(),
+                        currentLines,
+                        null,
+                        FileUtils.getFileLastModifiedTime(file.getAbsolutePath()));
+                updateView(DocumentManager.getCurrentDocument());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void updateView(Document document) {
+        view.updateView(
+                document.getTitle(),
+                document.getAuthorsName(),
+                DateUtils.getTimezoneStringDate(document.getCreationTime(), null),
+                DateUtils.getTimezoneStringDate(document.getLastModifiedTime(), null),
+                document.getLines());
     }
 }

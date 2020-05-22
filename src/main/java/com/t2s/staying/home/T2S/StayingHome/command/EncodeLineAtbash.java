@@ -17,35 +17,36 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS
 
 public class EncodeLineAtbash implements ActionListener {
 
-    private DocumentManager documentManager = new DocumentManager();
-    private DocumentEditorView view;
-    private StrategiesFactory strategy = new StrategiesFactory();
-    EncodingStrategy atbash = strategy.createStrategy(ATBASH);
-    public EncodeLineAtbash(DocumentEditorView view) {
-        this.view = view;
-    }
+	private DocumentManager documentManager = new DocumentManager();
+	private DocumentEditorView view;
+	private StrategiesFactory strategy = new StrategiesFactory();
+	EncodingStrategy atbash = strategy.createStrategy(ATBASH);
 
-    private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
-    TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
+	public EncodeLineAtbash(DocumentEditorView view) {
+		this.view = view;
+	}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        int lineNumber = view.getLineNumber();
-        List<Line> currentLines = documentManager.getCurrentDocument().getLines();
-        try {
-        for (int n = 0; n < currentLines.size(); n += 1){
-            for (String word : currentLines.get(n).getWords()) {
-                if (lineNumber == n){
-                    System.out.println(atbash.encode(word));
-                    t2s.play(atbash.encode(word));
-                }
-            }
-        }
+	private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
+	TextToSpeechAPI t2s = textToSpeech.getTTSApi(FREE_TTS);
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int lineNumber = view.getLineNumber();
+		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
+		String displayText = " ";
+		try {
+			for (int n = 0; n < currentLines.size(); n += 1) {
+				for (String word : currentLines.get(n).getWords()) {
+					if (lineNumber == n) {
+						System.out.println(atbash.encode(word));
+						t2s.play(atbash.encode(word));
+						displayText = displayText.concat(atbash.encode(word) + " ");
+					}
+				}
+			}
+            view.showMessageDialog("The encoded text is: " + displayText);
         } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        view.getReplayManager().add(this);
-
-    }
-
+			exception.printStackTrace();
+		}
+	}
 }

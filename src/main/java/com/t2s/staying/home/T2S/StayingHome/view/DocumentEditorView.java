@@ -2,7 +2,6 @@ package com.t2s.staying.home.T2S.StayingHome.view;
 
 import com.t2s.staying.home.T2S.StayingHome.factory.CommandsFactory;
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechFactory;
-import com.t2s.staying.home.T2S.StayingHome.manager.ReplayManager;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.FreeTTSAdapter;
 
@@ -13,7 +12,6 @@ import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.*;
 
@@ -44,11 +42,10 @@ public class DocumentEditorView {
 	private JFrame frame;
 	private JTextField authorTextField;
 
-	public JTextField documentTitleTextField;
+	private JTextField documentTitleTextField;
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
 	private JSlider voiceVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
-	private ReplayManager replayManager = new ReplayManager();
 
 	public JTextArea getTextArea() {
 		return textArea;
@@ -266,16 +263,10 @@ public class DocumentEditorView {
 		frame.getContentPane().add(voiceRateSlider);
 
 		textArea = new JTextArea();
-		textArea.setBounds(10, 37, 517, 404);
+		textArea.setBounds(10, 37, 515, 439);
 		frame.getContentPane().add(textArea);
 
 		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		JButton replayBtn = new JButton("Replay");
-		ActionListener replayActionListener = commandsFactory.createCommand(REPLAY_COMMAND, this);
-		replayBtn.addActionListener(replayActionListener);
-		replayBtn.setBounds(231, 450, 89, 23);
-		frame.getContentPane().add(replayBtn);
 //		textArea.setLineWrap(true);
 //		textArea.setWrapStyleWord(true);
 
@@ -339,12 +330,4 @@ public class DocumentEditorView {
 	public void setDocumentTitleTextField(JTextField documentTitleTextField) {
 		this.documentTitleTextField = documentTitleTextField;
 	}
-
-
-
-	public ReplayManager getReplayManager() {
-		return replayManager;
-	}
-
-
 }

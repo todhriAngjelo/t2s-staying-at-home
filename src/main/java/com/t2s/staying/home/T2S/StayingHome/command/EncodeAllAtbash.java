@@ -30,14 +30,17 @@ public class EncodeAllAtbash implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         List<Line> currentLines = documentManager.getCurrentDocument().getLines();
+        String displayText = " ";
         try {
             for (Line currentLine : currentLines) {
                 for (String word : currentLine.getWords()) {
                    System.out.println(atbash.encode(word));
                    t2s.play(atbash.encode(word));
+                    displayText = displayText.concat(atbash.encode(word) + " ");
                 }
 
             }
+            view.showMessageDialog("The encoded text is: " + displayText);
         } catch (Exception exception) {
             exception.printStackTrace();
         }

@@ -29,8 +29,14 @@ public class DocumentToSpeech implements ActionListener {
 		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
 
 		try {
+//			t2s.setPitch(documentToSpeechView.getVoicePitchSlider().getValue());		// pernei kanonika thn value meta einai to lathos
+//
+////			t2s.setPitch(documentToSpeechView.getVoiceVolumeSlider().getValue());
+//			System.out.println("voicePitchSlider.getValue()  " + documentToSpeechView.getVoicePitchSlider().getValue());
+
 			for (Line currentLine : currentLines) {
 				for (String word : currentLine.getWords()) {
+					//t2s.setRate(documentToSpeechView.getVoiceRateSlider().getValue());
 					t2s.play(word);
 				}
 			}

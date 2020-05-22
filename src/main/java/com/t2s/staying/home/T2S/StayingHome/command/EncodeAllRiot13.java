@@ -28,13 +28,18 @@ public class EncodeAllRiot13 implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         List<Line> currentLines = documentManager.getCurrentDocument().getLines();
+        String displayText = " ";
         try {
             for (Line currentLine : currentLines) {
                 for (String word : currentLine.getWords()) {
                     System.out.println(rot13.encode(word));
                     t2s.play(rot13.encode(word));
+                    displayText = displayText.concat(rot13.encode(word) + " ");
                 }
             }
+
+        view.showMessageDialog("The encoded text is: " + displayText);
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }

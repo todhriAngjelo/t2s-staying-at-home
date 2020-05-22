@@ -1,7 +1,6 @@
 package com.t2s.staying.home.T2S.StayingHome.factory;
 
 import com.t2s.staying.home.T2S.StayingHome.command.*;
-import com.t2s.staying.home.T2S.StayingHome.manager.ReplayManager;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 
@@ -43,16 +42,10 @@ public class CommandsFactory {
 		} else if (commandKind.equals(ENCODE_ALL_ROT13)){
 			EncodeAllRiot13 encodeAllRiot13 = new EncodeAllRiot13((DocumentEditorView) view);
 			return encodeAllRiot13;
-		}else if (commandKind.equals(ENCODE_LINE_ROT13)) {
+		}else if (commandKind.equals(ENCODE_LINE_ROT13)){
 			EncodeLineRiot13 encodeLineRiot13 = new EncodeLineRiot13((DocumentEditorView) view);
 			return encodeLineRiot13;
-		}else if(commandKind.equals(REPLAY_COMMAND)){
-			if (view instanceof DocumentEditorView) {
-				ReplayCommand replayCommand = new ReplayCommand(((DocumentEditorView) view).getReplayManager());
-				return replayCommand;
-			}
 		}
-
 		return null;
 	}
 }

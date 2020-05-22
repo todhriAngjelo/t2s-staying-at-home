@@ -19,7 +19,7 @@ public class ReverseAll implements ActionListener {
 	TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
 	DocumentEditorView view;
 	private DocumentManager documentManager = new DocumentManager();
-
+	private List<Line> currentLines;
 	public ReverseAll(DocumentEditorView reverseAllView) {
 		this.view = reverseAllView;
 	}
@@ -27,13 +27,8 @@ public class ReverseAll implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
+		currentLines = documentManager.getCurrentDocument().getLines();
 		Collections.reverse(currentLines);
-
-		/* todo intialise a local list<line> with the reverse currentLines
-		*   if not our current doc is updating to reversed and we dont want this
-		* bcs if we press again reverse button its gonna read it "reverse" again that is the
-		* original*/
 
 		try {
 			for (Line currentLine : currentLines) {
@@ -41,7 +36,9 @@ public class ReverseAll implements ActionListener {
 				for (String word : currentLine.getWords()) {
 					t2s.play(word);
 				}
+				Collections.reverse(currentLine.getWords());
 			}
+			Collections.reverse(currentLines);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
