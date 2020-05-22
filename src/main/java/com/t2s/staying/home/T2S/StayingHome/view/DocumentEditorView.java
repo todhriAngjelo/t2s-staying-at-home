@@ -283,6 +283,7 @@ public class DocumentEditorView {
 		this.authorTextField.setText(docAuthor);
 		this.creationTimestampPlaceholder.setText(docCreationTime);
 		this.lModifiedTimestampPlaceholder.setText(docLModifiedTime);
+		this.textArea.setText("");
 		for (Line line : lines) {
 			for (String word : line.getWords()) {
 				this.textArea.append(word);

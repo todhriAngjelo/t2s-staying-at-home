@@ -31,25 +31,7 @@ public class FreeTTSAdapter implements TextToSpeechAPI {
 
 
 	public void setVolume(float volume) {
-		//this.voice.setVolume(volume);
-
-		try {
-			float adjustedVolume = (float)((double)(volume / 20.0F) + 0.5D);
-			if (this.synthesizer != null) {
-				this.synthesizer.getSynthesizerProperties().setVolume(adjustedVolume);
-				this.volume = volume;
-
-			} else {
-				this.volume = volume;
-			}
-		} catch (PropertyVetoException var5) {
-			try {
-				this.synthesizer.getSynthesizerProperties().setVolume(this.volume);
-			} catch (PropertyVetoException var4) {
-				var4.printStackTrace();
-			}
-
-		}
+		this.voice.setVolume(volume);
 	}
 
 	public void setPitch(int pitch) {

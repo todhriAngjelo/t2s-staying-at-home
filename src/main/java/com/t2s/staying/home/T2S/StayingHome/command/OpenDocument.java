@@ -41,7 +41,7 @@ public class OpenDocument implements ActionListener {
 
 
 		if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			view.getTextArea().setText(null); //clear text area from the previous file
+//			view.getTextArea().setText(null); //clear text area from the previous file
 			BufferedReader bufferedReader = FileUtils.getFileBufferReader(dialog.getSelectedFile().getAbsolutePath());
 
 			List<String> lines = new ArrayList<>();
@@ -69,7 +69,7 @@ public class OpenDocument implements ActionListener {
 				view.goToMainView();
 			}
 
-			List<String> words = new ArrayList<>();
+			List<String> words;
 			List<Line> currentLines = new ArrayList<>();
 			for (String line : lines) {
 
