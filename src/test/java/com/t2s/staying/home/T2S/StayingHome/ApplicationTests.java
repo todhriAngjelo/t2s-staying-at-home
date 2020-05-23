@@ -11,7 +11,6 @@ import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 import com.t2s.staying.home.T2S.utils.FileUtils;
 
-@SpringBootTest
 class ApplicationTests {
 
 	DocumentEditorView documentEditorView = initializeDocumentEditorView();
