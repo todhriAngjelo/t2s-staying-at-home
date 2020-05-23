@@ -1,10 +1,12 @@
 package com.t2s.staying.home.T2S.StayingHome;
 
 import java.io.BufferedReader;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.StringUtils;
 
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
@@ -13,18 +15,24 @@ import com.t2s.staying.home.T2S.utils.FileUtils;
 
 class ApplicationTests {
 
-	DocumentEditorView documentEditorView = initializeDocumentEditorView();
-	NewDocumentView newDocumentView = initializeNewDocumentView();
+	DocumentEditorView documentEditorView;
+	NewDocumentView newDocumentView;
 	@Test
 	// To test the creation of a new document we can implement an
 	// acceptance test that creates a NewDocument command executes it and
 	// then checks whether the contents of the current document object that
 	// is held by the Text2SpeechEditorView class is empty.
 	void us1Test() {
+		newDocumentView = initializeNewDocumentView();
 		NewDocument newDocument = new NewDocument(newDocumentView);
 		newDocument.actionPerformed(null);
-		BufferedReader bufferedReader = FileUtils.getFileBufferReader(newDocument.getDialog().getSelectedFile().getAbsolutePath());
-		assert bufferedReader.lines().collect(Collectors.toList()).isEmpty();
+		String filepath = newDocument.getDialog().getSelectedFile().getAbsolutePath();
+		if (!StringUtils.endsWithIgnoreCase(filepath, ".txt")) {
+			filepath = filepath.concat(".txt");
+		}
+
+		BufferedReader bufferedReader = FileUtils.getFileBufferReader(filepath);
+		assert Objects.requireNonNull(bufferedReader).lines().count() == 0;
 	}
 
 
