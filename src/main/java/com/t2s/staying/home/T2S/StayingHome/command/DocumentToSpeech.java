@@ -14,35 +14,29 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS
 
 public class DocumentToSpeech implements ActionListener {
 
-	private DocumentEditorView documentToSpeechView;
+	private DocumentEditorView view;
 	private DocumentManager documentManager = new DocumentManager();
 
-	public DocumentToSpeech(DocumentEditorView documentToSpeechView) {
-		this.documentToSpeechView = documentToSpeechView;
+	public DocumentToSpeech(DocumentEditorView view) {
+		this.view = view;
 	}
 
 	private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
 	TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
 
 		try {
-//			t2s.setPitch(documentToSpeechView.getVoicePitchSlider().getValue());		// pernei kanonika thn value meta einai to lathos
-//
-////			t2s.setPitch(documentToSpeechView.getVoiceVolumeSlider().getValue());
-//			System.out.println("voicePitchSlider.getValue()  " + documentToSpeechView.getVoicePitchSlider().getValue());
-
 			for (Line currentLine : currentLines) {
 				for (String word : currentLine.getWords()) {
-					//t2s.setRate(documentToSpeechView.getVoiceRateSlider().getValue());
 					t2s.play(word);
 				}
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+		view.getReplayManager().add(this);
 	}
 }
 

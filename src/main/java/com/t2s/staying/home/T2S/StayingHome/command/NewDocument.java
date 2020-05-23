@@ -18,6 +18,7 @@ public class NewDocument implements ActionListener {
 	public static final String SAVE_BUTTON_DIALOG_TITLE = "Specify the file to save:";
 
 	private NewDocumentView view;
+	JFileChooser dialog = new JFileChooser();
 
 	public NewDocument(NewDocumentView view) {
 		this.view = view;
@@ -25,7 +26,7 @@ public class NewDocument implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		JFileChooser dialog = new JFileChooser();
+		dialog = new JFileChooser();
 		dialog.setDialogTitle(SAVE_BUTTON_DIALOG_TITLE);
 		if (dialog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 			saveFile(dialog.getSelectedFile().getAbsolutePath());
@@ -57,5 +58,7 @@ public class NewDocument implements ActionListener {
 		}
 	}
 
-
+	public JFileChooser getDialog() {
+		return dialog;
+	}
 }

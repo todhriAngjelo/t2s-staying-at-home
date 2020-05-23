@@ -21,6 +21,7 @@ public class LineToSpeech implements ActionListener {
 	}
 	private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
 	TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int lineNumber = lineToSpeechView.getLineNumber();

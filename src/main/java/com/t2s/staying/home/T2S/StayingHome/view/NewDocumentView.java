@@ -86,4 +86,20 @@ public class NewDocumentView {
 	public String getDocumentTitleTextField() {
 		return documentTitleTextField.getText();
 	}
+
+	public void setAuthorTextField(JTextField authorTextField) {
+		this.authorTextField = authorTextField;
+	}
+
+	public void setDocumentTitleTextField(JTextField documentTitleTextField) {
+		this.documentTitleTextField = documentTitleTextField;
+	}
+
+	public JTextField getAuthorJTextField() {
+		return authorTextField;
+	}
+
+	public JTextField getDocumentTitleJTextField() {
+		return documentTitleTextField;
+	}
 }

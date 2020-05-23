@@ -13,7 +13,6 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS
 
 public class TuneVolume implements ChangeListener {
 
-	TextToSpeechAPIFactory factory = new TextToSpeechAPIFactory();
 	DocumentEditorView view;
 	private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
 	TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
@@ -27,7 +26,5 @@ public class TuneVolume implements ChangeListener {
 
 		t2s.setVolume(view.getVoiceVolumeSlider().getScaledValue());
 		System.out.println("getVoiceVolumeSlider.getValue()  " + view.getVoiceVolumeSlider().getScaledValue());
-		view.getReplayManager().add((ActionListener) this);
-
 	}
 }

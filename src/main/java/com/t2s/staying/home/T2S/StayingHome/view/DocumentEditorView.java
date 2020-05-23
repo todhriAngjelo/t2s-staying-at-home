@@ -41,15 +41,10 @@ public class DocumentEditorView {
 
 	private JFrame frame;
 	private JTextField authorTextField;
-
 	private JTextField documentTitleTextField;
+
 	private JLabel creationTimestampPlaceholder;
 	private JLabel lModifiedTimestampPlaceholder;
-
-
-	public JTextArea getTextArea() {
-		return textArea;
-	}
 
 	private JTextArea textArea;
 
@@ -60,7 +55,6 @@ public class DocumentEditorView {
 	private JSlider voicePitchSlider = new JSlider(50, 200);
 
 	private ReplayManager replayManager = new ReplayManager();
-
 
 	private FloatJSlider voiceVolumeSlider = new FloatJSlider(3, 10, 10, 10);
 
@@ -276,7 +270,6 @@ public class DocumentEditorView {
 
 	}
 
-
 	public void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message);
 	}
@@ -315,6 +308,9 @@ public class DocumentEditorView {
 		return lineNumber;
 	}
 
+	public JTextArea getTextArea() {
+		return textArea;
+	}
 
 	public String getAuthorTextField() {
 		return authorTextField.getText();
@@ -336,9 +332,7 @@ public class DocumentEditorView {
 		return voiceVolumeSlider;
 	}
 
-
 	public class FloatJSlider extends JSlider {
-
 		final int scale;
 
 		public FloatJSlider(int min, int max, int value, int scale) {
@@ -355,5 +349,40 @@ public class DocumentEditorView {
 		return replayManager;
 	}
 
+	// standard getters setters
+	public void setAuthorTextField(JTextField authorTextField) {
+		this.authorTextField = authorTextField;
+	}
 
+	public void setDocumentTitleTextField(JTextField documentTitleTextField) {
+		this.documentTitleTextField = documentTitleTextField;
+	}
+
+	public void setCreationTimestampPlaceholder(JLabel creationTimestampPlaceholder) {
+		this.creationTimestampPlaceholder = creationTimestampPlaceholder;
+	}
+
+	public void setlModifiedTimestampPlaceholder(JLabel lModifiedTimestampPlaceholder) {
+		this.lModifiedTimestampPlaceholder = lModifiedTimestampPlaceholder;
+	}
+
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
+	}
+
+	public JLabel getCreationTimestampPlaceholder() {
+		return creationTimestampPlaceholder;
+	}
+
+	public JLabel getlModifiedTimestampPlaceholder() {
+		return lModifiedTimestampPlaceholder;
+	}
+
+	public JTextField getAuthorJTextField() {
+		return authorTextField;
+	}
+
+	public JTextField getTitleJTextField() {
+		return documentTitleTextField;
+	}
 }

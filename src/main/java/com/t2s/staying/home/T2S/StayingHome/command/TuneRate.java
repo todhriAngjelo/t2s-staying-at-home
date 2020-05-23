@@ -22,6 +22,5 @@ public class TuneRate implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         t2s.setRate(view.getVoiceRateSlider().getValue());
         System.out.println("getVoiceRateSlider.getValue()  " + view.getVoiceRateSlider().getValue());
-        view.getReplayManager().add((ActionListener) this);
     }
 }

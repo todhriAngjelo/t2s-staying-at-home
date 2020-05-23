@@ -2,22 +2,19 @@ package com.t2s.staying.home.T2S.StayingHome.manager;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReplayManager {
-    private ArrayList<ActionListener> commandsize = new ArrayList<ActionListener>();
-
+    private List<ActionListener> commands = new ArrayList<>();
 
     public void replay() {
-        int s =commandsize.size();
+        int s = commands.size();
         for(int i=0; i<s; i++){
-            commandsize.get(i).actionPerformed(null);
+            commands.get(i).actionPerformed(null);
         }
-
     }
 
     public void add(ActionListener cm) {
-
-        commandsize.add(cm);
+        commands.add(cm);
     }
-
 }

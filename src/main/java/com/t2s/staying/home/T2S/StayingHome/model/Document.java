@@ -15,15 +15,6 @@ public class Document {
 	private String authorsName;
 	private String title;
 
-
-//	public EncodingStrategy getEncodingStrategy() {
-//		return encodingStrategy;
-//	}
-
-//	public void setEncodingStrategy(EncodingStrategy encodingStrategy) {
-//		this.encodingStrategy = encodingStrategy;
-//	}
-
 	public TextToSpeechAPI getAudioManager() {
 		return audioManager;
 	}
@@ -32,16 +23,10 @@ public class Document {
 		this.audioManager = audioManager;
 	}
 
-//	public List<String> getLines() {
-//		return lines;
-//	}
 	public List<Line> getLines() {
 		return lines;
 	}
 
-//	public void setLines(List<String> lines) {
-//		this.lines = lines;
-//	}
 	public void setLines(List<Line> lines) {
 		this.lines = lines;
 	}

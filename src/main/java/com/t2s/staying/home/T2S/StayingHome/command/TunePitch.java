@@ -22,7 +22,6 @@ public class TunePitch implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         t2s.setPitch(view.getVoicePitchSlider().getValue());
         System.out.println("getVoicePitchSlider.getValue()  " + view.getVoicePitchSlider().getValue());
-        view.getReplayManager().add((ActionListener) this);
     }
 
 }
