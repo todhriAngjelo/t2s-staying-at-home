@@ -1,20 +1,17 @@
 package com.t2s.staying.home.T2S.StayingHome;
 
-import java.io.BufferedReader;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.StringUtils;
-
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 import com.t2s.staying.home.T2S.utils.FileUtils;
+import org.junit.jupiter.api.Test;
+import org.springframework.util.StringUtils;
+
+import java.io.BufferedReader;
+import java.util.Objects;
 
 class ApplicationTests {
-
+//
 	DocumentEditorView documentEditorView;
 	NewDocumentView newDocumentView;
 	@Test
