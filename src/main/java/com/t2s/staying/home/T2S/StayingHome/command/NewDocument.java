@@ -1,17 +1,19 @@
 package com.t2s.staying.home.T2S.StayingHome.command;
 
-import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
-import com.t2s.staying.home.T2S.utils.FileUtils;
-import org.springframework.util.StringUtils;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.AUTHOR_METADATA_NAME;
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.TITLE_METADATA_NAME;
+import javax.swing.*;
+
+import org.springframework.util.StringUtils;
+
+import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
+import com.t2s.staying.home.T2S.utils.FileUtils;
 
 public class NewDocument implements ActionListener {
 
@@ -47,6 +49,7 @@ public class NewDocument implements ActionListener {
 				FileUtils.setFileMetadata(filepath, TITLE_METADATA_NAME, view.getDocumentTitleTextField());
 				System.out.println("File created: " + myObj.getName());
 				view.showMessageDialog("File successfully created.");
+				// todo this is a bad coupling example. the new Document view shouldn't be so coupled with main view
 				view.goToMainView();
 			} else {
 				view.showMessageDialog("File already exists. Try saving the file with another name");
