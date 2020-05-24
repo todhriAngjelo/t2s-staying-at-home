@@ -1,31 +1,26 @@
 package com.t2s.staying.home.T2S.StayingHome;
 
-import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
-import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
-import com.t2s.staying.home.T2S.StayingHome.model.Document;
-import com.t2s.staying.home.T2S.StayingHome.model.Line;
-import com.t2s.staying.home.T2S.StayingHome.tts.FakeTextToSpeechAPI;
-import com.t2s.staying.home.T2S.StayingHome.command.SaveEdited;
-import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
-import com.t2s.staying.home.T2S.StayingHome.model.Line;
-import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
-import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
-import com.t2s.staying.home.T2S.utils.FileUtils;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StringUtils;
 
-import java.io.BufferedReader;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
+import com.t2s.staying.home.T2S.StayingHome.command.SaveEdited;
+import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
+import com.t2s.staying.home.T2S.StayingHome.model.Document;
+import com.t2s.staying.home.T2S.StayingHome.model.Line;
+import com.t2s.staying.home.T2S.StayingHome.tts.FakeTextToSpeechAPI;
+import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
+import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
+import com.t2s.staying.home.T2S.utils.FileUtils;
 
 class ApplicationTests {
 
@@ -72,6 +67,9 @@ class ApplicationTests {
 	// the contents of the file that has been saved to disk.
 	@Test
 	void us3Test() {
+		// SaveDocument command has been run in previous test so there is no need to perform a save document again.
+		// once save document has been executed before file has been edited and we just have to go and perform a line words counts
+		// between currentDocument and the file ( from the buffered reader ) words count
 		List<String> currentDocumentLines = DocumentManager.getCurrentDocument().getLines().get(0).getWords();
 		List<String> fileLines = Arrays.asList(Objects.requireNonNull(FileUtils.getFileBufferReader(filepath))
 				.lines()
@@ -85,6 +83,8 @@ class ApplicationTests {
 	// contents of the file that has been read from the disk.
 	@Test
 	void us4Test() {
+		// open document has been executed in previous test so there is no need to re-open it. Once
+		// openDocument command was executed getCurrentDocumetn from Documetn Manager has been populated
 		List<String> currentDocumentLines = DocumentManager.getCurrentDocument().getLines().get(0).getWords();
 		List<String> fileLines = Arrays.asList(Objects.requireNonNull(FileUtils.getFileBufferReader(filepath))
 				.lines()
@@ -100,27 +100,11 @@ class ApplicationTests {
 		assert wordsMatch;
 	}
 
-	private DocumentEditorView initializeDocumentEditorView() {
-		DocumentEditorView documentEditorView = new DocumentEditorView();
-		documentEditorView.getTextArea().setText("test line 1/n test line 2");
-		documentEditorView.getTitleJTextField().setText("test title");
-		documentEditorView.getAuthorJTextField().setText("test author");
-		return documentEditorView;
-	}
-
-	public NewDocumentView initializeNewDocumentView() {
-		NewDocumentView newDocumentView = new NewDocumentView();
-		newDocumentView.getAuthorJTextField().setText("test author");
-		newDocumentView.getDocumentTitleJTextField().setText("test title");
-		return newDocumentView;
-	}
-
 	@Test
 	void us5Test() {
-
 		List<String> words1 = new ArrayList<String>(){{
 			add("I ");
-			add("am ");
+			add("am ")
 			add("Niko ");
 			add("Spyropoulo ");
 		}};
@@ -139,17 +123,12 @@ class ApplicationTests {
 			add(line2);
 		}};
 
-
 		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
-
 		DocumentManager documentManager = new DocumentManager();
-
 		Document document = documentManager.getCurrentDocument();
-
 		document.setLines(lines);
 
 		List<String> text = new ArrayList<>();
-
 		for (Line line : document.getLines()) {
 			for (String word : line.getWords()) {
 				text.add(word);
@@ -159,5 +138,20 @@ class ApplicationTests {
 		documentManager.playContents(fakeT2S);
 
 		assertEquals(text, fakeT2S.getLastText());
+	}
+
+	private DocumentEditorView initializeDocumentEditorView() {
+		DocumentEditorView documentEditorView = new DocumentEditorView();
+		documentEditorView.getTextArea().setText("test line 1/n test line 2");
+		documentEditorView.getTitleJTextField().setText("test title");
+		documentEditorView.getAuthorJTextField().setText("test author");
+		return documentEditorView;
+	}
+
+	public NewDocumentView initializeNewDocumentView() {
+		NewDocumentView newDocumentView = new NewDocumentView();
+		newDocumentView.getAuthorJTextField().setText("test author");
+		newDocumentView.getDocumentTitleJTextField().setText("test title");
+		return newDocumentView;
 	}
 }
