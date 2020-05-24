@@ -2,10 +2,9 @@ package com.t2s.staying.home.T2S.StayingHome.manager;
 
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
+import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 import org.apache.logging.log4j.util.Strings;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DocumentManager {
@@ -49,27 +48,13 @@ public class DocumentManager {
 			document.setLines(lines);
 	}
 
-	public static void splitToWords(List<String> currentlines){
-		List<List<String>> allTheLines = new ArrayList<>();
+	public static void playContents(TextToSpeechAPI t2s){
+		List<Line> currentLines = getCurrentDocument().getLines();
 
-		for (String currentline : currentlines) {
-
-			List<String> words = Arrays.asList(currentline.split("\\s+"));
-
-			allTheLines.add(words);
-
-			//line.setWords(allTheLines);
-
+		for (Line currentLine : currentLines) {
+			for (String word : currentLine.getWords()) {
+				t2s.play(word);
+			}
 		}
-
 	}
-
-//	public static List<String> getTextFromDocument(Document document) {
-//		String textFromLines = "";
-//
-//		for (String line : document.getLines()) {
-//			textFromLines = textFromLines.concat(line).concat("<br>");
-//		}
-//		return textFromLines;
-//	}
 }

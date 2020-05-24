@@ -3,8 +3,6 @@ package com.t2s.staying.home.T2S.StayingHome.tts;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
-import javax.speech.synthesis.Synthesizer;
-
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.VOICE_KEVIN;
 import static java.lang.System.setProperty;
 

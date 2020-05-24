@@ -14,17 +14,17 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS
 
 public class LineToSpeech implements ActionListener {
 
-	private DocumentEditorView lineToSpeechView;
+	private DocumentEditorView view;
 	private DocumentManager documentManager = new DocumentManager();
-	public LineToSpeech(DocumentEditorView lineToSpeechView) {
-		this.lineToSpeechView = lineToSpeechView;
+	public LineToSpeech(DocumentEditorView view) {
+		this.view = view;
 	}
 	private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
 	TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int lineNumber = lineToSpeechView.getLineNumber();
+		int lineNumber = view.getLineNumber();
 		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
 		try {
 
@@ -36,6 +36,6 @@ public class LineToSpeech implements ActionListener {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
-		lineToSpeechView.getReplayManager().add(this);
+		view.getReplayManager().add(this);
 	}
 }
