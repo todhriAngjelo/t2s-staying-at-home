@@ -89,17 +89,16 @@ class ApplicationTests {
 
 		document.setLines(lines);
 
-		String text = " ";
+		List<String> text = new ArrayList<>();
 
 		for (Line line : document.getLines()) {
 			for (String word : line.getWords()) {
-				text.concat(word);
+				text.add(word);
 			}
 		}
 
-		fakeT2S.play(text);
+		documentManager.playContents(fakeT2S);
+
 		assertEquals(text, fakeT2S.getLastText());
-
-
 	}
 }

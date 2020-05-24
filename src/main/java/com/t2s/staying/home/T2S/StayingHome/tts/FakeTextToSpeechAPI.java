@@ -1,17 +1,21 @@
 package com.t2s.staying.home.T2S.StayingHome.tts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * todo documentation
  */
 public class FakeTextToSpeechAPI implements TextToSpeechAPI {
 
     private String lastText;
-
     private float lastVolume;
     private int lastPitch;
     private int lastRate;
+    private List<String> wholeText = new ArrayList<>();
 
     public void play(String text){
+        wholeText.add(text);
         lastText = text;
 
     }
@@ -28,10 +32,8 @@ public class FakeTextToSpeechAPI implements TextToSpeechAPI {
         lastRate = rate;
     }
 
-    public String getLastText(){
-
-
-        return lastText;
+    public List<String> getLastText(){
+        return wholeText;
     }
 
     public float getLastVolume() {
