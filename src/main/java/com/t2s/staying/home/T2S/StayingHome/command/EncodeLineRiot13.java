@@ -4,7 +4,6 @@ import com.t2s.staying.home.T2S.StayingHome.encoding.EncodingStrategy;
 import com.t2s.staying.home.T2S.StayingHome.factory.StrategiesFactory;
 import com.t2s.staying.home.T2S.StayingHome.factory.TextToSpeechAPIFactory;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
-import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 
@@ -32,20 +31,9 @@ public class EncodeLineRiot13 implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int lineNumber = view.getLineNumber();
-		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
-		final String[] displayText = {""};
 		try {
-			currentLines.get(lineNumber).getWords().forEach(word ->
-					{
-						System.out.println(rot13.encode(word));
-						t2s.play(rot13.encode(word));
-
-						displayText[0] = displayText[0].concat(rot13.encode(word) + " ");
-					}
-			);
-			for (String s : displayText) {
-				view.showMessageDialog("The encoded text is: " + s);
-			}
+			List<String> displayText = DocumentManager.encodingLineAndSpeech(t2s, rot13, lineNumber);
+			view.showMessageDialog("The encoded text is: " + displayText);
 
 		} catch (Exception exception) {
 			exception.printStackTrace();

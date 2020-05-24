@@ -2,6 +2,8 @@ package com.t2s.staying.home.T2S.StayingHome;
 
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.SaveEdited;
+import com.t2s.staying.home.T2S.StayingHome.encoding.EncodingStrategy;
+import com.t2s.staying.home.T2S.StayingHome.factory.StrategiesFactory;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
@@ -16,6 +18,8 @@ import java.io.BufferedReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.ATBASH;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.ROT13;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApplicationTests {
@@ -191,6 +195,58 @@ class ApplicationTests {
 		Collections.reverse(document.getLines().get(0).getWords());
 
 	}
+
+
+	// test if the contents that the faketts reads are the same with the
+	// encoded(by rot13) content of the document
+	@Test
+	void us9RotTest(){
+		StrategiesFactory strategy = new StrategiesFactory();
+		EncodingStrategy algorithm = strategy.createStrategy(ROT13);
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+
+		List<String> text = DocumentManager.encodingAllAndSpeech(fakeT2S, algorithm);
+
+		assertEquals(text, fakeT2S.getLastText());
+
+	}
+
+	// test if the contents that the faketts reads are the same with the
+	// encoded(by atbash) content of the document
+	@Test
+	void us9AtbashTest(){
+		StrategiesFactory strategy = new StrategiesFactory();
+		EncodingStrategy algorithm = strategy.createStrategy(ATBASH);
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+
+		List<String> text = DocumentManager.encodingAllAndSpeech(fakeT2S, algorithm);
+
+		assertEquals(text, fakeT2S.getLastText());
+	}
+	@Test
+	void us10RotTest(){
+		StrategiesFactory strategy = new StrategiesFactory();
+		EncodingStrategy algorithm = strategy.createStrategy(ROT13);
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+
+		List<String> text = DocumentManager.encodingLineAndSpeech(fakeT2S, algorithm, 0);
+		assertEquals(text, fakeT2S.getLastText());
+	}
+
+	// test if the contents that the faketts reads are the same with the
+	// encoded(by atbash) content of the SELECTED line
+	// here we choose always line 0
+	@Test
+	void us10AbashTest(){
+		StrategiesFactory strategy = new StrategiesFactory();
+		EncodingStrategy algorithm = strategy.createStrategy(ATBASH);
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+
+		List<String> text = DocumentManager.encodingLineAndSpeech(fakeT2S, algorithm, 0);
+		assertEquals(text, fakeT2S.getLastText());
+	}
+
+
 	private DocumentEditorView initializeDocumentEditorView() {
 		DocumentEditorView documentEditorView = new DocumentEditorView();
 		documentEditorView.getTextArea().setText("test line 1/n test line 2");

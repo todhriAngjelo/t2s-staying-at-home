@@ -1,10 +1,12 @@
 package com.t2s.staying.home.T2S.StayingHome.manager;
 
+import com.t2s.staying.home.T2S.StayingHome.encoding.EncodingStrategy;
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
 import org.apache.logging.log4j.util.Strings;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -100,5 +102,40 @@ public class DocumentManager {
 				Collections.reverse(currentLines.get(n).getWords());
 			}
 		}
+	}
+
+	// this method is being used when we want to encode a whole document and transform it
+	// to speech. It has 2 parameters TextToSpeechApi(to choose between freetts and faketts)
+	// another parameter EncodingStrategy to choose wich algorithm we wanna use atbash or rot13
+	// This parameter returns a Line<String> that it has the contents of the encoded document
+	public static List<String> encodingAllAndSpeech(TextToSpeechAPI t2s, EncodingStrategy encodAlgorithm){
+		List<Line> currentLines = getCurrentDocument().getLines();
+		List<String> displayText = new ArrayList<>();
+		for (Line currentLine : currentLines) {
+			for (String word : currentLine.getWords()) {
+				System.out.println(encodAlgorithm.encode(word));
+				t2s.play(encodAlgorithm.encode(word));
+				displayText.add(encodAlgorithm.encode(word));
+			}
+		}
+		return displayText;
+	}
+
+	// this method is being used when we want to encode a selected line and transform it
+	// to speech. It has 3 parameters TextToSpeechApi(to choose between freetts and faketts)
+	// another parameter EncodingStrategy to choose wich algorithm we wanna use atbash or rot13
+	//and a 3d that is the number of the line.
+	// This method returns a Line<String> that it has the contents of the encoded document
+	public static List<String> encodingLineAndSpeech(TextToSpeechAPI t2s, EncodingStrategy encodAlgorithm, int lineNum) {
+
+		List<Line> currentLines = getCurrentDocument().getLines();
+		List<String> displayText = new ArrayList<>();
+		for (String word : currentLines.get(lineNum).getWords()) {
+			System.out.println(encodAlgorithm.encode(word));
+			t2s.play(encodAlgorithm.encode(word));
+			displayText.add(encodAlgorithm.encode(word));
+
+		}
+		return  displayText;
 	}
 }
