@@ -13,9 +13,7 @@ import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS
 public class DocumentToSpeech implements ActionListener {
 
 	private DocumentEditorView view;
-	private DocumentManager documentManager = new DocumentManager();
 
-	public DocumentToSpeech(){}
 	public DocumentToSpeech(DocumentEditorView view) {
 		this.view = view;
 	}
@@ -24,15 +22,9 @@ public class DocumentToSpeech implements ActionListener {
 	TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		List<Line> currentLines = documentManager.getCurrentDocument().getLines();
 
 		try {
-			documentManager.playContents(t2s);
-//			for (Line currentLine : currentLines) {
-//				for (String word : currentLine.getWords()) {
-//					t2s.play(word);
-//				}
-//			}
+			DocumentManager.playContents(t2s);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}

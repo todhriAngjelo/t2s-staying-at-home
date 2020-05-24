@@ -1,17 +1,5 @@
 package com.t2s.staying.home.T2S.StayingHome;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.util.StringUtils;
-
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.SaveEdited;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
@@ -21,6 +9,14 @@ import com.t2s.staying.home.T2S.StayingHome.tts.FakeTextToSpeechAPI;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 import com.t2s.staying.home.T2S.utils.FileUtils;
+import org.junit.jupiter.api.Test;
+import org.springframework.util.StringUtils;
+
+import java.io.BufferedReader;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApplicationTests {
 
@@ -100,34 +96,38 @@ class ApplicationTests {
 		assert wordsMatch;
 	}
 
+	// Test all the contents of a document To Speech
 	@Test
 	void us5Test() {
-		List<String> words1 = new ArrayList<String>(){{
-			add("I ");
-			add("am ")
-			add("Niko ");
-			add("Spyropoulo ");
-		}};
-		Line line1 = new Line();
-		line1.setWords(words1);
-		List<String> words2 = new ArrayList<String>(){{
-			add("You ");
-			add("are ");
-			add("Aggelo ");
-			add("Todri ");
-		}};
-		Line line2 = new Line();
-		line2.setWords(words2);
-
-		List<Line> lines = new ArrayList<Line>(){{
-			add(line2);
-		}};
+//		List<String> words1 = new ArrayList<String>(){{
+//			add("I ");
+//			add("am ");
+//			add("Niko ");
+//			add("Spyropoulo ");
+//		}};
+//		Line line1 = new Line();
+//		line1.setWords(words1);
+//		List<String> words2 = new ArrayList<String>(){{
+//			add("You ");
+//			add("are ");
+//			add("Aggelo ");
+//			add("Todri ");
+//		}};
+//		Line line2 = new Line();
+//		line2.setWords(words2);
+//
+//		List<Line> lines = new ArrayList<Line>(){{
+//			add(line1);
+//			add(line2);
+//		}};
 
 		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
-		DocumentManager documentManager = new DocumentManager();
-		Document document = documentManager.getCurrentDocument();
-		document.setLines(lines);
+		Document document = DocumentManager.getCurrentDocument();
+//		document.setLines(lines);
 
+		//Here we creating a List<string> and we add as items all the words of the
+		//current Document. We are doing this because we wanna compare the currentDocument
+		//with the fakeT2S.getLastText() that is a List<string> too.
 		List<String> text = new ArrayList<>();
 		for (Line line : document.getLines()) {
 			for (String word : line.getWords()) {
@@ -135,11 +135,62 @@ class ApplicationTests {
 			}
 		}
 
-		documentManager.playContents(fakeT2S);
+		DocumentManager.playContents(fakeT2S);
 
 		assertEquals(text, fakeT2S.getLastText());
 	}
 
+	// Test all the contents of a Line To Speech
+	// we test always the first Line
+	@Test
+	void us6Test(){
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+		Document document = DocumentManager.getCurrentDocument();
+
+		DocumentManager.playLine(0, fakeT2S);
+
+		assertEquals(document.getLines().get(0).getWords(), fakeT2S.getLastText());
+
+	}
+
+	// Test all the contents of a document To Speech in reverse
+	@Test
+	void us7Test(){
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+		Document document = DocumentManager.getCurrentDocument();
+
+		//Here we creating a List<string> and we add as items all the words of the
+		//current Document(in reverse). We are doing this because we wanna compare the currentDocument
+		//with the fakeT2S.getLastText() that is a List<string> too.
+		List<String> text = new ArrayList<>();
+		Collections.reverse(document.getLines());
+		for (Line line : document.getLines()) {
+			Collections.reverse(line.getWords());
+			for (String word : line.getWords()) {
+				text.add(word);
+			}
+			Collections.reverse(line.getWords());
+		}
+		Collections.reverse(document.getLines());
+
+		DocumentManager.reverseAll(fakeT2S);
+
+		assertEquals(text, fakeT2S.getLastText());
+	}
+
+	// Test all the contents of a Line To Speech in reverse
+	// we test always the first Line
+	@Test
+	void us8Test(){
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+		Document document = DocumentManager.getCurrentDocument();
+
+		DocumentManager.reverseLine(0, fakeT2S);
+		Collections.reverse(document.getLines().get(0).getWords());
+		assertEquals(document.getLines().get(0).getWords(), fakeT2S.getLastText());
+		Collections.reverse(document.getLines().get(0).getWords());
+
+	}
 	private DocumentEditorView initializeDocumentEditorView() {
 		DocumentEditorView documentEditorView = new DocumentEditorView();
 		documentEditorView.getTextArea().setText("test line 1/n test line 2");
