@@ -246,6 +246,21 @@ class ApplicationTests {
 		assertEquals(text, fakeT2S.getLastText());
 	}
 
+	// test the audios volume, pitch, rate
+	@Test
+	void us12(){
+		FakeTextToSpeechAPI fakeT2S = new FakeTextToSpeechAPI();
+
+		fakeT2S.setVolume(0.4f);
+		fakeT2S.setPitch(60);
+		fakeT2S.setRate(60);
+
+		assertEquals(0.4f, fakeT2S.getLastVolume());
+		assertEquals(60, fakeT2S.getLastPitch());
+		assertEquals(60, fakeT2S.getLastRate());
+
+	}
+
 
 	private DocumentEditorView initializeDocumentEditorView() {
 		DocumentEditorView documentEditorView = new DocumentEditorView();
