@@ -47,5 +47,4 @@ public class FakeTextToSpeechAPI implements TextToSpeechAPI {
     public int getLastRate() {
         return lastRate;
     }
-
 }

@@ -1,26 +1,32 @@
 package com.t2s.staying.home.T2S.StayingHome;
 
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.ATBASH;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.ROT13;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.util.StringUtils;
+
 import com.t2s.staying.home.T2S.StayingHome.command.NewDocument;
 import com.t2s.staying.home.T2S.StayingHome.command.SaveEdited;
 import com.t2s.staying.home.T2S.StayingHome.encoding.EncodingStrategy;
 import com.t2s.staying.home.T2S.StayingHome.factory.StrategiesFactory;
 import com.t2s.staying.home.T2S.StayingHome.manager.DocumentManager;
+import com.t2s.staying.home.T2S.StayingHome.manager.ReplayManager;
 import com.t2s.staying.home.T2S.StayingHome.model.Document;
 import com.t2s.staying.home.T2S.StayingHome.model.Line;
 import com.t2s.staying.home.T2S.StayingHome.tts.FakeTextToSpeechAPI;
 import com.t2s.staying.home.T2S.StayingHome.view.DocumentEditorView;
 import com.t2s.staying.home.T2S.StayingHome.view.NewDocumentView;
 import com.t2s.staying.home.T2S.utils.FileUtils;
-import org.junit.jupiter.api.Test;
-import org.springframework.util.StringUtils;
-
-import java.io.BufferedReader;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.ATBASH;
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.ROT13;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ApplicationTests {
 
@@ -259,6 +265,18 @@ class ApplicationTests {
 		assertEquals(60, fakeT2S.getLastPitch());
 		assertEquals(60, fakeT2S.getLastRate());
 
+	}
+
+	@Test
+	void us12ReplayCommandTest() {
+		DocumentEditorView view = initializeDocumentEditorView();
+		Long lModificationTime = DocumentManager.getCurrentDocument().getLastModifiedTime();
+		SaveEdited saveEdited = new SaveEdited(view);
+		ReplayManager replayManager = new ReplayManager();
+		replayManager.add(saveEdited);
+		replayManager.replay();
+
+		assert (!lModificationTime.equals(DocumentManager.getCurrentDocument().getLastModifiedTime()));
 	}
 
 
