@@ -1,10 +1,9 @@
 package com.t2s.staying.home.T2S.StayingHome.view;
 
-import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.DEFAULT_FONT_SETTINGS;
-
+import javax.swing.*;
 import java.awt.*;
 
-import javax.swing.*;
+import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.DEFAULT_FONT_SETTINGS;
 
 public class MainView {
 
@@ -68,8 +67,5 @@ public class MainView {
 		openDocumentEditorButton.setBounds(123, 133, 188, 23);
 		frame.getContentPane().add(openDocumentEditorButton);
 
-		JButton replayLastCommandSequenceButton = new JButton(REPLAY_LAST_COMMAND_BUTTON_TEXT);
-		replayLastCommandSequenceButton.setBounds(123, 167, 188, 23);
-		frame.getContentPane().add(replayLastCommandSequenceButton);
 	}
 }
