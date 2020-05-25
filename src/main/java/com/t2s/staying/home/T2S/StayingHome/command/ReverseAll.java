@@ -10,21 +10,23 @@ import java.awt.event.ActionListener;
 
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS;
 
-public class LineToSpeech implements ActionListener {
+public class ReverseAll implements ActionListener {
 
-	private DocumentEditorView view;
-	public LineToSpeech(DocumentEditorView view) {
-		this.view = view;
-	}
 	private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
 	TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);
+	DocumentEditorView view;
+
+	public ReverseAll(DocumentEditorView reverseAllView) {
+		this.view = reverseAllView;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		try {
-			DocumentManager.playLine(view.getLineNumber(), t2s);
-		} catch (Exception exception) {
-			exception.printStackTrace();
+			DocumentManager.reverseAll(t2s);
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 		view.getReplayManager().add(this);
 	}

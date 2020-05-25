@@ -1,16 +1,16 @@
 package com.t2s.staying.home.T2S.StayingHome.model;
 
+import com.t2s.staying.home.T2S.StayingHome.tts.TextToSpeechAPI;
+
 import java.util.List;
 
 public class Document {
 
 	// models should be pure. no methods here only properties and setters getters. if we need business logic we can create managers
-	private EncodingStrategy encodingStrategy;
-	private Text2SpeechAPI audioManager;
-	private List<Line> lines;
-
+//	private EncodingStrategy encodingStrategy;
+	private List<Line>  lines;
 	private Long creationTime;
-
+	private Long lastModifiedTime;
 	private String authorsName;
 	private String title;
 
@@ -20,22 +20,6 @@ public class Document {
 
 	public void setLines(List<Line> lines) {
 		this.lines = lines;
-	}
-
-	public EncodingStrategy getEncodingStrategy() {
-		return encodingStrategy;
-	}
-
-	public void setEncodingStrategy(EncodingStrategy encodingStrategy) {
-		this.encodingStrategy = encodingStrategy;
-	}
-
-	public Text2SpeechAPI getAudioManager() {
-		return audioManager;
-	}
-
-	public void setAudioManager(Text2SpeechAPI audioManager) {
-		this.audioManager = audioManager;
 	}
 
 	public Long getCreationTime() {
@@ -60,5 +44,13 @@ public class Document {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Long getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+
+	public void setLastModifiedTime(Long lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
 	}
 }
