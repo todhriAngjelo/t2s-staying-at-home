@@ -8,13 +8,6 @@ public class Line {
 	// models should be pure. no methods here only properties and setters getters.
 	// if we need business logic we can create managers
 	private List<String> words;
-//	private EncodingStrategy encodingStrategy;
-//	private TextToSpeechAPI audioManager;
-
-//	public void splitToWords(String line){
-//		this.line = line;
-//		List<String> words = Arrays.asList(line.split(" "));
-//	} // todo refactor this
 
 	public List<String> getWords() {
 		return words;

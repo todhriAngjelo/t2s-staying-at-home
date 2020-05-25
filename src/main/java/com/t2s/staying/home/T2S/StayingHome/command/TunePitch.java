@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import static com.t2s.staying.home.T2S.StayingHome.ApplicationConstants.FREE_TTS;
 
 public class TunePitch implements ChangeListener {
-    TextToSpeechAPIFactory factory = new TextToSpeechAPIFactory();
     DocumentEditorView view;
     private TextToSpeechAPIFactory textToSpeech = new TextToSpeechAPIFactory();
     TextToSpeechAPI t2s =  textToSpeech.getTTSApi(FREE_TTS);

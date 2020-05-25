@@ -14,15 +14,10 @@ public class DocumentManager {
 
 	private static final Document document = new Document();
 
-	private static final Line line = new Line();
-
 	public static Document getCurrentDocument() {
 		return document;
 	}
 
-	public static Line getCurrentLines(){
-		return line;
-	}
 	public static Document createDocument(String title, String author, List<Line> lines, Long creationTime, Long lastModifiedTime) {
 		Document document = new Document();
 

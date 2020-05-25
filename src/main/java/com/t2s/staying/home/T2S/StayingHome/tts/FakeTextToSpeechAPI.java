@@ -3,9 +3,6 @@ package com.t2s.staying.home.T2S.StayingHome.tts;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * todo documentation
- */
 public class FakeTextToSpeechAPI implements TextToSpeechAPI {
 
     private String lastText;
