@@ -11,7 +11,6 @@ public class MainView {
 	private static final String CREATE_EMPTY_DOCUMENT_BUTTON_TEXT = "Create new empty document";
 	private static final String EXIT_APPLICATION_BUTTON_TEXT = "Exit application";
 	private static final String OPEN_DOCUMENT_EDITOR_BUTTON_TEXT = "Open document editor";
-	private static final String REPLAY_LAST_COMMAND_BUTTON_TEXT = "Replay last command sequence";
 
 	private JFrame frame;
 
